@@ -216,7 +216,7 @@ public class CardUtils
      * @return Start|Normal
      */
     public static Enum.UgType getUgType(String number) {
-        return getUgType(stream(SQLiteUtils.getAllCardList()).first(bean -> number.contains(bean.getNumber())).getAbility());
+        return getUgType(stream(SQLiteUtils.getAllCardList()).first(bean -> number.contains(bean.getNumber())));
     }
 
     /**
