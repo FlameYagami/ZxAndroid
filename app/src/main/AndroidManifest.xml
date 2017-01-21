@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest
+    package="com.zx"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+
+    <application
+        android:name="com.zx.config.MyApp"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <activity
+            android:name="com.zx.ui.loading.LoadingActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.zx.ui.main.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeNoTranslucent">
+
+        </activity>
+
+        <activity
+            android:name="com.zx.ui.advancedsearch.AdvancedSearchActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <activity
+            android:name="com.zx.ui.result.ResultActivity"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name="com.zx.ui.detail.DetailActivity"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name="com.zx.ui.deckpreview.DeckPreviewActivity"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name="com.zx.ui.deckeditor.DeckEditorActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden">
+        </activity>
+
+        <activity
+            android:name="com.zx.ui.setting.SettingActivity"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name="com.zx.ui.about.AboutActivity"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name="com.zx.ui.document.DocumentActivity"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name="com.zx.ui.advanced.AdvancedActivity"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name="com.zx.ui.lan.LanActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden">
+        </activity>
+
+        <activity
+            android:name="com.zx.ui.gamesetting.GameSettingActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden">
+        </activity>
+
+        <activity
+            android:name="com.zx.ui.duel.DuelActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+        </activity>
+
+        <!--服务-->
+        <service android:name="com.zx.service.ClientService"/>
+    </application>
+</manifest>

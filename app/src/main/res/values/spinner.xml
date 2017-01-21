@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="order">
+        <item>@string/order_by_value</item>
+        <item>@string/order_by_number</item>
+    </array>
+
+    <array name="none">
+        <item>(N/A)</item>
+    </array>
+
+    <array name="type">
+        <item>(N/A)</item>
+        <item>Z/X</item>
+        <item>事件</item>
+        <item>玩家</item>
+        <item>Z/X EX</item>
+    </array>
+
+    <array name="camp">
+        <item>(N/A)</item>
+        <item>红</item>
+        <item>蓝</item>
+        <item>白</item>
+        <item>黑</item>
+        <item>绿</item>
+        <item>无</item>
+    </array>
+
+    <array name="rare">
+        <item>(N/A)</item>
+        <item>CVR</item>
+        <item>IGR</item>
+        <item>ZX/R</item>
+        <item>DR</item>
+        <item>UR</item>
+        <item>SR</item>
+        <item>R</item>
+        <item>UC</item>
+        <item>C</item>
+        <item>PR</item>
+    </array>
+
+    <array name="sign">
+        <item>(N/A)</item>
+        <item>-</item>
+        <item>点燃</item>
+        <item>觉醒之种</item>
+    </array>
+
+    <array name="restrict">
+        <item>(N/A)</item>
+        <item>"0"</item>
+        <item>"4"</item>
+        <item>"20"</item>
+        <item>"30"</item>
+    </array>
+</resources>

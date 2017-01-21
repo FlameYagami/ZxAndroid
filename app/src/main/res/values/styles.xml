@@ -1,0 +1,115 @@
+<resources>
+
+    <style name="layout_statusbar">
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:layout_height">@dimen/statusbar_height</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <style name="layout_header">
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:id">@id/view_header</item>
+        <item name="android:layout_height">45dp</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <style name="layout_shadow">
+        <item name="android:background">@drawable/header_shadow</item>
+        <item name="android:layout_height">2dp</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <style name="view_header_title">
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="view_header_back">
+        <item name="android:layout_height">45dp</item>
+        <item name="android:layout_width">45dp</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:src">@drawable/img_back</item>
+    </style>
+
+    <style name="view_header_menu">
+        <item name="android:layout_height">45dp</item>
+        <item name="android:layout_width">45dp</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:src">@drawable/img_menu</item>
+    </style>
+
+    <style name="recyclerview">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:layout_marginRight">5dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:background">@drawable/corners_primary</item>
+        <item name="android:padding">2.5dp</item>
+    </style>
+
+    <!-- 高宽自适应-->
+    <style name="layout_wrap_content">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+    <!-- 高宽填充-->
+    <style name="layout_match_parent">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <!-- 权重高度自适应-->
+    <style name="layout_weight_height_wrap">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">0dip</item>
+    </style>
+
+    <!-- 权重宽度自适应-->
+    <style name="layout_weight_width_wrap">
+        <item name="android:layout_height">0dip</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+    <!-- 权重高度填充-->
+    <style name="layout_weight_height_match">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">0dip</item>
+    </style>
+
+    <!-- 权重宽度填充-->
+    <style name="layout_weight_width_match">
+        <item name="android:layout_height">0dip</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <!-- 进度条 -->
+    <style name="StyleProgressBarMini" parent="@android:style/Widget.ProgressBar.Horizontal">
+        <item name="android:maxHeight">50dp</item>
+        <item name="android:minHeight">20dp</item>
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:indeterminateDrawable">@android:drawable/progress_indeterminate_horizontal</item>
+        <item name="android:progressDrawable">@drawable/prg_primary_mini</item>
+    </style>
+
+    <style name="StyleSpinner">
+        <item name="android:background">@drawable/cmb_primary</item>
+        <item name="android:maxHeight">50dp</item>
+        <item name="android:minHeight">20dp</item>
+    </style>
+
+    <style name="StyleEditText">
+        <item name="android:background">@drawable/txt_primary</item>
+        <item name="android:maxHeight">50dp</item>
+        <item name="android:minHeight">20dp</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:paddingRight">5dp</item>
+    </style>
+
+</resources>

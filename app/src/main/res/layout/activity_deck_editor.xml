@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/view_content"
+    style="@style/layout_match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical">
+
+    <com.zx.view.widget.HeaderView
+        android:id="@+id/view_header"
+        xmlns:HeaderView="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        HeaderView:menu_visible="true"
+        HeaderView:title_text="@string/deck_editor_about_title"/>
+
+    <include layout="@layout/include_search"/>
+
+    <include layout="@layout/include_detail"/>
+
+    <include layout="@layout/include_result_count"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_preview"
+        style="@style/recyclerview"
+        android:layout_marginTop="0dp"
+        android:scrollbars="horizontal"/>
+
+    <include layout="@layout/include_slv_count"/>
+
+    <ScrollView
+        style="@style/layout_match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_ig"
+                style="@style/recyclerview"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_ug"
+                style="@style/recyclerview"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_ex"
+                style="@style/recyclerview"/>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

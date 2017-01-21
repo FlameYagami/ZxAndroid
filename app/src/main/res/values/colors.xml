@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorPrimary">#D20000</color>
+    <color name="colorPrimaryDark">#5B0202</color>
+    <color name="colorAccent">#0068D1</color>
+
+    <!-- 红色按钮 -->
+    <color name="button_red_foreground">#780000</color>
+    <color name="button_red_normal">#dc2101</color>
+    <color name="button_red_pressed">#dc0101</color>
+
+    <!-- 绿色按钮 -->
+    <color name="button_blue_foreground">#0031A2</color>
+    <color name="button_blue_normal">#007ef9</color>
+    <color name="button_blue_pressed">#005ef9</color>
+
+    <!-- 白色 -->
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- 黑色 -->
+    <color name="black">#000000</color>
+
+    <!-- 灰色 -->
+    <color name="gray">#CCCCCC</color>
+
+    <!-- 背景 -->
+    <color name="background">#1E1E1E</color>
+</resources>

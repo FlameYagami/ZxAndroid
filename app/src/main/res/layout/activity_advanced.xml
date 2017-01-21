@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <com.zx.view.widget.HeaderView
+        android:id="@+id/view_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title_text="@string/advanced_about_title"
+        app:menu_visible="false"/>
+
+    <com.zx.view.widget.MessageView
+        android:id="@+id/view_key_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:message_message_text="@string/app_name"
+        app:message_title_text="@string/key_search"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray"/>
+
+    <com.zx.view.widget.MessageView
+        android:id="@+id/view_order_pattern"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:message_message_text="@string/order_by_value"
+        app:message_title_text="@string/order_pattern"/>
+
+</LinearLayout>

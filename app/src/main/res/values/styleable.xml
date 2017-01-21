@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="HeaderView">
+        <attr name="title_text" format="string"/>
+        <attr name="menu_visible" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="MessageView">
+        <attr name="message_title_text" format="string"/>
+        <attr name="message_message_text" format="string"/>
+    </declare-styleable>
+</resources>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout style="@style/layout_match_parent"
+              xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical">
+
+    <com.zx.view.widget.HeaderView
+        android:id="@+id/view_header"
+        xmlns:HeaderView="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        HeaderView:title_text="@string/result_about_title"/>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/view_card"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/result_card_margin"
+        app:cardElevation="5dp">
+
+        <include layout="@layout/include_result_count"/>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_result"
+        style="@style/layout_match_parent"
+        android:scrollbars="vertical"/>
+
+</LinearLayout>
