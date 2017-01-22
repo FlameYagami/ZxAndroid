@@ -35,6 +35,9 @@ public class DeckManager
     // 卡组名称
     String deckName;
 
+    // 卡组扩展名集合
+    List<String> numberExList = new ArrayList<>();
+
     // 玩家卡数据缓存
     List<DeckBean> PlayerList = new ArrayList<>();
 
@@ -51,13 +54,21 @@ public class DeckManager
     List<DeckBean> ExList = new ArrayList<>();
 
     /**
-     * 加载卡组
+     * 初始化
      *
      * @param deckName     卡组名称
      * @param numberExList 编号扩展集合(B01-001A、B01-001B)
      */
-    void loadDeck(String deckName, List<String> numberExList) {
+    DeckManager(String deckName, List<String> numberExList) {
+        this.numberExList.clear();
+        this.numberExList = numberExList;
         this.deckName = deckName;
+    }
+
+    /**
+     * 加载卡组
+     */
+    void loadDeck() {
         PlayerList.clear();
         StartList.clear();
         IgList.clear();
@@ -197,7 +208,7 @@ public class DeckManager
      *
      * @return ture|false
      */
-    boolean saveDeck(String deckName) {
+    boolean saveDeck() {
         List<String> numberList = new ArrayList<>();
         numberList.addAll(stream(IgList).select(DeckBean::getNumberEx).toList());
         numberList.addAll(stream(UgList).select(DeckBean::getNumberEx).toList());
@@ -231,7 +242,8 @@ public class DeckManager
      * @param deckList 卡组集合
      */
     private void orderByValue(List<DeckBean> deckList) {
-        List<DeckBean> tempDeckList = stream(deckList).orderBy(DeckBean::getCamp)
+        List<DeckBean> tempDeckList = stream(deckList)
+                .orderBy(DeckBean::getCamp)
                 .thenByDescending(DeckBean::getCost)
                 .thenByDescending(DeckBean::getPower)
                 .thenBy(DeckBean::getNumberEx)

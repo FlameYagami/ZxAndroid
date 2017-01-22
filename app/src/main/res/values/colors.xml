@@ -24,6 +24,9 @@
     <!-- 灰色 -->
     <color name="gray">#CCCCCC</color>
 
+    <!-- 金色 -->
+    <color name="gold">#ffcc00</color>
+
     <!-- 背景 -->
     <color name="background">#1E1E1E</color>
 </resources>

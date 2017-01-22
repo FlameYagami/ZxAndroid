@@ -103,7 +103,7 @@ public class DeckEditorActivity extends BaseActivity implements PopupMenu.OnMenu
     DeckAdapter              mUgDeckAdapter           = new DeckAdapter(this);
     DeckAdapter              mEgDeckAdapter           = new DeckAdapter(this);
     BannerPageChangeListener bannerPageChangeListener = new BannerPageChangeListener();
-    DeckManager              mDeckManager             = new DeckManager();
+    DeckManager mDeckManager;
 
     public static DeckPreviewBean deckPreviewBean;
 
@@ -148,7 +148,8 @@ public class DeckEditorActivity extends BaseActivity implements PopupMenu.OnMenu
         mPreviewCardAdapter.setOnItemClickListener(this::updateDetailByCard);
         mPreviewCardAdapter.setOnItemLongClickListener(this::addCard);
 
-        mDeckManager.loadDeck(deckPreviewBean.getDeckName(), deckPreviewBean.getNumberExList());
+        mDeckManager = new DeckManager(deckPreviewBean.getDeckName(), deckPreviewBean.getNumberExList());
+        mDeckManager.loadDeck();
         updateAllRecyclerView();
         updateStartAndLifeAndVoid(mDeckManager.getStartAndLifeAndVoidCount());
         RxBus.getInstance().addSubscription(this, RxBus.getInstance().toObservable(CardListEvent.class).subscribe(this::updatePreview));
@@ -261,7 +262,7 @@ public class DeckEditorActivity extends BaseActivity implements PopupMenu.OnMenu
 
     @OnClick(R.id.tv_deck_save)
     public void onDeckSave_Click() {
-        showSnackBar(viewContent, mDeckManager.saveDeck(mDeckManager.deckName) ? saveSucceed : saveFailed);
+        showSnackBar(viewContent, mDeckManager.saveDeck() ? saveSucceed : saveFailed);
     }
 
     private void updateSingleRecyclerView(Enum.AreaType areaType, Enum.OperateType operateType, int position) {

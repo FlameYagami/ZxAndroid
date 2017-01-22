@@ -13,9 +13,9 @@
         HeaderView:menu_visible="true"
         HeaderView:title_text="@string/deck_editor_about_title"/>
 
-    <include layout="@layout/include_search"/>
-
     <include layout="@layout/include_detail"/>
+
+    <include layout="@layout/include_search"/>
 
     <include layout="@layout/include_result_count"/>
 
@@ -28,7 +28,8 @@
     <include layout="@layout/include_slv_count"/>
 
     <ScrollView
-        style="@style/layout_match_parent">
+        style="@style/layout_match_parent"
+        android:layout_marginTop="5dp">
 
         <LinearLayout
             android:layout_width="match_parent"
