@@ -99,14 +99,14 @@
         android:layout_height="1dp"
         android:background="@color/gray"/>
 
-    <TextView
-        android:id="@+id/tv_check_update"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="15dp"
-        android:text="@string/about_check_for_updates"
-        android:textSize="@dimen/setting_item_size"
-        android:textColor="@color/black"/>
+    <!--<TextView-->
+        <!--android:id="@+id/tv_check_update"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:padding="15dp"-->
+        <!--android:text="@string/about_check_for_updates"-->
+        <!--android:textSize="@dimen/setting_item_size"-->
+        <!--android:textColor="@color/black"/>-->
 
 
 </LinearLayout>

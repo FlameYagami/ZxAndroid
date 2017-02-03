@@ -141,10 +141,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 IntentUtils.gotoActivity(this, DeckPreviewActivity.class);
                 break;
             }
-            case R.id.nav_duel: {
-                IntentUtils.gotoActivity(this, LanActivity.class);
-                break;
-            }
+//            case R.id.nav_duel: {
+//                IntentUtils.gotoActivity(this, LanActivity.class);
+//                break;
+//            }
             case R.id.nav_setting: {
                 IntentUtils.gotoActivity(this, SettingActivity.class);
                 break;
