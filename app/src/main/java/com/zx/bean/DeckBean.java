@@ -10,13 +10,11 @@ public class DeckBean
     private String CName;
     private String Camp;
     private String NumberEx;
-    private int    Restrict;
     private int    Cost;
     private int    Power;
 
-    public DeckBean(String imagePath, String cname, String camp, String numberEx, int cost, int power, int restrict) {
+    public DeckBean(String imagePath, String cname, String camp, String numberEx, int cost, int power) {
         ImagePath = imagePath;
-        Restrict = restrict;
         CName = cname;
         Camp = camp;
         NumberEx = numberEx;
@@ -30,10 +28,6 @@ public class DeckBean
 
     public String getImagePath() {
         return ImagePath;
-    }
-
-    public int getRestrict() {
-        return Restrict;
     }
 
     public String getCamp() {

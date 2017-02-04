@@ -103,7 +103,7 @@ public class DeckManager
             if (checkAreaUg(number)) {
                 addBeanToList(number, thumbnailPath, UgList);
                 if (CardUtils.getUgType(number).equals(Enum.UgType.Start)) {
-                    addBeanToList(number, thumbnailPath, PlayerList);
+                    addBeanToList(number, thumbnailPath, StartList);
                 }
                 return Enum.AreaType.Ug;
             }
@@ -157,8 +157,8 @@ public class DeckManager
         String camp     = cardBean.getCamp();
         int    cost     = TextUtils.isEmpty(cardBean.getCost()) ? 0 : Integer.valueOf(cardBean.getCost());
         int    power    = TextUtils.isEmpty(cardBean.getPower()) ? 0 : Integer.valueOf(cardBean.getPower());
-        int    restrict = TextUtils.isEmpty(cardBean.getPower()) ? 4 : Integer.valueOf(cardBean.getRestrict());
-        collection.add(new DeckBean(thumbnailPath, name, camp, numberEx, cost, power, restrict));
+//        int    restrict = TextUtils.isEmpty(cardBean.getPower()) ? 4 : Integer.valueOf(cardBean.getRestrict());
+        collection.add(new DeckBean(thumbnailPath, name, camp, numberEx, cost, power));
     }
 
     /**
@@ -168,7 +168,7 @@ public class DeckManager
      * @return true|false
      */
     private boolean checkAreaEx(String number) {
-        String name = CardUtils.getName(number);
+        String name = CardUtils.getCName(number);
         return stream(ExList).where(bean -> name.equals(bean.getCName())).count() < CardUtils.getMaxCount(number) && ExList.size() < 10;
     }
 
@@ -179,7 +179,7 @@ public class DeckManager
      * @return true|false
      */
     private boolean checkAreaUg(String number) {
-        String name = CardUtils.getName(number);
+        String name = CardUtils.getCName(number);
         return stream(UgList).where(bean -> name.equals(bean.getCName())).count() < CardUtils.getMaxCount(number) && UgList.size() < 30;
     }
 
@@ -190,7 +190,7 @@ public class DeckManager
      * @return true|false
      */
     private boolean checkAreaIg(String number) {
-        String name = CardUtils.getName(number);
+        String name = CardUtils.getCName(number);
         // 根据卡编获取卡片在点燃区的枚举类型
         Enum.IgType igType = CardUtils.getIgType(number);
         // 判断卡片是否超出自身添加数量以及点燃区总数量
