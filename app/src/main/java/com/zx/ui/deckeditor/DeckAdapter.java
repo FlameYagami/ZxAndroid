@@ -49,7 +49,6 @@ class DeckAdapter extends BaseRecyclerViewAdapter
             mOnItemLongClickListener.onItemLongClick(view, data, holder.getAdapterPosition());
             return true;
         });
-        viewHolder.imgRestrict.setVisibility(deckBean.getRestrict() == 0 ? View.VISIBLE : View.GONE);
         Glide.with(context).load(deckBean.getImagePath()).error(R.drawable.img_unknown_thumbnail).centerCrop().into(viewHolder.imgThumbnail);
     }
 

@@ -162,12 +162,12 @@ public class CardUtils
     }
 
     /**
-     * 获取卡名
+     * 获取中文卡名
      *
      * @param number 卡编
      * @return 卡名
      */
-    public static String getName(String number) {
+    public static String getCName(String number) {
         return stream(SQLiteUtils.getAllCardList()).first(bean -> number.contains(bean.getNumber())).getCName();
     }
 
