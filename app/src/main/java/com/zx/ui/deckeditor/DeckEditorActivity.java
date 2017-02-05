@@ -162,8 +162,8 @@ public class DeckEditorActivity extends BaseActivity implements PopupMenu.OnMenu
 
     @OnClick(R.id.img_pl)
     public void onPlayer_Click() {
-        if (mDeckManager.PlayerList.size() != 0) {
-            DeckBean deckBean = mDeckManager.PlayerList.get(0);
+        if (mDeckManager.getPlayerList().size() != 0) {
+            DeckBean deckBean = mDeckManager.getPlayerList().get(0);
             CardBean cardBean = CardUtils.getCardBean(deckBean.getNumberEx());
             updateDetail(cardBean);
         }
@@ -171,8 +171,8 @@ public class DeckEditorActivity extends BaseActivity implements PopupMenu.OnMenu
 
     @OnLongClick(R.id.img_pl)
     public boolean onPlayer_LongClick() {
-        if (mDeckManager.PlayerList.size() != 0) {
-            DeckBean      deckBean = mDeckManager.PlayerList.get(0);
+        if (mDeckManager.getPlayerList().size() != 0) {
+            DeckBean      deckBean = mDeckManager.getPlayerList().get(0);
             CardBean      cardBean = CardUtils.getCardBean(deckBean.getNumberEx());
             Enum.AreaType areaType = CardUtils.getAreaType(cardBean);
             updateSingleRecyclerView(areaType, Enum.OperateType.Remove, -1);
@@ -272,34 +272,35 @@ public class DeckEditorActivity extends BaseActivity implements PopupMenu.OnMenu
         // 添加成功则更新该区域
         if (operateType.equals(Enum.OperateType.Add)) {
             if (areaType.equals(Enum.AreaType.Player)) {
-                Glide.with(this).load(MyApp.pictureCache + File.separator + mDeckManager.PlayerList.get(0).getNumberEx() + context.getString(R.string.image_extension)).error(R.drawable.img_unknown_picture).into(imgPl);
+                Glide.with(this).load(MyApp.pictureCache + File.separator + mDeckManager.getPlayerList().get(0).getNumberEx() + context.getString(R.string.image_extension))
+                        .error(R.drawable.img_unknown_picture).into(imgPl);
             } else if (areaType.equals(Enum.AreaType.Ig)) {
-                mIgDeckAdapter.addData(mDeckManager.IgList, mDeckManager.IgList.size() - 1);
+                mIgDeckAdapter.addData(mDeckManager.getIgList(), mDeckManager.getIgList().size() - 1);
             } else if (areaType.equals(Enum.AreaType.Ug)) {
-                mUgDeckAdapter.addData(mDeckManager.UgList, mDeckManager.UgList.size() - 1);
+                mUgDeckAdapter.addData(mDeckManager.getUgList(), mDeckManager.getUgList().size() - 1);
             } else if (areaType.equals(Enum.AreaType.Ex)) {
-                mEgDeckAdapter.addData(mDeckManager.ExList, mDeckManager.ExList.size() - 1);
+                mEgDeckAdapter.addData(mDeckManager.getExList(), mDeckManager.getExList().size() - 1);
             }
         } else {
             if (areaType.equals(Enum.AreaType.Player)) {
                 imgPl.setImageBitmap(null);
             } else if (areaType.equals(Enum.AreaType.Ig)) {
-                mIgDeckAdapter.removeData(mDeckManager.IgList, position);
+                mIgDeckAdapter.removeData(mDeckManager.getIgList(), position);
             } else if (areaType.equals(Enum.AreaType.Ug)) {
-                mUgDeckAdapter.removeData(mDeckManager.UgList, position);
+                mUgDeckAdapter.removeData(mDeckManager.getUgList(), position);
             } else if (areaType.equals(Enum.AreaType.Ex)) {
-                mEgDeckAdapter.removeData(mDeckManager.ExList, position);
+                mEgDeckAdapter.removeData(mDeckManager.getExList(), position);
             }
         }
     }
 
     private void updateAllRecyclerView() {
-        if (0 != mDeckManager.PlayerList.size()) {
-            Glide.with(this).load(MyApp.pictureCache + File.separator + mDeckManager.PlayerList.get(0).getNumberEx() + context.getString(R.string.image_extension)).error(null).into(imgPl);
+        if (0 != mDeckManager.getPlayerList().size()) {
+            Glide.with(this).load(MyApp.pictureCache + File.separator + mDeckManager.getPlayerList().get(0).getNumberEx() + context.getString(R.string.image_extension)).error(null).into(imgPl);
         }
-        mIgDeckAdapter.updateData(mDeckManager.IgList);
-        mUgDeckAdapter.updateData(mDeckManager.UgList);
-        mEgDeckAdapter.updateData(mDeckManager.ExList);
+        mIgDeckAdapter.updateData(mDeckManager.getIgList());
+        mUgDeckAdapter.updateData(mDeckManager.getUgList());
+        mEgDeckAdapter.updateData(mDeckManager.getExList());
     }
 
     private void updateStartAndLifeAndVoid(List<Integer> countStartAndLifeAndVoid) {

@@ -7,6 +7,7 @@ package com.zx.config;
 public interface SQLitConst
 {
     String TableName           = "TableCard";
+    String ColumnMd5           = "Md5";
     String ColumnType          = "Type";
     String ColumnCamp          = "Camp";
     String ColumnRace          = "Race";

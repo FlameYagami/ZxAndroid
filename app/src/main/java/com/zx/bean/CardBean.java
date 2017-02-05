@@ -7,6 +7,7 @@ import java.io.Serializable;
  */
 public class CardBean implements Serializable
 {
+    private String Md5;
     private String Key;
     private String AbilityType;
     private String Type;
@@ -44,7 +45,11 @@ public class CardBean implements Serializable
         AbilityDetail = abilityDetail;
     }
 
-    public CardBean(String type, String race, String camp, String sign, String rare, String pack, String restrict, String cname, String jname, String illust, String number, String cost, String power, String ability, String lines, String faq, String image) {
+    /**
+     * 全数据缓存构造方法
+     */
+    public CardBean(String md5, String type, String race, String camp, String sign, String rare, String pack, String restrict, String cname, String jname, String illust, String number, String cost, String power, String ability, String lines, String faq, String image) {
+        Md5 = md5;
         Type = type;
         Race = race;
         Camp = camp;
@@ -94,151 +99,71 @@ public class CardBean implements Serializable
         return Race;
     }
 
-    public CardBean setRace(String race) {
-        Race = race;
-        return this;
-    }
-
     public String getRare() {
         return Rare;
-    }
-
-    public CardBean setRare(String rare) {
-        Rare = rare;
-        return this;
     }
 
     public String getSign() {
         return Sign;
     }
 
-    public CardBean setSign(String sign) {
-        Sign = sign;
-        return this;
-    }
-
     public String getPack() {
         return Pack;
-    }
-
-    public CardBean setPack(String pack) {
-        Pack = pack;
-        return this;
     }
 
     public String getRestrict() {
         return Restrict;
     }
 
-    public CardBean setRestrict(String restrict) {
-        Restrict = restrict;
-        return this;
-    }
-
     public String getCName() {
         return CName;
-    }
-
-    public CardBean setCName(String CName) {
-        this.CName = CName;
-        return this;
     }
 
     public String getJName() {
         return JName;
     }
 
-    public CardBean setJName(String JName) {
-        this.JName = JName;
-        return this;
-    }
-
     public String getIllust() {
         return Illust;
-    }
-
-    public CardBean setIllust(String illust) {
-        Illust = illust;
-        return this;
     }
 
     public String getNumber() {
         return Number;
     }
 
-    public CardBean setNumber(String number) {
-        Number = number;
-        return this;
-    }
-
     public String getCost() {
         return Cost;
-    }
-
-    public CardBean setCost(String cost) {
-        Cost = cost;
-        return this;
     }
 
     public String getAbility() {
         return Ability;
     }
 
-    public CardBean setAbility(String ability) {
-        Ability = ability;
-        return this;
-    }
-
     public String getPower() {
         return Power;
-    }
-
-    public CardBean setPower(String power) {
-        Power = power;
-        return this;
     }
 
     public String getLines() {
         return Lines;
     }
 
-    public CardBean setLines(String lines) {
-        Lines = lines;
-        return this;
-    }
-
     public String getFaq() {
         return Faq;
-    }
-
-    public CardBean setFaq(String faq) {
-        Faq = faq;
-        return this;
     }
 
     public String getAbilityType() {
         return AbilityType;
     }
 
-    public CardBean setAbilityType(String abilityType) {
-        AbilityType = abilityType;
-        return this;
-    }
-
     public String getAbilityDetail() {
         return AbilityDetail;
-    }
-
-    public CardBean setAbilityDetail(String abilityDetail) {
-        AbilityDetail = abilityDetail;
-        return this;
     }
 
     public String getImage() {
         return Image;
     }
 
-    public void setImage(String Image) {
-        this.Image = Image;
+    public String getMd5() {
+        return Md5;
     }
 }

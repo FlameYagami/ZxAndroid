@@ -23,7 +23,7 @@ public class MyApp extends Application
     public static String  databasePath;
     public static String  deckPath;
     public static String  downloadPath;
-    public static boolean isHost = false;
+    public static String  banlistPath;
 
     public static UpdateBean updateBean;
 
@@ -43,6 +43,7 @@ public class MyApp extends Application
         databasePath = "data/data/" + context.getPackageName() + "/databases/data.db";
         deckPath = appCache + "deck/";
         downloadPath = appCache + "download/";
+        banlistPath = appCache + "banlist";
     }
 
 }

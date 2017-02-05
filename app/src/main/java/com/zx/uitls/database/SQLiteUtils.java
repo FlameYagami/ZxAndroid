@@ -1,6 +1,7 @@
 package com.zx.uitls.database;
 
 import android.database.Cursor;
+import android.text.TextUtils;
 
 import com.zx.bean.CardBean;
 import com.zx.config.SQLitConst;
@@ -39,6 +40,7 @@ public class SQLiteUtils implements SQLitConst
         List<CardBean> deviceList = new ArrayList<>();
         Cursor         result     = helper.getCursor(DBManager.getInstance().openDatabase(), sql);
         while (result.moveToNext()) {
+            String Md5      = result.getString(result.getColumnIndex(ColumnMd5));
             String Type     = result.getString(result.getColumnIndex(ColumnType));
             String Camp     = result.getString(result.getColumnIndex(ColumnCamp));
             String Race     = result.getString(result.getColumnIndex(ColumnRace));
@@ -57,7 +59,9 @@ public class SQLiteUtils implements SQLitConst
             String Faq      = result.getString(result.getColumnIndex(ColumnFaq));
             String Image    = result.getString(result.getColumnIndex(ColumnImage));
 
-            CardBean cardBean = new CardBean(Type, Race, Camp, Sign, Rare, Pack, Restrict, CName, JName, Illust, Number, Cost, Power, Ability, Lines, Faq, Image);
+            Cost = TextUtils.isEmpty(Cost) || Cost.equals("0") ? "" : Cost;
+            Power = TextUtils.isEmpty(Power) || Power.equals("0") ? "" : Power;
+            CardBean cardBean = new CardBean(Md5, Type, Race, Camp, Sign, Rare, Pack, Restrict, CName, JName, Illust, Number, Cost, Power, Ability, Lines, Faq, Image);
             deviceList.add(cardBean);
         }
         result.close();

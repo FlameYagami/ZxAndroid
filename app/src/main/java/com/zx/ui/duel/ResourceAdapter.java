@@ -40,9 +40,9 @@ public class ResourceAdapter extends BaseRecyclerViewAdapter
         ViewHolder   viewHolder   = (ViewHolder)holder;
         ResourceBean resourceBean = (ResourceBean)data.get(position);
         if (resourceBean.isResourceVisible()){
-            Glide.with(context).load(resourceBean.getDuelBean().getThumbnialPath()).error(R.drawable.img_unknown_thumbnail).into(viewHolder.imgThumbnail);
+            Glide.with(context).load(resourceBean.getDuelBean().getThumbnailPath()).error(R.drawable.img_unknown_thumbnail).into(viewHolder.imgThumbnail);
         } else {
-            Glide.with(context).load(resourceBean.getDuelBean().getThumbnialPath()).error(R.drawable.img_unknown_thumbnail).transform(new RotateTransformation( context, 90f )).into(viewHolder.imgThumbnail);
+            Glide.with(context).load(resourceBean.getDuelBean().getThumbnailPath()).error(R.drawable.img_unknown_thumbnail).transform(new RotateTransformation( context, 90f )).into(viewHolder.imgThumbnail);
         }
     }
 

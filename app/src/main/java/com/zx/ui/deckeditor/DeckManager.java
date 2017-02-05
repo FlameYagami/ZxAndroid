@@ -33,25 +33,25 @@ public class DeckManager
     private static final String TAG = DeckManager.class.getSimpleName();
 
     // 卡组名称
-    String deckName;
+    private String deckName;
 
     // 卡组扩展名集合
-    List<String> numberExList = new ArrayList<>();
+    private List<String> numberExList = new ArrayList<>();
 
     // 玩家卡数据缓存
-    List<DeckBean> PlayerList = new ArrayList<>();
+    private List<DeckBean> PlayerList = new ArrayList<>();
 
     // 起始卡缓存
-    List<DeckBean> StartList = new ArrayList<>();
+    private List<DeckBean> StartList = new ArrayList<>();
 
     // 点燃数据缓存
-    List<DeckBean> IgList = new ArrayList<>();
+    private List<DeckBean> IgList = new ArrayList<>();
 
     // 非点燃数据缓存
-    List<DeckBean> UgList = new ArrayList<>();
+    private List<DeckBean> UgList = new ArrayList<>();
 
     // 额外数据缓存
-    List<DeckBean> ExList = new ArrayList<>();
+    private List<DeckBean> ExList = new ArrayList<>();
 
     /**
      * 初始化
@@ -63,6 +63,26 @@ public class DeckManager
         this.numberExList.clear();
         this.numberExList = numberExList;
         this.deckName = deckName;
+    }
+
+    public List<DeckBean> getPlayerList(){
+        return PlayerList;
+    }
+
+    public List<DeckBean> getStartList(){
+        return StartList;
+    }
+
+    public List<DeckBean> getIgList(){
+        return IgList;
+    }
+
+    public List<DeckBean> getUgList(){
+        return UgList;
+    }
+
+    public List<DeckBean> getExList(){
+        return ExList;
     }
 
     /**
@@ -157,7 +177,6 @@ public class DeckManager
         String camp     = cardBean.getCamp();
         int    cost     = TextUtils.isEmpty(cardBean.getCost()) ? 0 : Integer.valueOf(cardBean.getCost());
         int    power    = TextUtils.isEmpty(cardBean.getPower()) ? 0 : Integer.valueOf(cardBean.getPower());
-//        int    restrict = TextUtils.isEmpty(cardBean.getPower()) ? 4 : Integer.valueOf(cardBean.getRestrict());
         collection.add(new DeckBean(thumbnailPath, name, camp, numberEx, cost, power));
     }
 
@@ -279,4 +298,6 @@ public class DeckManager
         countList.add(stream(IgList).where(bean -> CardUtils.isVoid(bean.getNumberEx())).count());
         return countList;
     }
+
+
 }

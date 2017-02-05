@@ -46,7 +46,7 @@ public class HandAdapter extends BaseRecyclerViewAdapter
             setItemVisible(position);
             mOnItemClickListener.onItemClick(view, data, position);
         });
-        Glide.with(context).load(handBean.getDuelBean().getThumbnialPath()).error(R.drawable.img_unknown_picture).into(viewHolder.imgThumbnail);
+        Glide.with(context).load(handBean.getDuelBean().getThumbnailPath()).error(R.drawable.img_unknown_picture).into(viewHolder.imgThumbnail);
     }
 
     private void setItemVisible(int position) {

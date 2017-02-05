@@ -1,5 +1,7 @@
 package com.zx.uitls;
 
+import android.text.TextUtils;
+
 import com.zx.R;
 import com.zx.bean.CardBean;
 import com.zx.bean.DeckPreviewBean;
@@ -68,22 +70,24 @@ public class DeckUtils
         List<DeckPreviewBean> deckPreviewList = new ArrayList<>();
         deckPathList.addAll(stream(FileUtils.getFilePathList(deckPath)).where(deckPath -> deckPath.endsWith(context.getString(R.string.deck_extension))).toList());
         for (String deckPath : deckPathList) {
-            String         deckName       = FileUtils.getFileName(deckPath);
-            String         numberListJson = FileUtils.getFileContent(deckPath);
-            List<String>   numberListEx   = JsonUtils.deserializerArray(numberListJson, String[].class);
-            List<CardBean> cardBeanList   = CardUtils.getCardBeanList(numberListEx);
-            String         playerPath     = getPlayerImagePath(cardBeanList);
-            String         statusMain     = context.getString(getMainCount(cardBeanList) == 50 ? R.string.deck_complete : R.string.deck_not_complete);
-            String         statusExtra    = context.getString(getExtraCount(cardBeanList) == 10 ? R.string.deck_complete : R.string.deck_not_complete);
+            String deckName       = FileUtils.getFileName(deckPath);
+            String numberListJson = FileUtils.getFileContent(deckPath);
+            numberListJson = TextUtils.isEmpty(numberListJson) ? JsonUtils.serializer(new ArrayList<String>()) : numberListJson;
+            List<String>   numberListEx = JsonUtils.deserializerArray(numberListJson, String[].class);
+            List<CardBean> cardBeanList = CardUtils.getCardBeanList(numberListEx);
+            String         playerPath   = getPlayerImagePath(cardBeanList);
+            String         statusMain   = context.getString(getMainCount(cardBeanList) == 50 ? R.string.deck_complete : R.string.deck_not_complete);
+            String         statusExtra  = context.getString(getExtraCount(cardBeanList) == 10 ? R.string.deck_complete : R.string.deck_not_complete);
             deckPreviewList.add(new DeckPreviewBean(deckName, statusMain, statusExtra, playerPath, numberListEx));
         }
         return deckPreviewList;
     }
 
     public static List<String> getNumberListEx(String deckName) {
-        List<String> numberListEx     = new ArrayList<>();
-        String       deckPath         = DeckUtils.getDeckPath(deckName);
-        String       numberListJson   = FileUtils.getFileContent(deckPath);
+        List<String> numberListEx   = new ArrayList<>();
+        String       deckPath       = DeckUtils.getDeckPath(deckName);
+        String       numberListJson = FileUtils.getFileContent(deckPath);
+        numberListJson = TextUtils.isEmpty(numberListJson) ? JsonUtils.serializer(new ArrayList<String>()) : numberListJson;
         List<String> tempNumberListEx = JsonUtils.deserializerArray(numberListJson, String[].class);
         assert tempNumberListEx != null;
         numberListEx.addAll(tempNumberListEx);

@@ -18,7 +18,7 @@ public class DuelBean
         return numberEx;
     }
 
-    public String getThumbnialPath() {
+    public String getThumbnailPath() {
         return thumbnailPath;
     }
 }
