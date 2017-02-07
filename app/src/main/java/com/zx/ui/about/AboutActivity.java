@@ -19,6 +19,8 @@ public class AboutActivity extends BaseActivity
     @BindView(R.id.tv_version)
     TextView tvVersion;
 
+    private static final String TAG = AboutActivity.class.getSimpleName();
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_about;
@@ -34,4 +36,13 @@ public class AboutActivity extends BaseActivity
     public void onBack_Click() {
         super.onBackPressed();
     }
+
+//    @OnClick(R.id.tv_check_update)
+//    public void onCheckUpdate(){
+//        RequestApi.checkUpdate().subscribe(updateBean -> {
+//            LogUtils.e(TAG, JsonUtils.serializer(updateBean));
+//        }, throwable -> {
+//            LogUtils.e(TAG,throwable.getMessage());
+//        });
+//    }
 }

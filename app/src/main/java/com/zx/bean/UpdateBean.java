@@ -4,36 +4,31 @@ import java.io.Serializable;
 
 public class UpdateBean implements Serializable
 {
-    private String versionName;
+    private String versionname;
     private String url;
-    private String versionNote;
-    private String md5;
-    private int    versionCode;
+    private String info;
+    private int    versioncode;
     private long   size;
 
     public UpdateBean() {
-        versionCode = -1;
+        versioncode = -1;
         size = -1;
     }
 
-    public String getVersionName() {
-        return versionName;
+    public String getVersionname() {
+        return versionname;
     }
 
-    public int getVersionCode() {
-        return versionCode;
+    public int getVersioncode() {
+        return versioncode;
     }
 
     public String getUrl() {
         return url;
     }
 
-    public String getVersionNote() {
-        return versionNote;
-    }
-
-    public String getMd5() {
-        return md5;
+    public String getInfo() {
+        return info;
     }
 
     public long getSize() {

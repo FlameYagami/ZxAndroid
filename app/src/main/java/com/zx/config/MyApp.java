@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Environment;
 
+import com.liulishuo.filedownloader.FileDownloader;
 import com.zx.R;
 import com.zx.bean.UpdateBean;
 
@@ -30,6 +31,7 @@ public class MyApp extends Application
     @Override
     public void onCreate() {
         context = getApplicationContext();
+        FileDownloader.init(context);
         initCache();
     }
 
