@@ -39,8 +39,8 @@ public class AboutActivity extends BaseActivity
 
 //    @OnClick(R.id.tv_check_update)
 //    public void onCheckUpdate(){
-//        RequestApi.checkUpdate().subscribe(updateBean -> {
-//            LogUtils.e(TAG, JsonUtils.serializer(updateBean));
+//        RequestApi.checkUpdate().subscribe(mUpdateBean -> {
+//            LogUtils.e(TAG, JsonUtils.serializer(mUpdateBean));
 //        }, throwable -> {
 //            LogUtils.e(TAG,throwable.getMessage());
 //        });

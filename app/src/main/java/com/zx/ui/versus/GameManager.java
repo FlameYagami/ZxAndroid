@@ -1,4 +1,4 @@
-package com.zx.ui.duel;
+package com.zx.ui.versus;
 
 import com.zx.ui.deckeditor.DeckManager;
 

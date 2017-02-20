@@ -200,10 +200,10 @@ public class CardUtils
      */
     public static Enum.IgType getIgType(CardBean cardBean) {
         String ability = cardBean.getAbility();
-        if (ability.contains(context.getString(R.string.AbilityLife))) {
+        if (ability.startsWith(context.getString(R.string.AbilityLife))) {
             return Enum.IgType.Life;
         }
-        if (ability.contains(context.getString(R.string.AbilityVoid))) {
+        if (ability.startsWith(context.getString(R.string.AbilityVoid))) {
             return Enum.IgType.Void;
         }
         return Enum.IgType.Normal;
@@ -227,7 +227,7 @@ public class CardUtils
      */
     public static Enum.UgType getUgType(CardBean cardBean) {
         String ability = cardBean.getAbility();
-        if (ability.contains(context.getString(R.string.AbilityStart))) {
+        if (ability.startsWith(context.getString(R.string.AbilityStart))) {
             return Enum.UgType.Start;
         }
         return Enum.UgType.Normal;
@@ -250,7 +250,7 @@ public class CardUtils
      * @return Ture|Flase
      */
     public static boolean isLife(CardBean cardBean) {
-        return cardBean.getAbility().contains(context.getString(R.string.AbilityLife));
+        return cardBean.getAbility().startsWith(context.getString(R.string.AbilityLife));
     }
 
     /**
@@ -270,7 +270,7 @@ public class CardUtils
      * @return Ture|Flase
      */
     public static boolean isVoid(CardBean cardBean) {
-        return cardBean.getAbility().contains(context.getString(R.string.AbilityVoid));
+        return cardBean.getAbility().startsWith(context.getString(R.string.AbilityVoid));
     }
 
     /**

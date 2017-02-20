@@ -67,9 +67,9 @@ public class SystemUtils
         // 版本号数小于已安装版本号数，则不用更新
         if (checkVersionCode(updateBean.getVersioncode())) {
             if (DialogConfirm.show(context, context.getString(R.string.update_is_update))) {
-//                IntentUtils.startUpdateService(updateBean);
+//                IntentUtils.startUpdateService(mUpdateBean);
             } else {
-                MyApp.updateBean = null;
+                MyApp.mUpdateBean = null;
             }
         } else if (type == 1) {
             new AlertDialog.Builder(context)

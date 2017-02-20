@@ -85,13 +85,8 @@ public class IntentUtils
         context.sendBroadcast(intent);
     }
 
-    public static void startClientService(Class<?> className) {
+    public static void startService(Class<?> className) {
         Intent intent = new Intent(context, className);//设置广播仅对本程序有效
         context.startService(intent);
-    }
-
-    public static void stopClientService(Class<?> className) {
-        Intent intent = new Intent(context, className);//设置广播仅对本程序有效
-        context.stopService(intent);
     }
 }

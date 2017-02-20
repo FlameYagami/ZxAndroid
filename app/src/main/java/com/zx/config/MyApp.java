@@ -1,5 +1,6 @@
 package com.zx.config;
 
+import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
 import android.os.Environment;
@@ -7,6 +8,7 @@ import android.os.Environment;
 import com.liulishuo.filedownloader.FileDownloader;
 import com.zx.R;
 import com.zx.bean.UpdateBean;
+import com.zx.game.message.MessageManager;
 
 import java.io.File;
 
@@ -16,21 +18,24 @@ import java.io.File;
 
 public class MyApp extends Application
 {
+    @SuppressLint("StaticFieldLeak")
     public static Context context;
 
-    public static String  appCache;
-    public static String  pictureCache;
-    public static String  pictureZipPath;
-    public static String  databasePath;
-    public static String  deckPath;
-    public static String  downloadPath;
-    public static String  banlistPath;
+    public static String appCache;
+    public static String pictureCache;
+    public static String pictureZipPath;
+    public static String databasePath;
+    public static String deckPath;
+    public static String downloadPath;
+    public static String banlistPath;
 
-    public static UpdateBean updateBean;
+    public static UpdateBean     mUpdateBean;
+    public static MessageManager mMessageManager;
 
     @Override
     public void onCreate() {
         context = getApplicationContext();
+        mMessageManager = new MessageManager();
         FileDownloader.init(context);
         initCache();
     }

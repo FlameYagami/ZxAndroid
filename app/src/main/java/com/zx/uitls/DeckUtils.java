@@ -165,7 +165,7 @@ public class DeckUtils
      */
     public static boolean checkDeck(List<String> numberList) {
         List<CardBean> cardBeanList = CardUtils.getCardBeanList(numberList);
-        return 1 == getPlayerCount(cardBeanList) &&
+        return 1 <= getPlayerCount(cardBeanList) &&
                 50 == getMainCount(cardBeanList) &&
                 4 >= stream(cardBeanList).where(bean -> CardUtils.isLife(bean.getNumber())).count() &&
                 4 >= stream(cardBeanList).where(bean -> CardUtils.isVoid(bean.getNumber())).count();

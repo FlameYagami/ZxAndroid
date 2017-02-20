@@ -37,7 +37,6 @@
         <activity
             android:name="com.zx.ui.advancedsearch.AdvancedSearchActivity"
             android:screenOrientation="portrait">
-
         </activity>
 
         <activity
@@ -61,6 +60,7 @@
             android:windowSoftInputMode="adjustUnspecified|stateHidden">
         </activity>
 
+        <!-- 设置 -->
         <activity
             android:name="com.zx.ui.setting.SettingActivity"
             android:screenOrientation="portrait">
@@ -81,25 +81,24 @@
             android:screenOrientation="portrait">
         </activity>
 
+        <!-- 对战模式 -->
         <activity
-            android:name="com.zx.ui.lan.LanActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden">
+            android:name="com.zx.ui.versusmode.VersusModeActivity"
+            android:screenOrientation="portrait">
         </activity>
 
         <activity
-            android:name="com.zx.ui.gamesetting.GameSettingActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden">
+            android:name="com.zx.ui.versuroom.VersusRoomActivity"
+            android:screenOrientation="portrait">
         </activity>
 
         <activity
-            android:name="com.zx.ui.duel.DuelActivity"
+            android:name="com.zx.ui.versus.VersusActivity"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+            android:theme="@style/AppThemeFullScreen">
         </activity>
 
         <!--服务-->
-        <service android:name="com.zx.service.ClientService"/>
+        <service android:name=".game.service.ClientService"/>
     </application>
 </manifest>

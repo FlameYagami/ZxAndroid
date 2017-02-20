@@ -1,4 +1,7 @@
-package com.zx.service;
+package com.zx.game.service;
+
+import com.zx.config.MyApp;
+import com.zx.game.message.ModBus;
 
 import java.net.InetSocketAddress;
 import java.net.Socket;
@@ -14,7 +17,7 @@ class ClientSocket extends Thread
     private int    port;
     private boolean isStart = false;
 
-    private static SocketHeartThread socketHeartThread;
+    private static ClientHeartThread socketHeartThread;
 
 
     /**
@@ -43,7 +46,6 @@ class ClientSocket extends Thread
 
     }
 
-
     private void setClient() {
         if (socket.isConnected()) {
             System.out.println("打开TCP对应的输入/输出流监听");
@@ -51,7 +53,7 @@ class ClientSocket extends Thread
             client.start();
             isStart = true;
             if (socketHeartThread == null) {
-                socketHeartThread = new SocketHeartThread();
+                socketHeartThread = new ClientHeartThread();
                 socketHeartThread.start();
             }
         }
@@ -89,14 +91,13 @@ class ClientSocket extends Thread
         }
     }
 
-    //发送消息
     void sendMsg(byte[] msg) {
         if (null != client && null != client.getOut()) {
             client.getOut().sendMsg(msg);
         }
     }
 
-    private class SocketHeartThread extends Thread
+    private class ClientHeartThread extends Thread
     {
         private boolean isRun;
 
@@ -105,14 +106,15 @@ class ClientSocket extends Thread
             super.run();
             isRun = true;
             while (isRun) {
-//                sendMsg();
                 try {
+                    MyApp.mMessageManager.sendMessage(ModBus.onHeart());
                     sleep(15000);
-                } catch (InterruptedException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         }
+
         void Cancel() {
             isRun = false;
         }

@@ -4,16 +4,13 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.zx.R;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -22,32 +19,36 @@ import butterknife.ButterKnife;
 
 public class DialogEditText extends AlertDialog
 {
-    private EditText editText;
-    private GetText  mGetText;
+    @BindView(R.id.editText)
+    EditText editText;
+    @BindView(R.id.tv_cancel)
+    Button tvCancel;
+    @BindView(R.id.tv_ok)
+    Button tvOk;
 
-    public interface GetText
+    private OnButtonClick onButtonClick;
+
+    public interface OnButtonClick
     {
         void getText(DialogEditText dialog, String content);
     }
 
-    public DialogEditText(@NonNull Context context, String title, String content, String hint, GetText mGetText) {
+    public DialogEditText(@NonNull Context context, String title, String content, String hint, OnButtonClick mOnButtonClick) {
         super(context);
-        LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View           view     = inflater.inflate(R.layout.dialog_edittext, null);
+        View view = View.inflate(context, R.layout.dialog_edittext, null);
         ButterKnife.bind(this, view);
 
         setView(view);
         setTitle(title);
-        this.mGetText = mGetText;
-        editText = (EditText)view.findViewById(R.id.txt_content);
-        editText.setText(TextUtils.isEmpty(content) ? new SimpleDateFormat("yyyyMMdd", Locale.CHINA).format(new Date()) : content);
         editText.setHint(hint);
+        editText.setText(content);
         editText.setSelection(editText.getText().length());
-        view.findViewById(R.id.tv_cancel).setOnClickListener(v -> dismiss());
-        view.findViewById(R.id.tv_ok).setOnClickListener(v -> {
+        this.onButtonClick = mOnButtonClick;
+        tvCancel.setOnClickListener(v -> dismiss());
+        tvOk.setOnClickListener(v -> {
             String text = editText.getText().toString().trim();
             if (!TextUtils.isEmpty(text)) {
-                this.mGetText.getText(this, text);
+                this.onButtonClick.getText(this, text);
             }
         });
     }

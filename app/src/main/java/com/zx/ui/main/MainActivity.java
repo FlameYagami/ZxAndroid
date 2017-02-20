@@ -20,9 +20,9 @@ import com.zx.config.MapConst;
 import com.zx.ui.advancedsearch.AdvancedSearchActivity;
 import com.zx.ui.base.BaseActivity;
 import com.zx.ui.deckpreview.DeckPreviewActivity;
-import com.zx.ui.lan.LanActivity;
 import com.zx.ui.result.ResultActivity;
 import com.zx.ui.setting.SettingActivity;
+import com.zx.ui.versusmode.VersusModeActivity;
 import com.zx.uitls.AppManager;
 import com.zx.uitls.BundleUtils;
 import com.zx.uitls.DisplayUtils;
@@ -141,10 +141,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 IntentUtils.gotoActivity(this, DeckPreviewActivity.class);
                 break;
             }
-//            case R.id.nav_duel: {
-//                IntentUtils.gotoActivity(this, LanActivity.class);
-//                break;
-//            }
+            case R.id.nav_duel: {
+                IntentUtils.gotoActivity(this, VersusModeActivity.class);
+                break;
+            }
             case R.id.nav_setting: {
                 IntentUtils.gotoActivity(this, SettingActivity.class);
                 break;

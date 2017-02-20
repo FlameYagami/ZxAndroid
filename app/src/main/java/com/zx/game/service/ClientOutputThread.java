@@ -1,8 +1,11 @@
-package com.zx.service;
+package com.zx.game.service;
+
+import com.zx.uitls.LogUtils;
 
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.util.Arrays;
 
 /**
  * Created by Administrator on 2016/6/25.
@@ -42,7 +45,7 @@ class ClientOutputThread extends Thread
         try {
             while (isStart) {
                 if (msg != null) {
-//                    LogUtils.e(TAG, "发送信息：" + StringUtils.changeByteToHexString(msg, 0, msg.length));
+                    LogUtils.e(TAG, "Send：" + Arrays.toString(msg));
                     os.write(msg);
                     os.flush();
                     msg = null;

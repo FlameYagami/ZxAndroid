@@ -1,10 +1,12 @@
-package com.zx.service;
+package com.zx.game.service;
 
+import com.zx.config.MyApp;
 import com.zx.uitls.LogUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
+import java.util.Arrays;
 
 /**
  * Created by Administrator on 2016/6/25.
@@ -43,10 +45,9 @@ class ClientInputThread extends Thread
                 if (len != -1) {
                     byte[] bytes = new byte[len];
                     System.arraycopy(data, 0, bytes, 0, len);
-//                    String modbus = StringUtils.changeByteToHexString(bytes, 0, bytes.length);
-//                    LogUtils.e(TAG, "收到信息" + modbus);
+                    LogUtils.e(TAG, "收到信息" + Arrays.toString(bytes));
                     if (isStart) {
-//                        new AnalysisThread(MyApplication.context, bytes).start();
+                        MyApp.mMessageManager.receiveMessage(bytes);
                     }
                 }
             }

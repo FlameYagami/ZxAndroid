@@ -14,6 +14,7 @@
     <string name="AbilityVoid">【常】虚空使者</string>
     <string name="AbilityStart">【常】起始卡</string>
     <string name="hyphen">-</string>
+    <string name="back">返回</string>
 
     <string name="deck_name_exits">卡组名称->已存在</string>
     <string name="add_succeed">添加->成功</string>
@@ -127,7 +128,7 @@
     <string name="temp_player_1">祈海</string>
     <string name="temp_room_name">生与死</string>
 
-    <!-- GameSettingActivity -->
+    <!-- VersusRoomActivity -->
     <string name="game_setting_about_title">游戏设置</string>
     <string name="deck_select">卡组选择:</string>
     <string name="duel_start">开始决斗</string>
@@ -142,4 +143,24 @@
     <string name="update_title">版本更新</string>
     <string name="update_is_new">当前版本->最新</string>
     <string name="update_is_update">是否立即更新</string>
+
+    <!-- VersusModeActivity -->
+    <string name="versus_mode_about_title">对战模式</string>
+    <string name="versus_personal">私人对战</string>
+    <string name="ladder_tournament">天梯排名</string>
+    <string name="versus_freedom">自由对战</string>
+
+    <!-- PersonalVersusActivity -->
+    <string name="create_room">建立房间</string>
+    <string name="join_room">进入房间</string>
+
+    <!-- VersusRoomActivity -->
+    <string name="versus_setting_about_title">对战设置</string>
+    <string name="room_id">房间ID</string>
+    <string name="versus">VS</string>
+    <string name="host">HOST</string>
+    <string name="guest">GUEST</string>
+    <string name="ready">准备</string>
+    <string name="waiting_for_player">等待玩家</string>
+
 </resources>

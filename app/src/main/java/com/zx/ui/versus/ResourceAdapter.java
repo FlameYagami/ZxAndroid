@@ -1,4 +1,4 @@
-package com.zx.ui.duel;
+package com.zx.ui.versus;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

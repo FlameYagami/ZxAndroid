@@ -6,16 +6,11 @@
     android:orientation="vertical"
     android:padding="10dp">
 
-    <EditText
-        android:id="@+id/editText"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_margin="15dp"
-        android:background="@drawable/txt_primary"
-        android:gravity="center"
-        android:maxLines="1"
-        android:textSize="18sp"/>
+        android:layout_height="match_parent">
 
-    <include layout="@layout/dialog_button"/>
+    </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

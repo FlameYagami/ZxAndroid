@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/view_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.zx.view.widget.HeaderView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title_text="@string/versus_setting_about_title"/>
+
+    <LinearLayout
+        style="@style/layout_match_parent"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            style="@style/layout_weight_height_match"
+            android:layout_margin="10dp"
+            android:layout_weight="1">
+
+            <RelativeLayout
+                android:id="@+id/view_player0"
+                style="@style/layout_match_parent"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tv_player_type_0"
+                    style="@style/layout_wrap_content"
+                    android:layout_above="@+id/tv_name_player0"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"
+                    android:textSize="24sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/tv_name_player0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/img_deck_player0"
+                    android:layout_centerHorizontal="true"
+                    android:layout_margin="10dp"
+                    android:gravity="center"
+                    android:text="@string/temp_player_0"/>
+
+                <ImageView
+                    android:id="@+id/img_deck_player0"
+                    style="@style/layout_match_parent"
+                    android:layout_width="100dp"
+                    android:layout_height="140dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/img_unknown_picture"/>
+
+                <TextView
+                    android:id="@+id/tv_deck_name_player0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/img_deck_player0"
+                    android:layout_centerHorizontal="true"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/img_unknown_picture"/>
+
+                <Button
+                    android:layout_below="@+id/tv_deck_name_player0"
+                    android:id="@+id/btn_ready_player0"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/btn_blue_circle"
+                    android:text="@string/ready"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/view_hint_player0"
+                style="@style/layout_match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@string/waiting_for_player"
+                    android:textSize="20sp"/>
+            </RelativeLayout>
+
+        </FrameLayout>
+
+        <RelativeLayout
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/view_room_id_top"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_red"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="@string/room_id"
+                    android:textColor="@color/gold"
+                    android:textSize="20sp"/>
+
+                <TextView
+                    android:id="@+id/tv_room_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:textColor="@color/gold"/>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/view_versus_status_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true">
+
+            </RelativeLayout>
+
+            <TextView
+                style="@style/layout_wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="@string/versus"
+                android:textSize="30sp"
+                android:textStyle="bold"/>
+
+        </RelativeLayout>
+
+        <FrameLayout
+            style="@style/layout_weight_height_match"
+            android:layout_margin="10dp"
+            android:layout_weight="1">
+
+            <RelativeLayout
+                android:id="@+id/view_player1"
+                style="@style/layout_match_parent"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tv_player_type_1"
+                    style="@style/layout_wrap_content"
+                    android:layout_above="@+id/tv_name_player1"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"
+                    android:textSize="24sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/tv_deck_name_player1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/img_deck_player1"
+                    android:layout_centerHorizontal="true"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/img_unknown_picture"/>
+
+                <TextView
+                    android:id="@+id/tv_name_player1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/img_deck_player1"
+                    android:layout_centerHorizontal="true"
+                    android:layout_margin="10dp"
+                    android:gravity="center"
+                    android:text="@string/temp_player_0"/>
+
+                <ImageView
+                    android:id="@+id/img_deck_player1"
+                    style="@style/layout_match_parent"
+                    android:layout_width="100dp"
+                    android:layout_height="140dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/img_unknown_picture"/>
+
+                <Button
+                    android:layout_below="@+id/tv_deck_name_player1"
+                    android:id="@+id/btn_ready_player1"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/btn_blue_circle"
+                    android:text="@string/ready"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/view_hint_player1"
+                style="@style/layout_match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@string/waiting_for_player"
+                    android:textSize="20sp"/>
+            </RelativeLayout>
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

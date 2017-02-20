@@ -1,4 +1,4 @@
-package com.zx.ui.duel;
+package com.zx.ui.versus;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -24,7 +24,7 @@ import static br.com.zbra.androidlinq.Linq.stream;
  * Created by 八神火焰 on 2017/1/13.
  */
 
-public class DuelActivity extends BaseExActivity
+public class VersusActivity extends BaseExActivity
 {
     @BindView(R.id.rv_red_hand)
     RecyclerView rvRedHand;

@@ -42,4 +42,10 @@ public class BundleUtils
         bundle.putString(key, value);
         return bundle;
     }
+
+    public static Bundle putByteArray(String key, byte[] value) {
+        Bundle bundle = new Bundle();
+        bundle.putByteArray(key, value);
+        return bundle;
+    }
 }
