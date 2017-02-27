@@ -8,7 +8,7 @@ import android.os.Environment;
 import com.liulishuo.filedownloader.FileDownloader;
 import com.zx.R;
 import com.zx.bean.UpdateBean;
-import com.zx.game.message.MessageManager;
+import com.zx.game.Client;
 
 import java.io.File;
 
@@ -29,13 +29,13 @@ public class MyApp extends Application
     public static String downloadPath;
     public static String banlistPath;
 
-    public static UpdateBean     mUpdateBean;
-    public static MessageManager mMessageManager;
+    public static UpdateBean mUpdateBean;
+    public static Client     Client;
 
     @Override
     public void onCreate() {
         context = getApplicationContext();
-        mMessageManager = new MessageManager();
+        Client = new Client();
         FileDownloader.init(context);
         initCache();
     }

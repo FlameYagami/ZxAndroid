@@ -2,6 +2,8 @@ package com.zx.game.message;
 
 import android.text.TextUtils;
 
+import com.zx.game.enums.CtosMessage;
+
 public class ModBus
 {
     public static final String TAG = ModBus.class.getSimpleName();
@@ -20,14 +22,14 @@ public class ModBus
     }
 
     public static ClientPacket onHeart() {
-        return getModBus((byte)0, "");
+        return getModBus(CtosMessage.Response, "");
     }
 
     /**
      * 创建房间
      */
     public static ClientPacket onCreateRoom(String playerName) {
-        return getModBus((byte)1, playerName);
+        return getModBus(CtosMessage.CreateGame, playerName);
     }
 
     /**
@@ -35,15 +37,15 @@ public class ModBus
      *
      * @param roomId 8位房间编号
      */
-    public static ClientPacket onJoinRoom(String roomId) {
-        return getModBus((byte)2, roomId);
+    public static ClientPacket onJoinRoom(String roomId, String playerName) {
+        return getModBus(CtosMessage.JoinGame, playerName + "#" + roomId);
     }
 
     /**
      * 离开房间
      */
     public static ClientPacket onLeaveRoom() {
-        return getModBus((byte)3);
+        return getModBus(CtosMessage.LeaveGame);
     }
 
 }

@@ -5,8 +5,8 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.zx.R;
 
@@ -22,9 +22,9 @@ public class DialogEditText extends AlertDialog
     @BindView(R.id.editText)
     EditText editText;
     @BindView(R.id.tv_cancel)
-    Button tvCancel;
+    TextView tvCancel;
     @BindView(R.id.tv_ok)
-    Button tvOk;
+    TextView tvOk;
 
     private OnButtonClick onButtonClick;
 

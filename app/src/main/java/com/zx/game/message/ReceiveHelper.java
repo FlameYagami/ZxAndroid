@@ -1,7 +1,13 @@
 package com.zx.game.message;
 
+import com.zx.config.MyApp;
 import com.zx.event.EnterRoomEvent;
+import com.zx.event.JoinRoomEvent;
 import com.zx.event.LeaveRoomEvent;
+import com.zx.game.Player;
+import com.zx.game.enums.PlayerChange;
+import com.zx.game.enums.PlayerType;
+import com.zx.game.enums.StocMessage;
 import com.zx.uitls.RxBus;
 
 import java.util.LinkedList;
@@ -26,13 +32,16 @@ class ReceiveHelper
             servicePacket.readByte();
             // 读取指令
             switch (servicePacket.readByte()) {
-                case 41:
-                    onCreateGame(servicePacket);
+                case StocMessage.HsPlayerEnter:
+                    onPlayerEnter(servicePacket);
                     break;
-                case 42:
+                case StocMessage.JoinGame:
                     onJoinGame(servicePacket);
                     break;
-                case 43:
+                case StocMessage.HsDuelistState:
+                    onPlayerChange(servicePacket);
+                    break;
+                case StocMessage.LeaveGame:
                     onLeaveGame(servicePacket);
                     break;
             }
@@ -40,23 +49,36 @@ class ReceiveHelper
         }
     }
 
-    private void onCreateGame(ServicePacket servicePacket) {
-        byte   playerType = servicePacket.readByte();
-        int    roomId     = servicePacket.readCSharpInt();
-        String playerName = servicePacket.readStringToEnd();
-        RxBus.getInstance().post(new EnterRoomEvent(playerType, roomId, playerName));
+    /**
+     * 通知有玩家进入房间,此时玩家信息数据存入缓存
+     */
+    private void onPlayerEnter(ServicePacket servicePacket) {
+        byte playerType = servicePacket.readByte();
+        if (playerType != PlayerType.Undefined) {
+            String playerName = servicePacket.readStringToEnd();
+            Player player     = new Player(playerType, playerName);
+            MyApp.Client.createRoom();
+            MyApp.Client.joinRoom(player);
+            RxBus.getInstance().post(new EnterRoomEvent(player));
+        }
     }
 
     private void onJoinGame(ServicePacket servicePacket) {
-        byte   playerType = servicePacket.readByte();
-        int    roomId     = servicePacket.readCSharpInt();
-        String playerName = servicePacket.readStringToEnd();
-        switch (playerType) {
-            case 1:
-            case 2:
-                RxBus.getInstance().post(new EnterRoomEvent(playerType, roomId, playerName));
-                break;
+        byte playerType = servicePacket.readByte();
+        if (playerType != PlayerType.Undefined) {
+            int roomId = servicePacket.readCSharpInt();
+            MyApp.Client.setRoom(String.valueOf(roomId));
+            MyApp.Client.Player.update(playerType);
+            RxBus.getInstance().post(new JoinRoomEvent(playerType));
+        } else {
+            RxBus.getInstance().post(new JoinRoomEvent(playerType, false));
         }
+    }
+
+    private void onPlayerChange(ServicePacket servicePacket) {
+        int     playerType = servicePacket.readByte() == PlayerType.Host ? 0 : 1;
+        boolean isReady    = servicePacket.readByte() == PlayerChange.Ready;
+        MyApp.Client.Room.setPlayerReady(playerType, isReady);
     }
 
     private void onLeaveGame(ServicePacket servicePacket) {

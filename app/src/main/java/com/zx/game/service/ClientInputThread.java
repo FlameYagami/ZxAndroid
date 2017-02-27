@@ -38,17 +38,21 @@ class ClientInputThread extends Thread
     @Override
     public void run() {
         try {
+            ClientInputCache clientInputCache = new ClientInputCache();
             while (isStart) {
-                byte[] data = new byte[1024 * 1024];
+                byte[] readBytes;
+                if (isStart && null != (readBytes = clientInputCache.read())) {
+                    LogUtils.e(TAG,"read->" + Arrays.toString(readBytes));
+                    MyApp.Client.receive(readBytes);
+                }
                 //读取信息,如果没信息将会阻塞线程
-                int len = is.read(data);
-                if (len != -1) {
+                byte[] data = new byte[1024];
+                int    len  = is.read(data);
+                if (-1 != len) {
                     byte[] bytes = new byte[len];
                     System.arraycopy(data, 0, bytes, 0, len);
                     LogUtils.e(TAG, "收到信息" + Arrays.toString(bytes));
-                    if (isStart) {
-                        MyApp.mMessageManager.receiveMessage(bytes);
-                    }
+                    clientInputCache.write(bytes);
                 }
             }
 

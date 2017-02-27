@@ -15,7 +15,7 @@ public class ServicePacket
 {
     private DataInputStream mDataInputStream;
 
-    ServicePacket(byte[] bytes) {
+    public ServicePacket(byte[] bytes) {
         InputStream mInputStream = new ByteArrayInputStream(bytes);
         mDataInputStream = new DataInputStream(mInputStream);
     }
@@ -57,6 +57,23 @@ public class ServicePacket
         return -1;
     }
 
+    public byte[] readBytes(int length) {
+        byte[] bytes = new byte[length];
+        for (int i = 0; i != length; i++) {
+            bytes[i] = readByte();
+        }
+        return bytes;
+    }
+
+    public String readString(int length) {
+        try {
+            return new String(readBytes(length), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return "-1";
+    }
+
     public String readStringToEnd() {
         try {
             return new String(readBytesToEnd(), "UTF-8");
@@ -68,12 +85,7 @@ public class ServicePacket
 
     public byte[] readBytesToEnd() {
         try {
-            int    avi   = mDataInputStream.available();
-            byte[] bytes = new byte[avi];
-            for (int i = 0; i != avi; i++) {
-                bytes[i] = readByte();
-            }
-            return bytes;
+            return readBytes(mDataInputStream.available());
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -1,16 +1,12 @@
 package com.zx.game.message;
 
-import com.zx.game.service.ClientService;
-import com.zx.uitls.IntentUtils;
 import com.zx.uitls.LogUtils;
 import com.zx.uitls.Md5Utils;
 
 import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
-import rx.Subscriber;
-
-import static com.zx.config.MyApp.context;
+import rx.Subscription;
 
 /**
  * Created by 八神火焰 on 2017/2/10.
@@ -30,12 +26,10 @@ public class MessageManager
     }
 
     public void start() {
-        IntentUtils.startService(ClientService.class);
         mTickSubscriber = new TickSubscriber();
     }
 
-    public void end() {
-        IntentUtils.sendBroadcast(context, ClientService.STOP_SERVICE);
+    public void finish() {
         mTickSubscriber.releaseSubscriber();
     }
 
@@ -62,29 +56,17 @@ public class MessageManager
 
     private class TickSubscriber
     {
-        TickSubscriber(){
-            Observable.interval(1000, TimeUnit.MILLISECONDS).subscribe(subscriber);
+        Subscription stopMePlease;
+
+        TickSubscriber() {
+            stopMePlease = Observable.interval(100, TimeUnit.MILLISECONDS).subscribe(aLong -> {
+                tick();
+            });
         }
 
-        Subscriber<Long> subscriber = new Subscriber<Long>()
-        {
-            @Override
-            public void onCompleted() {
-            }
-
-            @Override
-            public void onError(Throwable e) {
-            }
-
-            @Override
-            public void onNext(Long o) {
-                tick();
-            }
-        };
-
         void releaseSubscriber() {
-            subscriber.unsubscribe();
-            subscriber = null;
+            stopMePlease.unsubscribe();
+            stopMePlease = null;
         }
     }
 }

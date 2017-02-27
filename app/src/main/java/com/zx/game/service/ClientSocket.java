@@ -107,7 +107,7 @@ class ClientSocket extends Thread
             isRun = true;
             while (isRun) {
                 try {
-                    MyApp.mMessageManager.sendMessage(ModBus.onHeart());
+                    MyApp.Client.send(ModBus.onHeart());
                     sleep(15000);
                 } catch (Exception e) {
                     e.printStackTrace();
