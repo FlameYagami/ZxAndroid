@@ -1,13 +1,16 @@
 package com.zx.game.message;
 
 import com.zx.config.MyApp;
-import com.zx.event.EnterRoomEvent;
-import com.zx.event.JoinRoomEvent;
-import com.zx.event.LeaveRoomEvent;
+import com.zx.event.DuelistStateEvent;
+import com.zx.event.EnterGameEvent;
+import com.zx.event.JoinGameEvent;
+import com.zx.event.LeaveGameEvent;
+import com.zx.event.StartGameEvent;
+import com.zx.game.GameConfig;
 import com.zx.game.Player;
 import com.zx.game.enums.PlayerChange;
 import com.zx.game.enums.PlayerType;
-import com.zx.game.enums.StocMessage;
+import com.zx.game.enums.ServiceMessage;
 import com.zx.uitls.RxBus;
 
 import java.util.LinkedList;
@@ -32,17 +35,26 @@ class ReceiveHelper
             servicePacket.readByte();
             // 读取指令
             switch (servicePacket.readByte()) {
-                case StocMessage.HsPlayerEnter:
+                case ServiceMessage.PlayerEnter:
                     onPlayerEnter(servicePacket);
                     break;
-                case StocMessage.JoinGame:
+                case ServiceMessage.JoinGame:
                     onJoinGame(servicePacket);
                     break;
-                case StocMessage.HsDuelistState:
-                    onPlayerChange(servicePacket);
+                case ServiceMessage.GameConfig:
+                    onGameConfig(servicePacket);
                     break;
-                case StocMessage.LeaveGame:
+                case ServiceMessage.DuelistInfo:
+                    onDuelistInfo(servicePacket);
+                    break;
+                case ServiceMessage.DuelistState:
+                    onDuelistState(servicePacket);
+                    break;
+                case ServiceMessage.LeaveGame:
                     onLeaveGame(servicePacket);
+                    break;
+                case ServiceMessage.StartGame:
+                    onStartGame(servicePacket);
                     break;
             }
             modbusQueue.remove();
@@ -50,40 +62,75 @@ class ReceiveHelper
     }
 
     /**
-     * 通知有玩家进入房间,此时玩家信息数据存入缓存
+     * 开始游戏
+     */
+    private void onStartGame(ServicePacket servicePacket) {
+        RxBus.getInstance().post(new StartGameEvent());
+    }
+
+    /**
+     * 向本地玩家传递其他玩家进入房间的消息,并将信息数据存入缓存
      */
     private void onPlayerEnter(ServicePacket servicePacket) {
         byte playerType = servicePacket.readByte();
+        // 成功创建房间或是找到对应房间
         if (playerType != PlayerType.Undefined) {
             String playerName = servicePacket.readStringToEnd();
             Player player     = new Player(playerType, playerName);
-            MyApp.Client.createRoom();
-            MyApp.Client.joinRoom(player);
-            RxBus.getInstance().post(new EnterRoomEvent(player));
+            // 对已经在房间的玩家发送其他玩家进入的消息
+            RxBus.getInstance().post(new EnterGameEvent(player));
+            if (null != MyApp.Client.Game){
+                MyApp.Client.Game.updateDuelist(player);
+            }
         }
     }
 
+    /**
+     * 向本地玩家传递进入房间的消息,并更新本地玩家类型
+     */
     private void onJoinGame(ServicePacket servicePacket) {
         byte playerType = servicePacket.readByte();
+        // 成功创建房间或是找到对应房间
         if (playerType != PlayerType.Undefined) {
             int roomId = servicePacket.readCSharpInt();
-            MyApp.Client.setRoom(String.valueOf(roomId));
-            MyApp.Client.Player.update(playerType);
-            RxBus.getInstance().post(new JoinRoomEvent(playerType));
+            // Game中的本地玩家取自索引
+            MyApp.Client.Player.setType(playerType);
+            MyApp.Client.createGame(String.valueOf(roomId), MyApp.Client.Player);
+            RxBus.getInstance().post(new JoinGameEvent(playerType));
         } else {
-            RxBus.getInstance().post(new JoinRoomEvent(playerType, false));
+            RxBus.getInstance().post(new JoinGameEvent(playerType, false));
         }
     }
 
-    private void onPlayerChange(ServicePacket servicePacket) {
-        int     playerType = servicePacket.readByte() == PlayerType.Host ? 0 : 1;
+    private void onGameConfig(ServicePacket servicePacket) {
+        MyApp.Client.Game.GameConfig = new GameConfig(servicePacket);
+    }
+
+    private void onDuelistInfo(ServicePacket servicePacket) {
+        byte    playerType = servicePacket.readByte();
         boolean isReady    = servicePacket.readByte() == PlayerChange.Ready;
-        MyApp.Client.Room.setPlayerReady(playerType, isReady);
+        String  playerName = servicePacket.readStringToEnd();
+        MyApp.Client.Game.updateDuelist(new Player(playerType, playerName, isReady));
+    }
+
+    private void onDuelistState(ServicePacket servicePacket) {
+        byte    playerType = servicePacket.readByte();
+        boolean isReady    = servicePacket.readByte() == PlayerChange.Ready;
+        MyApp.Client.Game.setPlayerReady(playerType, isReady);
+        // 向界面告知选手状态改变
+        RxBus.getInstance().post(new DuelistStateEvent());
     }
 
     private void onLeaveGame(ServicePacket servicePacket) {
         byte   playerType = servicePacket.readByte();
         String playerName = servicePacket.readStringToEnd();
-        RxBus.getInstance().post(new LeaveRoomEvent(playerType, playerName));
+        // 向界面告知选手离开
+        RxBus.getInstance().post(new LeaveGameEvent(new Player(playerType, playerName), MyApp.Client.Player.getType()));
+        // 对应本地用户准备状态更新
+        if (playerType == MyApp.Client.Player.getType()) {
+            MyApp.Client.leaveGame();
+        } else {
+            MyApp.Client.Game.removePlayer(new Player(playerType, playerName));
+        }
     }
 }

@@ -1,5 +1,6 @@
 package com.zx.game;
 
+import com.zx.game.enums.PlayerType;
 import com.zx.game.message.ClientPacket;
 import com.zx.game.message.MessageManager;
 import com.zx.game.service.ClientService;
@@ -13,14 +14,15 @@ import static com.zx.config.MyApp.context;
 
 public class Client
 {
-    public MessageManager mMessageManager;
+    public MessageManager MessageManager;
     public Player         Player;
     public Room           Room;
+    public Game           Game;
 
     public void start() {
         IntentUtils.startService(ClientService.class);
-        mMessageManager = new MessageManager();
-        mMessageManager.start();
+        MessageManager = new MessageManager();
+        MessageManager.start();
     }
 
     public void initPlayer(String playerName) {
@@ -30,30 +32,34 @@ public class Client
     /**
      * 创建房间缓存
      */
-    public void createRoom(){
-        if (null == Room){
-            Room = new Room();
+    public void createGame(String roomId, Player player) {
+        if (null == Room) {
+            Room = new Room(roomId);
+        }
+        if (null == Game) {
+            Game = new Game(player);
         }
     }
 
-    public void setRoom(String roomId){
-        Room.setRoomId(roomId);
-    }
-
-    public void joinRoom(Player player){
-        Room.addPlayer(player);
+    /**
+     * 销毁房间缓存
+     */
+    public void leaveGame() {
+        Room = null;
+        Game = null;
+        Player.setType(PlayerType.Undefined);
     }
 
     public void finish() {
-        mMessageManager.finish();
+        MessageManager.finish();
         IntentUtils.sendBroadcast(context, ClientService.STOP_SERVICE);
     }
 
     public void send(ClientPacket clientPacket) {
-        mMessageManager.sendMessage(clientPacket);
+        MessageManager.sendMessage(clientPacket);
     }
 
     public void receive(byte[] bytes) {
-        mMessageManager.receiveMessage(bytes);
+        MessageManager.receiveMessage(bytes);
     }
 }

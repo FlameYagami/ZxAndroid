@@ -6,15 +6,22 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
+import com.zx.config.MyApp;
 import com.zx.uitls.AppManager;
-import com.zx.view.dialog.DialogLoading;
 import com.zx.uitls.DisplayUtils;
 import com.zx.uitls.RxBus;
 import com.zx.uitls.StatusBarUtils;
+import com.zx.view.dialog.DialogLoading;
+import com.zx.view.widget.ToastView;
 
 public abstract class BaseExActivity extends Activity
 {
+    protected void showToast(String message) {
+        runOnUiThread(() -> ToastView.make(MyApp.context, message, Toast.LENGTH_SHORT).show());
+    }
+
     protected void showSnackBar(View view, String message) {
         Snackbar.make(view, message, Snackbar.LENGTH_SHORT).show();
     }

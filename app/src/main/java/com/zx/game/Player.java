@@ -17,10 +17,17 @@ public class Player
     public Player(byte type, String name) {
         this.name = name;
         this.type = type;
+        this.ready = false;
     }
 
-    public void update(byte playerType) {
-        this.type = playerType;
+    public Player(byte type, String name, boolean isReady) {
+        this.name = name;
+        this.type = type;
+        this.ready = isReady;
+    }
+
+    public void setType(byte type) {
+        this.type = type;
     }
 
     public boolean isReady() {

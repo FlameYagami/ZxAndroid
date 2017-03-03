@@ -25,6 +25,7 @@ public class MapConst
         GuideMap.put("C16", R.drawable.img_guide_c16);
         GuideMap.put("C17", R.drawable.img_guide_c17);
         GuideMap.put("E07", R.drawable.img_guide_e07);
+        GuideMap.put("E08", R.drawable.img_guide_e08);
 
 //        RareMap.put("CVR",R.drawable.img_rare_cvr);
 //        RareMap.put("IGR",R.drawable.img_rare_igr);

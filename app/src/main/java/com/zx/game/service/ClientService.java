@@ -23,6 +23,7 @@ public class ClientService extends Service
     public static final String STOP_SERVICE   = "STOP_SERVICE";
     public static final String SEND_MESSAGE   = "SEND_MESSAGE";
     public static final String RESTART_SOCKET = "RESTART_SOCKET";
+    public static final String CONNECT_ERROR  = "CONNECT_ERROR";
 
     private ClientSocket      clientSocket;
     private BroadcastReceiver broadcastReceiver;
@@ -54,21 +55,20 @@ public class ClientService extends Service
             @Override
             public void onReceive(Context context, Intent intent) {
                 switch (intent.getAction()) {
-                    case STOP_SERVICE: {
+                    case STOP_SERVICE:
                         stopSelf();
                         break;
-                    }
-                    case SEND_MESSAGE: {
+                    case SEND_MESSAGE:
                         byte[] bytes = intent.getByteArrayExtra(byte[].class.getSimpleName());
                         if (clientSocket != null) {
                             clientSocket.sendMsg(bytes);
                         }
                         break;
-                    }
-                    case RESTART_SOCKET: {
+                    case RESTART_SOCKET:
                         restartSocket();
                         break;
-                    }
+                    case CONNECT_ERROR:
+                        break;
                 }
             }
         };
@@ -76,6 +76,7 @@ public class ClientService extends Service
         filter.addAction(STOP_SERVICE);
         filter.addAction(RESTART_SOCKET);
         filter.addAction(SEND_MESSAGE);
+        filter.addAction(CONNECT_ERROR);
         registerReceiver(broadcastReceiver, filter);
     }
 

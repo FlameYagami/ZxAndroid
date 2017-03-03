@@ -5,7 +5,7 @@ import android.widget.LinearLayout;
 
 import com.zx.R;
 import com.zx.config.MyApp;
-import com.zx.event.JoinRoomEvent;
+import com.zx.event.JoinGameEvent;
 import com.zx.game.enums.PlayerType;
 import com.zx.game.message.ModBus;
 import com.zx.ui.base.BaseActivity;
@@ -47,7 +47,7 @@ public class VersusModeActivity extends BaseActivity
         MyApp.Client.initPlayer(String.valueOf(new Random().nextInt()));
         MyApp.Client.start();
 
-        RxBus.getInstance().addSubscription(this, RxBus.getInstance().toObservable(JoinRoomEvent.class).subscribe(this::onJoinRoom));
+        RxBus.getInstance().addSubscription(this, RxBus.getInstance().toObservable(JoinGameEvent.class).subscribe(this::onJoinRoom));
     }
 
     @OnClick(R.id.img_back)
@@ -68,21 +68,21 @@ public class VersusModeActivity extends BaseActivity
         }
     }
 
-    private void onJoinRoom(JoinRoomEvent mJoinRoomEvent) {
+    private void onJoinRoom(JoinGameEvent mJoinGameEvent) {
         hideDialog();
-        if (mJoinRoomEvent.getPlayerType() == PlayerType.Host) {
+        if (mJoinGameEvent.getPlayerType() == PlayerType.Host) {
             mDialogVersusPersonal.dismiss();
-            if (mJoinRoomEvent.isSucceed()) {
+            if (mJoinGameEvent.isSucceed()) {
                 IntentUtils.gotoActivity(this, VersusRoomActivity.class);
             } else {
-                showSnackBar(viewContent, "无法创建房间,请稍后再试");
+                showToast("服务器房间队列已满,请稍后再试");
             }
         } else {
             mDialogJoinRoom.dismiss();
-            if (mJoinRoomEvent.isSucceed()) {
+            if (mJoinGameEvent.isSucceed()) {
                 IntentUtils.gotoActivity(this, VersusRoomActivity.class);
             } else {
-                showSnackBar(viewContent, "房间不存在");
+                showToast("该房间不存在");
             }
         }
     }
@@ -97,7 +97,7 @@ public class VersusModeActivity extends BaseActivity
                 onJoinRoom();
             } else if (type.equals(DialogVersusPersonal.ButtonType.CreateRoom)) {
                 showDialog("");
-                MyApp.Client.send(ModBus.onCreateRoom(MyApp.Client.Player.getName()));
+                MyApp.Client.send(ModBus.onCreateRoom(MyApp.Client.Player));
             }
         });
         mDialogVersusPersonal.show();
@@ -108,7 +108,7 @@ public class VersusModeActivity extends BaseActivity
      */
     private void onJoinRoom() {
         mDialogJoinRoom = new DialogEditText(this, getString(R.string.join_room), "", "请输入房间号", (dialog, content) -> {
-            MyApp.Client.send(ModBus.onJoinRoom(content, MyApp.Client.Player.getName()));
+            MyApp.Client.send(ModBus.onJoinRoom(content, MyApp.Client.Player));
             showDialog("");
         });
         mDialogJoinRoom.show();

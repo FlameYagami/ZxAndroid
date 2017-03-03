@@ -59,7 +59,7 @@ public class DeckManager
      * @param deckName     卡组名称
      * @param numberExList 编号扩展集合(B01-001A、B01-001B)
      */
-    DeckManager(String deckName, List<String> numberExList) {
+    public DeckManager(String deckName, List<String> numberExList) {
         this.numberExList.clear();
         this.numberExList = numberExList;
         this.deckName = deckName;
@@ -84,6 +84,8 @@ public class DeckManager
     public List<DeckBean> getExList(){
         return ExList;
     }
+
+    public List<String> getNumberExList(){return numberExList;}
 
     /**
      * 加载卡组

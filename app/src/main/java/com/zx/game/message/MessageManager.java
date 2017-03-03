@@ -3,6 +3,7 @@ package com.zx.game.message;
 import com.zx.uitls.LogUtils;
 import com.zx.uitls.Md5Utils;
 
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
@@ -41,7 +42,7 @@ public class MessageManager
 
     public void receiveMessage(byte[] bytes) {
         if (!Md5Utils.check(bytes)) {
-            LogUtils.e(TAG, "Md5校验错误");
+            LogUtils.e(TAG, "Md5校验错误->", Arrays.toString(bytes));
             return;
         }
         // 移除Md5验证码

@@ -1,9 +1,16 @@
 package com.zx.game.service;
 
+import com.zx.config.MyApp;
 import com.zx.game.message.ServicePacket;
+import com.zx.uitls.LogUtils;
 import com.zx.uitls.Md5Utils;
 
 import java.nio.ByteBuffer;
+import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
+
+import rx.Observable;
+import rx.Subscription;
 
 /**
  * Created by 八神火焰 on 2017/2/25.
@@ -13,7 +20,21 @@ public class ClientInputCache
 {
     private static final String TAG = ClientInputCache.class.getSimpleName();
 
-    private ByteBuffer mByteBuffer;
+    private ByteBuffer     mByteBuffer;
+    private ReadSubscriber mReadSubscriber;
+
+    public ClientInputCache() {
+        if (null == mReadSubscriber) {
+            mReadSubscriber = new ReadSubscriber();
+        }
+    }
+
+    public void onDestroy() {
+        if (null != mReadSubscriber) {
+            mReadSubscriber.releaseSubscriber();
+            mReadSubscriber = null;
+        }
+    }
 
     public void write(byte[] bytes) {
         byte[] remainingBytes;
@@ -23,7 +44,7 @@ public class ClientInputCache
         mByteBuffer = ByteBuffer.wrap(bytes);
     }
 
-    public byte[] getRemaining() {
+    private byte[] getRemaining() {
         if (null != mByteBuffer && mByteBuffer.hasRemaining()) {
             byte[] bytes = new byte[mByteBuffer.remaining()];
             mByteBuffer.get(bytes, 0, mByteBuffer.remaining());
@@ -32,7 +53,7 @@ public class ClientInputCache
         return null;
     }
 
-    public byte[] read() {
+    private synchronized byte[] read() {
         int length = readLength();
         if (-1 != length && length + 4 <= mByteBuffer.remaining()) {
             byte[] bytes = new byte[length];
@@ -45,10 +66,31 @@ public class ClientInputCache
 
     private int readLength() {
         if (null != mByteBuffer && 4 <= mByteBuffer.remaining()) {
-            byte[] bytes = new byte[4];
-            System.arraycopy(mByteBuffer.array(), 0, bytes, 0, 4);
+            byte[] bytes   = new byte[4];
+            int    position = mByteBuffer.array().length - mByteBuffer.remaining();
+            System.arraycopy(mByteBuffer.array(), position, bytes, 0, 4);
             return new ServicePacket(bytes).readCSharpInt();
         }
         return -1;
+    }
+
+    private class ReadSubscriber
+    {
+        Subscription subscription;
+
+        ReadSubscriber() {
+            subscription = Observable.interval(500, TimeUnit.MILLISECONDS).subscribe(aLong -> {
+                byte[] readBytes;
+                if (null != (readBytes = read())) {
+                    MyApp.Client.receive(readBytes);
+                    LogUtils.e(TAG, "Read->完整数据包" + Arrays.toString(readBytes));
+                }
+            });
+        }
+
+        void releaseSubscriber() {
+            subscription.unsubscribe();
+            subscription = null;
+        }
     }
 }

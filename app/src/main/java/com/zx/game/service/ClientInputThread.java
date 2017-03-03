@@ -1,6 +1,5 @@
 package com.zx.game.service;
 
-import com.zx.config.MyApp;
 import com.zx.uitls.LogUtils;
 
 import java.io.IOException;
@@ -16,10 +15,9 @@ class ClientInputThread extends Thread
     private static final String TAG = ClientInputThread.class.getSimpleName();
 
     private Socket socket;
-    private String msg;
     private boolean isStart = true;
-    private InputStream is;
-
+    private InputStream      is;
+    private ClientInputCache clientInputCache;
 
     ClientInputThread(Socket socket) {
         this.socket = socket;
@@ -30,7 +28,6 @@ class ClientInputThread extends Thread
         }
     }
 
-
     public void setStart(boolean isStart) {
         this.isStart = isStart;
     }
@@ -38,31 +35,26 @@ class ClientInputThread extends Thread
     @Override
     public void run() {
         try {
-            ClientInputCache clientInputCache = new ClientInputCache();
+            clientInputCache = new ClientInputCache();
             while (isStart) {
-                byte[] readBytes;
-                if (isStart && null != (readBytes = clientInputCache.read())) {
-                    LogUtils.e(TAG,"read->" + Arrays.toString(readBytes));
-                    MyApp.Client.receive(readBytes);
-                }
                 //读取信息,如果没信息将会阻塞线程
                 byte[] data = new byte[1024];
                 int    len  = is.read(data);
-                if (-1 != len) {
+                if (-1 != len && isStart) {
                     byte[] bytes = new byte[len];
                     System.arraycopy(data, 0, bytes, 0, len);
-                    LogUtils.e(TAG, "收到信息" + Arrays.toString(bytes));
                     clientInputCache.write(bytes);
+                    LogUtils.e(TAG, "Read->可能存在粘包的数据包" + Arrays.toString(bytes));
                 }
             }
-
         } catch (Exception e) {
-            LogUtils.e(TAG, "read线程抛异常");
+            LogUtils.e(TAG, "Read线程抛异常");
             e.printStackTrace();
         } finally {
             try {
                 is.close();
                 socket.close();
+                clientInputCache.onDestroy();
             } catch (IOException e) {
                 e.printStackTrace();
             }
