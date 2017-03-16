@@ -14,8 +14,8 @@
     <com.zx.view.widget.MessageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:message_message_text="@string/key_search_hint"
-        app:message_title_text="@string/key_search"/>
+        app:message_text="@string/key_search_hint"
+        app:title_text="@string/key_search"/>
 
     <View
         android:layout_width="match_parent"
@@ -25,8 +25,8 @@
     <com.zx.view.widget.MessageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:message_message_text="@string/interval_search_hint"
-        app:message_title_text="@string/interval_search"/>
+        app:message_text="@string/interval_search_hint"
+        app:title_text="@string/interval_search"/>
 
     <View
         android:layout_width="match_parent"
@@ -36,7 +36,7 @@
     <com.zx.view.widget.MessageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:message_message_text="@string/deck_operate_hint"
-        app:message_title_text="@string/deck_operate"/>
+        app:message_text="@string/deck_operate_hint"
+        app:title_text="@string/deck_operate"/>
 
 </LinearLayout>

@@ -21,15 +21,17 @@ import com.zx.bean.CardBean;
 import com.zx.bean.DeckBean;
 import com.zx.bean.DeckPreviewBean;
 import com.zx.config.Enum;
-import com.zx.config.MyApp;
 import com.zx.event.CardListEvent;
+import com.zx.game.DeckManager;
+import com.zx.game.utils.CardUtils;
+import com.zx.game.utils.DeckUtils;
 import com.zx.ui.advancedsearch.AdvancedSearchActivity;
 import com.zx.ui.base.BaseActivity;
 import com.zx.ui.detail.DetailActivity;
 import com.zx.uitls.BundleUtils;
-import com.zx.uitls.CardUtils;
 import com.zx.uitls.DisplayUtils;
 import com.zx.uitls.IntentUtils;
+import com.zx.uitls.PathManager;
 import com.zx.uitls.RxBus;
 import com.zx.uitls.database.SQLiteUtils;
 import com.zx.uitls.database.SqlUtils;
@@ -149,9 +151,9 @@ public class DeckEditorActivity extends BaseActivity implements PopupMenu.OnMenu
         mPreviewCardAdapter.setOnItemLongClickListener(this::addCard);
 
         mDeckManager = new DeckManager(deckPreviewBean.getDeckName(), deckPreviewBean.getNumberExList());
-        mDeckManager.loadDeck();
         updateAllRecyclerView();
-        updateStartAndLifeAndVoid(mDeckManager.getStartAndLifeAndVoidCount());
+        updateStartAndLifeAndVoid(DeckUtils.getStartAndLifeAndVoidCount(mDeckManager));
+
         RxBus.getInstance().addSubscription(this, RxBus.getInstance().toObservable(CardListEvent.class).subscribe(this::updatePreview));
     }
 
@@ -219,11 +221,11 @@ public class DeckEditorActivity extends BaseActivity implements PopupMenu.OnMenu
     private void addCard(View view, List<?> data, int position) {
         CardBean      cardBean       = (CardBean)data.get(position);
         String        numberEx       = CardUtils.getNumberEx(cardBean.getImage(), bannerPageChangeListener.getCurrentIndex());
-        String        imagePath      = MyApp.pictureCache + File.separator + numberEx + context.getString(R.string.image_extension);
+        String        imagePath      = PathManager.pictureCache + File.separator + numberEx + context.getString(R.string.image_extension);
         Enum.AreaType areaType       = CardUtils.getAreaType(cardBean);
         Enum.AreaType returnAreaType = mDeckManager.addCard(areaType, numberEx, imagePath);
         updateSingleRecyclerView(returnAreaType, Enum.OperateType.Add, position);
-        updateStartAndLifeAndVoid(mDeckManager.getStartAndLifeAndVoidCount());
+        updateStartAndLifeAndVoid(DeckUtils.getStartAndLifeAndVoidCount(mDeckManager));
     }
 
     public void removeCard(View view, List<?> data, int position) {
@@ -232,7 +234,7 @@ public class DeckEditorActivity extends BaseActivity implements PopupMenu.OnMenu
         Enum.AreaType areaType       = CardUtils.getAreaType(numberEx);
         Enum.AreaType returnAreaType = mDeckManager.deleteCard(areaType, numberEx);
         updateSingleRecyclerView(returnAreaType, Enum.OperateType.Remove, position);
-        updateStartAndLifeAndVoid(mDeckManager.getStartAndLifeAndVoidCount());
+        updateStartAndLifeAndVoid(DeckUtils.getStartAndLifeAndVoidCount(mDeckManager));
     }
 
     @OnClick(R.id.fab_search)
@@ -262,7 +264,7 @@ public class DeckEditorActivity extends BaseActivity implements PopupMenu.OnMenu
 
     @OnClick(R.id.tv_deck_save)
     public void onDeckSave_Click() {
-        showSnackBar(viewContent, mDeckManager.saveDeck() ? saveSucceed : saveFailed);
+        showSnackBar(viewContent, DeckUtils.saveDeck(mDeckManager) ? saveSucceed : saveFailed);
     }
 
     private void updateSingleRecyclerView(Enum.AreaType areaType, Enum.OperateType operateType, int position) {
@@ -272,7 +274,7 @@ public class DeckEditorActivity extends BaseActivity implements PopupMenu.OnMenu
         // 添加成功则更新该区域
         if (operateType.equals(Enum.OperateType.Add)) {
             if (areaType.equals(Enum.AreaType.Player)) {
-                Glide.with(this).load(MyApp.pictureCache + File.separator + mDeckManager.getPlayerList().get(0).getNumberEx() + context.getString(R.string.image_extension))
+                Glide.with(this).load(PathManager.pictureCache + File.separator + mDeckManager.getPlayerList().get(0).getNumberEx() + context.getString(R.string.image_extension))
                         .error(R.drawable.img_unknown_picture).into(imgPl);
             } else if (areaType.equals(Enum.AreaType.Ig)) {
                 mIgDeckAdapter.addData(mDeckManager.getIgList(), mDeckManager.getIgList().size() - 1);
@@ -296,7 +298,7 @@ public class DeckEditorActivity extends BaseActivity implements PopupMenu.OnMenu
 
     private void updateAllRecyclerView() {
         if (0 != mDeckManager.getPlayerList().size()) {
-            Glide.with(this).load(MyApp.pictureCache + File.separator + mDeckManager.getPlayerList().get(0).getNumberEx() + context.getString(R.string.image_extension)).error(null).into(imgPl);
+            Glide.with(this).load(PathManager.pictureCache + File.separator + mDeckManager.getPlayerList().get(0).getNumberEx() + context.getString(R.string.image_extension)).error(null).into(imgPl);
         }
         mIgDeckAdapter.updateData(mDeckManager.getIgList());
         mUgDeckAdapter.updateData(mDeckManager.getUgList());

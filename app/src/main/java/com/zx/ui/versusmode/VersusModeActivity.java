@@ -7,7 +7,7 @@ import com.zx.R;
 import com.zx.config.MyApp;
 import com.zx.event.JoinGameEvent;
 import com.zx.game.enums.PlayerType;
-import com.zx.game.message.ModBus;
+import com.zx.game.message.ModBusCreator;
 import com.zx.ui.base.BaseActivity;
 import com.zx.ui.versuroom.VersusRoomActivity;
 import com.zx.uitls.IntentUtils;
@@ -97,7 +97,7 @@ public class VersusModeActivity extends BaseActivity
                 onJoinRoom();
             } else if (type.equals(DialogVersusPersonal.ButtonType.CreateRoom)) {
                 showDialog("");
-                MyApp.Client.send(ModBus.onCreateRoom(MyApp.Client.Player));
+                MyApp.Client.send(ModBusCreator.onCreateRoom(MyApp.Client.Player));
             }
         });
         mDialogVersusPersonal.show();
@@ -108,7 +108,7 @@ public class VersusModeActivity extends BaseActivity
      */
     private void onJoinRoom() {
         mDialogJoinRoom = new DialogEditText(this, getString(R.string.join_room), "", "请输入房间号", (dialog, content) -> {
-            MyApp.Client.send(ModBus.onJoinRoom(content, MyApp.Client.Player));
+            MyApp.Client.send(ModBusCreator.onJoinRoom(content, MyApp.Client.Player));
             showDialog("");
         });
         mDialogJoinRoom.show();

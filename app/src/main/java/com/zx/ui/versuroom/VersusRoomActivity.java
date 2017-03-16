@@ -15,11 +15,11 @@ import com.zx.event.DuelistStateEvent;
 import com.zx.event.EnterGameEvent;
 import com.zx.event.LeaveGameEvent;
 import com.zx.event.StartGameEvent;
+import com.zx.game.DeckManager;
 import com.zx.game.Player;
 import com.zx.game.enums.PlayerType;
-import com.zx.game.message.ModBus;
+import com.zx.game.message.ModBusCreator;
 import com.zx.ui.base.BaseExActivity;
-import com.zx.ui.deckeditor.DeckManager;
 import com.zx.ui.versus.VersusActivity;
 import com.zx.uitls.IntentUtils;
 import com.zx.uitls.RxBus;
@@ -107,13 +107,13 @@ public class VersusRoomActivity extends BaseExActivity
     @OnClick(R.id.img_back)
     public void onBack_Click() {
         showDialog("");
-        MyApp.Client.send(ModBus.onLeaveRoom(MyApp.Client.Player));
+        MyApp.Client.send(ModBusCreator.onLeaveRoom(MyApp.Client.Player));
     }
 
     @Override
     public void onBackPressed() {
         showDialog("");
-        MyApp.Client.send(ModBus.onLeaveRoom(MyApp.Client.Player));
+        MyApp.Client.send(ModBusCreator.onLeaveRoom(MyApp.Client.Player));
     }
 
     /**
@@ -140,7 +140,7 @@ public class VersusRoomActivity extends BaseExActivity
                 showToast("请选择卡组");
             } else {
                 showDialog("");
-                MyApp.Client.send(ModBus.onPlayerState(MyApp.Client.Player));
+                MyApp.Client.send(ModBusCreator.onPlayerState(MyApp.Client.Player));
             }
         }
     }
@@ -182,7 +182,7 @@ public class VersusRoomActivity extends BaseExActivity
         hideDialog();
         if (2 == stream(MyApp.Client.Game.getDuelists()).where(Player::isReady).count() && PlayerType.Host == ownerType) {
             showDialog("");
-            MyApp.Client.send(ModBus.onStartGame(mDeckManager));
+            MyApp.Client.send(ModBusCreator.onStartGame(mDeckManager));
         }
     }
 

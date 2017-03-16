@@ -1,4 +1,4 @@
-package com.zx.ui.deckeditor;
+package com.zx.game;
 
 import android.text.TextUtils;
 
@@ -6,10 +6,7 @@ import com.zx.R;
 import com.zx.bean.CardBean;
 import com.zx.bean.DeckBean;
 import com.zx.config.Enum;
-import com.zx.uitls.CardUtils;
-import com.zx.uitls.DeckUtils;
-import com.zx.uitls.FileUtils;
-import com.zx.uitls.JsonUtils;
+import com.zx.game.utils.CardUtils;
 import com.zx.uitls.database.SQLiteUtils;
 
 import java.io.File;
@@ -19,10 +16,10 @@ import java.util.Random;
 
 import static br.com.zbra.androidlinq.Linq.stream;
 import static com.zx.config.MyApp.context;
-import static com.zx.config.MyApp.pictureCache;
-import static com.zx.uitls.CardUtils.getAreaType;
-import static com.zx.uitls.CardUtils.isLife;
-import static com.zx.uitls.CardUtils.isVoid;
+import static com.zx.game.utils.CardUtils.getAreaType;
+import static com.zx.game.utils.CardUtils.isLife;
+import static com.zx.game.utils.CardUtils.isVoid;
+import static com.zx.uitls.PathManager.pictureCache;
 
 /**
  * Created by 八神火焰 on 2017/1/14.
@@ -35,8 +32,11 @@ public class DeckManager
     // 卡组名称
     private String deckName;
 
+    // 卡组Md5集合
+    private List<String> Md5List = new ArrayList<>();
+
     // 卡组扩展名集合
-    private List<String> numberExList = new ArrayList<>();
+    private List<String> NumberExList = new ArrayList<>();
 
     // 玩家卡数据缓存
     private List<DeckBean> PlayerList = new ArrayList<>();
@@ -60,43 +60,62 @@ public class DeckManager
      * @param numberExList 编号扩展集合(B01-001A、B01-001B)
      */
     public DeckManager(String deckName, List<String> numberExList) {
-        this.numberExList.clear();
-        this.numberExList = numberExList;
+        clearDeck();
         this.deckName = deckName;
+        this.NumberExList = numberExList;
+        loadDeck();
     }
 
-    public List<DeckBean> getPlayerList(){
+    public List<DeckBean> getPlayerList() {
         return PlayerList;
     }
 
-    public List<DeckBean> getStartList(){
+    public List<DeckBean> getStartList() {
         return StartList;
     }
 
-    public List<DeckBean> getIgList(){
+    public List<DeckBean> getIgList() {
         return IgList;
     }
 
-    public List<DeckBean> getUgList(){
+    public List<DeckBean> getUgList() {
         return UgList;
     }
 
-    public List<DeckBean> getExList(){
+    public List<DeckBean> getExList() {
         return ExList;
     }
 
-    public List<String> getNumberExList(){return numberExList;}
+    public List<String> getNumberExList() {
+        return NumberExList;
+    }
+
+    public List<String> getMd5List() {
+        return Md5List;
+    }
+
+    public String getDeckName() {
+        return deckName;
+    }
 
     /**
-     * 加载卡组
+     * 清空卡组
      */
-    void loadDeck() {
+    private void clearDeck() {
+        Md5List.clear();
+        NumberExList.clear();
         PlayerList.clear();
         StartList.clear();
         IgList.clear();
         UgList.clear();
         ExList.clear();
-        for (String numberEx : numberExList) {
+    }
+
+    /**
+     * 加载卡组
+     */
+    private void loadDeck() {
+        for (String numberEx : NumberExList) {
             Enum.AreaType areaType  = getAreaType(numberEx);
             String        imagePath = pictureCache + File.separator + numberEx + context.getString(R.string.image_extension);
             addCard(areaType, numberEx, imagePath);
@@ -111,7 +130,8 @@ public class DeckManager
      * @param thumbnailPath 缩略图路径
      * @return 枚举类型
      */
-    Enum.AreaType addCard(Enum.AreaType areaType, String number, String thumbnailPath) {
+    public Enum.AreaType addCard(Enum.AreaType areaType, String number, String thumbnailPath) {
+        Md5List.add(CardUtils.getMd5(number));
         if (areaType.equals(Enum.AreaType.Player)) {
             PlayerList.clear();
             addBeanToList(number, thumbnailPath, PlayerList);
@@ -145,7 +165,8 @@ public class DeckManager
      * @param number   卡编
      * @return 枚举类型
      */
-    Enum.AreaType deleteCard(Enum.AreaType areaType, String number) {
+    public Enum.AreaType deleteCard(Enum.AreaType areaType, String number) {
+        Md5List.remove(CardUtils.getMd5(number));
         if (areaType.equals(Enum.AreaType.Player)) {
             PlayerList.clear();
             return Enum.AreaType.Player;
@@ -175,10 +196,10 @@ public class DeckManager
     private void addBeanToList(String numberEx, String thumbnailPath, List<DeckBean> collection) {
         CardBean cardBean = stream(SQLiteUtils.getAllCardList())
                 .first(bean -> bean.getNumber().equals(numberEx));
-        String name     = cardBean.getCName();
-        String camp     = cardBean.getCamp();
-        int    cost     = TextUtils.isEmpty(cardBean.getCost()) ? 0 : Integer.valueOf(cardBean.getCost());
-        int    power    = TextUtils.isEmpty(cardBean.getPower()) ? 0 : Integer.valueOf(cardBean.getPower());
+        String name  = cardBean.getCName();
+        String camp  = cardBean.getCamp();
+        int    cost  = TextUtils.isEmpty(cardBean.getCost()) ? 0 : Integer.valueOf(cardBean.getCost());
+        int    power = TextUtils.isEmpty(cardBean.getPower()) ? 0 : Integer.valueOf(cardBean.getPower());
         collection.add(new DeckBean(thumbnailPath, name, camp, numberEx, cost, power));
     }
 
@@ -225,27 +246,11 @@ public class DeckManager
     }
 
     /**
-     * 保存卡组
-     *
-     * @return ture|false
-     */
-    boolean saveDeck() {
-        List<String> numberList = new ArrayList<>();
-        numberList.addAll(stream(IgList).select(DeckBean::getNumberEx).toList());
-        numberList.addAll(stream(UgList).select(DeckBean::getNumberEx).toList());
-        numberList.addAll(stream(ExList).select(DeckBean::getNumberEx).toList());
-        numberList.addAll(stream(PlayerList).select(DeckBean::getNumberEx).toList());
-        String numberListJson = JsonUtils.serializer(numberList);
-        String deckPath       = DeckUtils.getDeckPath(deckName);
-        return FileUtils.writeFile(numberListJson, deckPath);
-    }
-
-    /**
      * 卡组排序
      *
      * @param value 排序枚举类型
      */
-    void orderDeck(Enum.DeckOrderType value) {
+    public void orderDeck(Enum.DeckOrderType value) {
         if (value.equals(Enum.DeckOrderType.Value)) {
             orderByValue(IgList);
             orderByValue(UgList);
@@ -287,19 +292,4 @@ public class DeckManager
         deckList.clear();
         deckList.addAll(tempDeckList);
     }
-
-    /**
-     * 获取卡组中起始卡和生命恢复和虚空使者总数的集合
-     *
-     * @return 集合
-     */
-    List<Integer> getStartAndLifeAndVoidCount() {
-        List<Integer> countList = new ArrayList<>();
-        countList.add(stream(UgList).where(bean -> CardUtils.isStart(bean.getNumberEx())).count());
-        countList.add(stream(IgList).where(bean -> CardUtils.isLife(bean.getNumberEx())).count());
-        countList.add(stream(IgList).where(bean -> CardUtils.isVoid(bean.getNumberEx())).count());
-        return countList;
-    }
-
-
 }

@@ -1,12 +1,9 @@
 package com.zx.game.service;
 
-import com.zx.config.MyApp;
 import com.zx.game.message.ServicePacket;
-import com.zx.uitls.LogUtils;
 import com.zx.uitls.Md5Utils;
 
 import java.nio.ByteBuffer;
-import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
@@ -20,13 +17,21 @@ public class ClientInputCache
 {
     private static final String TAG = ClientInputCache.class.getSimpleName();
 
+    private OnReadListener mOnReadListener;
+
     private ByteBuffer     mByteBuffer;
     private ReadSubscriber mReadSubscriber;
 
-    public ClientInputCache() {
+    public ClientInputCache(OnReadListener mOnReadListener) {
+        this.mOnReadListener = mOnReadListener;
         if (null == mReadSubscriber) {
             mReadSubscriber = new ReadSubscriber();
         }
+    }
+
+    public interface OnReadListener
+    {
+        void read(byte[] bytes);
     }
 
     public void onDestroy() {
@@ -66,7 +71,7 @@ public class ClientInputCache
 
     private int readLength() {
         if (null != mByteBuffer && 4 <= mByteBuffer.remaining()) {
-            byte[] bytes   = new byte[4];
+            byte[] bytes    = new byte[4];
             int    position = mByteBuffer.array().length - mByteBuffer.remaining();
             System.arraycopy(mByteBuffer.array(), position, bytes, 0, 4);
             return new ServicePacket(bytes).readCSharpInt();
@@ -82,8 +87,7 @@ public class ClientInputCache
             subscription = Observable.interval(500, TimeUnit.MILLISECONDS).subscribe(aLong -> {
                 byte[] readBytes;
                 if (null != (readBytes = read())) {
-                    MyApp.Client.receive(readBytes);
-                    LogUtils.e(TAG, "Read->完整数据包" + Arrays.toString(readBytes));
+                    mOnReadListener.read(readBytes);
                 }
             });
         }

@@ -13,51 +13,38 @@ import com.zx.game.enums.PlayerType;
 import com.zx.game.enums.ServiceMessage;
 import com.zx.uitls.RxBus;
 
-import java.util.LinkedList;
-import java.util.Queue;
-
 /**
  * Created by 八神火焰 on 2017/2/11.
  */
 
-class ReceiveHelper
+class ModBusAnalyser
 {
-    private static Queue<ServicePacket> modbusQueue = new LinkedList<>();
-
-    void add(ServicePacket servicePacket) {
-        modbusQueue.add(servicePacket);
-    }
-
-    void analysis() {
-        if (modbusQueue.size() > 0) {
-            ServicePacket servicePacket = modbusQueue.peek();
-            // 读取设备类型
-            servicePacket.readByte();
-            // 读取指令
-            switch (servicePacket.readByte()) {
-                case ServiceMessage.PlayerEnter:
-                    onPlayerEnter(servicePacket);
-                    break;
-                case ServiceMessage.JoinGame:
-                    onJoinGame(servicePacket);
-                    break;
-                case ServiceMessage.GameConfig:
-                    onGameConfig(servicePacket);
-                    break;
-                case ServiceMessage.DuelistInfo:
-                    onDuelistInfo(servicePacket);
-                    break;
-                case ServiceMessage.DuelistState:
-                    onDuelistState(servicePacket);
-                    break;
-                case ServiceMessage.LeaveGame:
-                    onLeaveGame(servicePacket);
-                    break;
-                case ServiceMessage.StartGame:
-                    onStartGame(servicePacket);
-                    break;
-            }
-            modbusQueue.remove();
+    void analysis(ServicePacket servicePacket) {
+        // 读取设备类型
+        servicePacket.readByte();
+        // 读取指令
+        switch (servicePacket.readByte()) {
+            case ServiceMessage.PlayerEnter:
+                onPlayerEnter(servicePacket);
+                break;
+            case ServiceMessage.JoinGame:
+                onJoinGame(servicePacket);
+                break;
+            case ServiceMessage.GameConfig:
+                onGameConfig(servicePacket);
+                break;
+            case ServiceMessage.DuelistInfo:
+                onDuelistInfo(servicePacket);
+                break;
+            case ServiceMessage.DuelistState:
+                onDuelistState(servicePacket);
+                break;
+            case ServiceMessage.LeaveGame:
+                onLeaveGame(servicePacket);
+                break;
+            case ServiceMessage.StartGame:
+                onStartGame(servicePacket);
+                break;
         }
     }
 
@@ -79,7 +66,7 @@ class ReceiveHelper
             Player player     = new Player(playerType, playerName);
             // 对已经在房间的玩家发送其他玩家进入的消息
             RxBus.getInstance().post(new EnterGameEvent(player));
-            if (null != MyApp.Client.Game){
+            if (null != MyApp.Client.Game) {
                 MyApp.Client.Game.updateDuelist(player);
             }
         }

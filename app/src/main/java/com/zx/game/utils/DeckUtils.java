@@ -1,21 +1,27 @@
-package com.zx.uitls;
+package com.zx.game.utils;
 
 import android.text.TextUtils;
 
 import com.zx.R;
 import com.zx.bean.CardBean;
+import com.zx.bean.DeckBean;
 import com.zx.bean.DeckPreviewBean;
 import com.zx.config.Enum;
-import com.zx.config.MyApp;
+import com.zx.game.DeckManager;
+import com.zx.uitls.FileUtils;
+import com.zx.uitls.JsonUtils;
+import com.zx.uitls.PathManager;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.zbra.androidlinq.Linq;
+
 import static br.com.zbra.androidlinq.Linq.stream;
 import static com.zx.config.MyApp.context;
-import static com.zx.config.MyApp.deckPath;
-import static com.zx.uitls.CardUtils.getAreaType;
+import static com.zx.game.utils.CardUtils.getAreaType;
+import static com.zx.uitls.PathManager.deckPath;
 
 /**
  * Created by 八神火焰 on 2016/12/22.
@@ -43,7 +49,7 @@ public class DeckUtils
     public static List<String> getDeckNameList() {
         String       deckExtension = context.getString(R.string.deck_extension);
         List<String> deckNameList  = new ArrayList<>();
-        deckNameList.addAll(stream(FileUtils.getFileNameExList(deckPath))
+        deckNameList.addAll(Linq.stream(FileUtils.getFileNameExList(deckPath))
                 .where(fileNameEx -> fileNameEx.endsWith(deckExtension))
                 .select(fileNameEx -> fileNameEx.replace(deckExtension, ""))
                 .toList());
@@ -57,7 +63,7 @@ public class DeckUtils
      * @return 卡组路径
      */
     public static String getDeckPath(String deckName) {
-        return MyApp.deckPath + deckName + context.getString(R.string.deck_extension);
+        return PathManager.deckPath + deckName + context.getString(R.string.deck_extension);
     }
 
     /**
@@ -137,7 +143,7 @@ public class DeckUtils
      * @return 玩家卡牌路径
      */
     private static String getPlayerImagePath(List<CardBean> cardBeanList) {
-        return MyApp.pictureCache + File.separator
+        return PathManager.pictureCache + File.separator
                 + stream(cardBeanList).firstOrDefault(cardBean -> getAreaType(cardBean).equals(Enum.AreaType.Player), new CardBean("Unknown")).getNumber()
                 + context.getString(R.string.image_extension);
     }
@@ -152,7 +158,7 @@ public class DeckUtils
         List<String> pathList = new ArrayList<>();
         pathList.addAll(stream(cardBeanList)
                 .where(cardBean -> getAreaType(cardBean).equals(Enum.AreaType.Player))
-                .select(bean -> MyApp.pictureCache + File.separator + bean.getNumber() + context.getString(R.string.image_extension))
+                .select(bean -> PathManager.pictureCache + File.separator + bean.getNumber() + context.getString(R.string.image_extension))
                 .toList());
         return pathList;
     }
@@ -169,5 +175,34 @@ public class DeckUtils
                 50 == getMainCount(cardBeanList) &&
                 4 >= stream(cardBeanList).where(bean -> CardUtils.isLife(bean.getNumber())).count() &&
                 4 >= stream(cardBeanList).where(bean -> CardUtils.isVoid(bean.getNumber())).count();
+    }
+
+    /**
+     * 获取卡组中起始卡和生命恢复和虚空使者总数的集合
+     *
+     * @return 集合
+     */
+    public static List<Integer> getStartAndLifeAndVoidCount(DeckManager mDeckManager) {
+        List<Integer> countList = new ArrayList<>();
+        countList.add(stream(mDeckManager.getUgList()).where(bean -> CardUtils.isStart(bean.getNumberEx())).count());
+        countList.add(stream(mDeckManager.getIgList()).where(bean -> CardUtils.isLife(bean.getNumberEx())).count());
+        countList.add(stream(mDeckManager.getIgList()).where(bean -> CardUtils.isVoid(bean.getNumberEx())).count());
+        return countList;
+    }
+
+    /**
+     * 保存卡组
+     *
+     * @return ture|false
+     */
+    public static boolean saveDeck(DeckManager mDeckManager) {
+        List<String> numberList = new ArrayList<>();
+        numberList.addAll(stream(mDeckManager.getIgList()).select(DeckBean::getNumberEx).toList());
+        numberList.addAll(stream(mDeckManager.getUgList()).select(DeckBean::getNumberEx).toList());
+        numberList.addAll(stream(mDeckManager.getExList()).select(DeckBean::getNumberEx).toList());
+        numberList.addAll(stream(mDeckManager.getPlayerList()).select(DeckBean::getNumberEx).toList());
+        String numberListJson = JsonUtils.serializer(numberList);
+        String deckPath       = DeckUtils.getDeckPath(mDeckManager.getDeckName());
+        return FileUtils.writeFile(numberListJson, deckPath);
     }
 }

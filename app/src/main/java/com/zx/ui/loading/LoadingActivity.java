@@ -26,9 +26,9 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-import static com.zx.config.MyApp.databasePath;
-import static com.zx.config.MyApp.pictureCache;
-import static com.zx.config.MyApp.pictureZipPath;
+import static com.zx.uitls.PathManager.databasePath;
+import static com.zx.uitls.PathManager.pictureCache;
+import static com.zx.uitls.PathManager.pictureZipPath;
 
 /**
  * Created by 八神火焰 on 2016/12/12.

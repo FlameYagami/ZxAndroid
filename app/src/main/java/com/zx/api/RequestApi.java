@@ -6,7 +6,6 @@ import com.liulishuo.filedownloader.BaseDownloadTask;
 import com.liulishuo.filedownloader.FileDownloadListener;
 import com.liulishuo.filedownloader.FileDownloader;
 import com.zx.bean.UpdateBean;
-import com.zx.config.MyApp;
 import com.zx.uitls.FileUtils;
 import com.zx.uitls.JsonUtils;
 
@@ -20,6 +19,8 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Observable;
+
+import static com.zx.uitls.PathManager.downloadPath;
 
 /**
  * Created by sll on 2016/3/10.
@@ -108,7 +109,7 @@ public class RequestApi
     public static Observable<UpdateBean> checkUpdate() {
         return Observable.create(subscriber -> {
             FileDownloader.getImpl().create(BASE_URL)
-                    .setPath(MyApp.downloadPath + "UpdateJson")
+                    .setPath(downloadPath + "UpdateJson")
                     .setListener(new FileDownloadListener()
                     {
                         @Override
@@ -133,7 +134,7 @@ public class RequestApi
 
                         @Override
                         protected void completed(BaseDownloadTask task) {
-                            String     updateJson = FileUtils.getFileContent(MyApp.downloadPath + "UpdateJson");
+                            String     updateJson = FileUtils.getFileContent(downloadPath + "UpdateJson");
                             UpdateBean updateBean = JsonUtils.deserializer(updateJson, UpdateBean.class);
                             subscriber.onNext(updateBean);
                         }

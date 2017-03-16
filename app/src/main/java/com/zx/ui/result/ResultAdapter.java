@@ -10,8 +10,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.zx.R;
 import com.zx.bean.CardBean;
+import com.zx.game.utils.CardUtils;
 import com.zx.ui.base.BaseRecyclerViewAdapter;
-import com.zx.uitls.CardUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

@@ -1,4 +1,4 @@
-package com.zx.uitls;
+package com.zx.game.utils;
 
 import android.text.TextUtils;
 
@@ -6,7 +6,7 @@ import com.zx.R;
 import com.zx.bean.CardBean;
 import com.zx.config.Enum;
 import com.zx.config.MapConst;
-import com.zx.config.MyApp;
+import com.zx.uitls.JsonUtils;
 import com.zx.uitls.database.SQLiteUtils;
 
 import java.util.AbstractMap;
@@ -16,6 +16,7 @@ import java.util.List;
 
 import static br.com.zbra.androidlinq.Linq.stream;
 import static com.zx.config.MyApp.context;
+import static com.zx.uitls.PathManager.pictureCache;
 
 /**
  * Created by 八神火焰 on 2016/12/13.
@@ -314,7 +315,7 @@ public class CardUtils
      * @return 卡牌对应图片的路经集合
      */
     public static List<String> getImagePathList(String imageJson) {
-        return stream(JsonUtils.deserializerArray(imageJson, String[].class)).select(image -> MyApp.pictureCache + image).toList();
+        return stream(JsonUtils.deserializerArray(imageJson, String[].class)).select(image -> pictureCache + image).toList();
     }
 
     /**
@@ -335,5 +336,15 @@ public class CardUtils
      */
     public static List<CardBean> getCardBeanList(List<String> numberList) {
         return stream(numberList).select(CardUtils::getCardBean).toList();
+    }
+
+    /**
+     * 获取卡牌的Md5
+     *
+     * @param numberEx 卡编
+     * @return Md5
+     */
+    public static String getMd5(String numberEx) {
+        return stream(SQLiteUtils.getAllCardList()).firstOrNull(bean -> numberEx.contains(bean.getNumber())).getMd5();
     }
 }

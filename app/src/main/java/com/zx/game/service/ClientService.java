@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.IBinder;
 
+import com.zx.config.MyApp;
+import com.zx.game.message.MessageManager;
 import com.zx.uitls.LogUtils;
 
 
@@ -21,12 +23,11 @@ public class ClientService extends Service
     private static final int    servicePort = 8989;
 
     public static final String STOP_SERVICE   = "STOP_SERVICE";
-    public static final String SEND_MESSAGE   = "SEND_MESSAGE";
     public static final String RESTART_SOCKET = "RESTART_SOCKET";
-    public static final String CONNECT_ERROR  = "CONNECT_ERROR";
 
-    private ClientSocket      clientSocket;
-    private BroadcastReceiver broadcastReceiver;
+    private ClientSocket      mClientSocket;
+    private BroadcastReceiver mReceiver;
+    private MessageManager    mMessageManager;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -50,7 +51,7 @@ public class ClientService extends Service
      * 广播注册
      */
     private void initReceiver() {
-        broadcastReceiver = new BroadcastReceiver()
+        mReceiver = new BroadcastReceiver()
         {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -58,16 +59,8 @@ public class ClientService extends Service
                     case STOP_SERVICE:
                         stopSelf();
                         break;
-                    case SEND_MESSAGE:
-                        byte[] bytes = intent.getByteArrayExtra(byte[].class.getSimpleName());
-                        if (clientSocket != null) {
-                            clientSocket.sendMsg(bytes);
-                        }
-                        break;
                     case RESTART_SOCKET:
                         restartSocket();
-                        break;
-                    case CONNECT_ERROR:
                         break;
                 }
             }
@@ -75,15 +68,13 @@ public class ClientService extends Service
         IntentFilter filter = new IntentFilter();
         filter.addAction(STOP_SERVICE);
         filter.addAction(RESTART_SOCKET);
-        filter.addAction(SEND_MESSAGE);
-        filter.addAction(CONNECT_ERROR);
-        registerReceiver(broadcastReceiver, filter);
+        registerReceiver(mReceiver, filter);
     }
 
     private void closeSocket() {
-        if (clientSocket != null) {
-            clientSocket.setIsStart(false);
-            clientSocket = null;
+        if (mClientSocket != null) {
+            mClientSocket.setIsStart(false);
+            mClientSocket = null;
             // 关闭Socket休眠0.5s重启
             try {
                 Thread.sleep(500);
@@ -99,16 +90,23 @@ public class ClientService extends Service
     private void restartSocket() {
         closeSocket();
         //初始化
-        clientSocket = new ClientSocket(serviceIP, servicePort);
+        mClientSocket = new ClientSocket(serviceIP, servicePort, isConnected -> {
+            if (isConnected) {
+                mMessageManager = new MessageManager(mClientSocket);
+                mMessageManager.start();
+                MyApp.Client.initMessageManager(mMessageManager);
+            }
+        });
         //正式启动线程
-        clientSocket.start();
+        mClientSocket.start();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         closeSocket();
-        unregisterReceiver(broadcastReceiver);
+        unregisterReceiver(mReceiver);
+        mMessageManager.finish();
         LogUtils.d(TAG, "onDestroy");
     }
 }

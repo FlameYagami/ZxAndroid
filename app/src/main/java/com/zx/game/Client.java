@@ -14,19 +14,21 @@ import static com.zx.config.MyApp.context;
 
 public class Client
 {
-    public MessageManager MessageManager;
-    public Player         Player;
-    public Room           Room;
-    public Game           Game;
+    public  Player         Player;
+    public  Room           Room;
+    public  Game           Game;
+    private MessageManager mMessageManager;
 
     public void start() {
         IntentUtils.startService(ClientService.class);
-        MessageManager = new MessageManager();
-        MessageManager.start();
     }
 
     public void initPlayer(String playerName) {
         Player = new Player(playerName);
+    }
+
+    public void initMessageManager(MessageManager mMessageManager) {
+        this.mMessageManager = mMessageManager;
     }
 
     /**
@@ -51,15 +53,18 @@ public class Client
     }
 
     public void finish() {
-        MessageManager.finish();
         IntentUtils.sendBroadcast(context, ClientService.STOP_SERVICE);
     }
 
     public void send(ClientPacket clientPacket) {
-        MessageManager.sendMessage(clientPacket);
+        if (null != mMessageManager) {
+            mMessageManager.sendMessage(clientPacket);
+        }
     }
 
     public void receive(byte[] bytes) {
-        MessageManager.receiveMessage(bytes);
+        if (null != mMessageManager) {
+            mMessageManager.receiveMessage(bytes);
+        }
     }
 }

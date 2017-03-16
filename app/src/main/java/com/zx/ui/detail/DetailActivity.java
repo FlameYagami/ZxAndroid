@@ -8,8 +8,8 @@ import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.zx.R;
 import com.zx.bean.CardBean;
+import com.zx.game.utils.CardUtils;
 import com.zx.ui.base.BaseActivity;
-import com.zx.uitls.CardUtils;
 import com.zx.view.banner.BannerImageLoader;
 
 import java.util.List;

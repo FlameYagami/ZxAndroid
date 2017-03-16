@@ -8,10 +8,10 @@ import android.view.View;
 
 import com.zx.R;
 import com.zx.bean.DeckPreviewBean;
+import com.zx.game.utils.DeckUtils;
 import com.zx.ui.base.BaseActivity;
 import com.zx.ui.base.BaseRecyclerViewListener;
 import com.zx.ui.deckeditor.DeckEditorActivity;
-import com.zx.uitls.DeckUtils;
 import com.zx.uitls.FileUtils;
 import com.zx.uitls.IntentUtils;
 import com.zx.uitls.JsonUtils;

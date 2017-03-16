@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -24,12 +25,14 @@ public class MessageView extends LinearLayout
 
         View view = View.inflate(context, R.layout.widget_message, null);
         addView(view);
+        view.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+
         tvTitle = (TextView)view.findViewById(R.id.title);
         tvMessage = (TextView)view.findViewById(R.id.message);
 
         TypedArray typedArray  = context.obtainStyledAttributes(attrs, R.styleable.MessageView);
-        String     titleText   = typedArray.getString(R.styleable.MessageView_message_title_text);
-        String     messageText = typedArray.getString(R.styleable.MessageView_message_message_text);
+        String     titleText   = typedArray.getString(R.styleable.MessageView_title_text);
+        String     messageText = typedArray.getString(R.styleable.MessageView_message_text);
         tvTitle.setText(titleText);
         tvMessage.setText(messageText);
         typedArray.recycle();

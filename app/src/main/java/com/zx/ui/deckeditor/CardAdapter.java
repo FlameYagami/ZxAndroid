@@ -9,8 +9,8 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.zx.R;
 import com.zx.bean.CardBean;
+import com.zx.game.utils.CardUtils;
 import com.zx.ui.base.BaseRecyclerViewAdapter;
-import com.zx.uitls.CardUtils;
 import com.zx.uitls.DisplayUtils;
 
 import butterknife.BindView;

@@ -14,9 +14,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.zx.R;
 import com.zx.bean.DeckPreviewBean;
+import com.zx.game.utils.DeckUtils;
 import com.zx.ui.base.BaseRecyclerViewAdapter;
 import com.zx.ui.base.BaseRecyclerViewListener;
-import com.zx.uitls.DeckUtils;
 
 import java.util.List;
 

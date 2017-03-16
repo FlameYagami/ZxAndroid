@@ -1,7 +1,7 @@
 package com.zx.game.service;
 
 import com.zx.config.MyApp;
-import com.zx.game.message.ModBus;
+import com.zx.game.message.ModBusCreator;
 
 import java.net.InetSocketAddress;
 import java.net.Socket;
@@ -9,7 +9,7 @@ import java.net.Socket;
 /**
  * Created by Administrator on 2016/6/25.
  */
-class ClientSocket extends Thread
+public class ClientSocket extends Thread
 {
     private Socket socket;
     private Client client;
@@ -19,6 +19,12 @@ class ClientSocket extends Thread
 
     private static ClientHeartThread socketHeartThread;
 
+    private ConnectedListener mConnectedListener;
+
+    public interface ConnectedListener
+    {
+        void isConnected(boolean isisConnected);
+    }
 
     /**
      * 使用TCP协议,连接访问
@@ -26,9 +32,10 @@ class ClientSocket extends Thread
      * @param ip   目标机器的IP
      * @param port 端口
      */
-    ClientSocket(String ip, int port) {
+    ClientSocket(String ip, int port, ConnectedListener mConnectedListener) {
         this.ip = ip;
         this.port = port;
+        this.mConnectedListener = mConnectedListener;
     }
 
     @Override
@@ -42,8 +49,13 @@ class ClientSocket extends Thread
         } catch (Exception e) {
             e.printStackTrace();
             isStart = false;
+            mConnectedListener.isConnected(false);
         }
 
+    }
+
+    public Socket getSocket() {
+        return socket;
     }
 
     private void setClient() {
@@ -52,21 +64,12 @@ class ClientSocket extends Thread
             client = new Client(socket);
             client.start();
             isStart = true;
+            mConnectedListener.isConnected(true);
             if (socketHeartThread == null) {
                 socketHeartThread = new ClientHeartThread();
                 socketHeartThread.start();
             }
         }
-    }
-
-    // 直接通过client得到读线程
-    public ClientInputThread getClientInputThread() {
-        return client.getIn();
-    }
-
-    // 直接通过client得到写线程
-    public ClientOutputThread getClientOutputThread() {
-        return client.getOut();
     }
 
     //返回Socket状态
@@ -91,7 +94,7 @@ class ClientSocket extends Thread
         }
     }
 
-    void sendMsg(byte[] msg) {
+    public void sendMsg(byte[] msg) {
         if (null != client && null != client.getOut()) {
             client.getOut().sendMsg(msg);
         }
@@ -107,7 +110,7 @@ class ClientSocket extends Thread
             isRun = true;
             while (isRun) {
                 try {
-                    MyApp.Client.send(ModBus.onHeart());
+                    MyApp.Client.send(ModBusCreator.onHeart());
                     sleep(15000);
                 } catch (Exception e) {
                     e.printStackTrace();

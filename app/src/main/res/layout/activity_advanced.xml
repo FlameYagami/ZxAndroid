@@ -17,8 +17,8 @@
         android:id="@+id/view_key_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:message_message_text="@string/app_name"
-        app:message_title_text="@string/key_search"/>
+        app:message_text="@string/app_name"
+        app:title_text="@string/key_search"/>
 
     <View
         android:layout_width="match_parent"
@@ -29,7 +29,7 @@
         android:id="@+id/view_order_pattern"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:message_message_text="@string/order_by_value"
-        app:message_title_text="@string/order_pattern"/>
+        app:message_text="@string/order_by_value"
+        app:title_text="@string/order_pattern"/>
 
 </LinearLayout>

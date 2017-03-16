@@ -2,15 +2,15 @@ package com.zx.game.message;
 
 import android.text.TextUtils;
 
+import com.zx.game.DeckManager;
 import com.zx.game.Player;
 import com.zx.game.enums.ClientMessage;
 import com.zx.game.enums.PlayerChange;
-import com.zx.ui.deckeditor.DeckManager;
 import com.zx.uitls.JsonUtils;
 
-public class ModBus
+public class ModBusCreator
 {
-    public static final String TAG = ModBus.class.getSimpleName();
+    public static final String TAG = ModBusCreator.class.getSimpleName();
 
     private static ClientPacket getModBus(byte cmd) {
         return getModBus(cmd, "");

@@ -1,5 +1,6 @@
 package com.zx.game.service;
 
+import com.zx.config.MyApp;
 import com.zx.uitls.LogUtils;
 
 import java.io.IOException;
@@ -35,7 +36,10 @@ class ClientInputThread extends Thread
     @Override
     public void run() {
         try {
-            clientInputCache = new ClientInputCache();
+            clientInputCache = new ClientInputCache(bytes -> {
+                MyApp.Client.receive(bytes);
+                LogUtils.e(TAG, "Read->完整数据包" + Arrays.toString(bytes));
+            });
             while (isStart) {
                 //读取信息,如果没信息将会阻塞线程
                 byte[] data = new byte[1024];
