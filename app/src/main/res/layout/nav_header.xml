@@ -12,10 +12,18 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/statusbar_height"/>
 
-    <ImageView
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+    <FrameLayout
         android:layout_margin="20dp"
-        android:src="@drawable/img_icon"/>
+        android:layout_width="80dp"
+        android:background="@drawable/img_circle"
+        android:layout_height="80dp">
+
+        <ImageView
+            android:layout_gravity="center"
+            android:id="@+id/img_photo"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:src="@drawable/img_icon"/>
+    </FrameLayout>
 
 </LinearLayout>

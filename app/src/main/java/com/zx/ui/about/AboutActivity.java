@@ -1,10 +1,9 @@
 package com.zx.ui.about;
 
-import android.widget.TextView;
-
 import com.zx.R;
 import com.zx.ui.base.BaseActivity;
 import com.zx.uitls.SystemUtils;
+import com.zx.view.widget.MessageView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -16,8 +15,8 @@ import butterknife.OnClick;
 
 public class AboutActivity extends BaseActivity
 {
-    @BindView(R.id.tv_version)
-    TextView tvVersion;
+    @BindView(R.id.view_version)
+    MessageView viewVersion;
 
     private static final String TAG = AboutActivity.class.getSimpleName();
 
@@ -29,7 +28,7 @@ public class AboutActivity extends BaseActivity
     @Override
     public void initViewAndData() {
         ButterKnife.bind(this);
-        tvVersion.setText(SystemUtils.getVersionName());
+        viewVersion.setMessage(SystemUtils.getVersionName());
     }
 
     @OnClick(R.id.img_back)
