@@ -38,7 +38,7 @@ public class AdvancedActivity extends BaseActivity
         ButterKnife.bind(this);
 
         viewOrderPattern.setDefaultSp(SpConst.OrderPattern, mOrderPatternArrays[0]);
-        viewKeySearch.setMessage(StringUtils.changeList2String(KeySearchBean.getSelectKeySearchList()));
+        viewKeySearch.setValue(StringUtils.changeList2String(KeySearchBean.getSelectKeySearchList()));
     }
 
     @OnClick(R.id.img_back)
@@ -58,7 +58,7 @@ public class AdvancedActivity extends BaseActivity
     public void onKeySearch_Click() {
         new DialogCheckBox(this, getString(R.string.key_search), KeySearchBean.getKeySearchMap(), keySearchMap -> {
             KeySearchBean.saveKeySearchMap(keySearchMap);
-            viewKeySearch.setMessage(StringUtils.changeList2String(KeySearchBean.getSelectKeySearchList()));
+            viewKeySearch.setValue(StringUtils.changeList2String(KeySearchBean.getSelectKeySearchList()));
         }).show();
     }
 }

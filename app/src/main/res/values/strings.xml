@@ -73,7 +73,7 @@
     <string name="ability_detail">能力分类</string>
 
     <!-- ResultActivity  -->
-    <string name="result_about_title">查询结果</string>
+    <string name="result_about_title">查询预览</string>
 
     <!-- DetailActivity -->
     <string name="detail_about_title">详细信息</string>
@@ -90,7 +90,7 @@
     <!-- DeckEditor -->
     <string name="deck_editor_about_title">卡组编辑</string>
     <string name="deck_save">保存卡组</string>
-    <string name="result_count">查询结果:</string>
+    <string name="result_count">查询统计:</string>
     <string name="start_card">起始卡:</string>
     <string name="life_card">生命恢复:</string>
     <string name="void_card">虚空使者:</string>

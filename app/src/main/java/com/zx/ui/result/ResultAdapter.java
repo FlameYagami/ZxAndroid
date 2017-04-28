@@ -43,7 +43,7 @@ class ResultAdapter extends BaseRecyclerViewAdapter
         viewHolder.tvCost.setText(cardBean.getCost());
         viewHolder.cardView.setOnClickListener(v -> mOnItemClickListener.onItemClick(viewHolder.cardView, data, position));
         viewHolder.imgRestrict.setVisibility(cardBean.getRestrict().equals("0") ? View.VISIBLE : View.GONE);
-        Glide.with(context).load(CardUtils.getImagePathList(cardBean.getImage()).get(0)).error(R.drawable.img_unknown_picture).into(viewHolder.imgThumbnail);
+        Glide.with(context).load(CardUtils.getImagePathList(cardBean.getImage()).get(0)).error(R.drawable.ic_unknown_picture).into(viewHolder.imgThumbnail);
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder

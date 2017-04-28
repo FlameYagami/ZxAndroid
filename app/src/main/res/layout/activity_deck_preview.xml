@@ -6,9 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <com.zx.view.widget.HeaderView
             android:id="@+id/view_header"
@@ -21,11 +22,10 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_deckpreview"
             style="@style/layout_match_parent"
-            android:layout_below="@+id/view_header"
             android:scrollbars="vertical">
         </android.support.v7.widget.RecyclerView>
 
-    </RelativeLayout>
+    </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_add"

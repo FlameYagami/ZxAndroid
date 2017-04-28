@@ -4,9 +4,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="5dp"
-    android:layout_marginRight="5dp"
-    android:layout_marginTop="5dp"
     android:orientation="horizontal">
 
     <LinearLayout
@@ -19,18 +16,14 @@
             android:id="@+id/img_pl"
             android:layout_width="50dp"
             android:layout_height="70dp"
-            android:background="@drawable/corners_primary"
-            android:paddingBottom="3.5dp"
-            android:paddingLeft="2.5dp"
-            android:paddingRight="2.5dp"
-            android:paddingTop="3.5dp">
+            android:background="@drawable/corners_primary">
         </ImageView>
 
         <TextView
             android:id="@+id/tv_deck_save"
             android:layout_width="50dp"
-            android:layout_height="20dp"
-            android:layout_marginTop="5dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="4dp"
             android:background="@drawable/btn_blue"
             android:gravity="center"
             android:text="@string/deck_save"
@@ -40,8 +33,8 @@
         <TextView
             android:id="@+id/tv_advanced_search"
             android:layout_width="50dp"
-            android:layout_height="20dp"
-            android:layout_marginTop="5dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="4dp"
             android:background="@drawable/btn_blue"
             android:gravity="center"
             android:text="@string/advanced_search_about_title"
@@ -52,9 +45,9 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginStart="5dp"
+        android:layout_height="126dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginStart="4dp"
         android:padding="5dp"
         android:background="@drawable/corners_primary"
         android:orientation="horizontal">
@@ -63,6 +56,8 @@
             android:id="@+id/banner"
             android:layout_width="80dp"
             android:layout_height="110dp"
+            android:layout_margin="4dp"
+            android:layout_gravity="center_vertical"
             app:is_auto_play="false"/>
 
         <LinearLayout
@@ -76,8 +71,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="end"
-                android:orientation="horizontal"
-                android:padding="1dp">
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/tv_cname"
@@ -90,7 +84,7 @@
 
                 <TextView
                     android:id="@+id/tv_number"
-                    android:layout_width="50dp"
+                    android:layout_width="48dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
@@ -99,10 +93,10 @@
             </RelativeLayout>
 
             <LinearLayout
+                android:layout_marginTop="2dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="1dp">
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/tv_race"
@@ -114,23 +108,23 @@
                 <TextView
                     android:id="@+id/tv_power"
                     style="@style/layout_wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:gravity="center"
                     android:textSize="12sp"/>
 
                 <TextView
                     android:id="@+id/tv_cost"
                     style="@style/layout_wrap_content"
-                    android:layout_weight="2"
+                    android:layout_weight="1"
                     android:gravity="center"
                     android:textSize="12sp"/>
 
             </LinearLayout>
 
             <ScrollView
+                android:layout_marginTop="2dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="1dp">
+                android:layout_height="match_parent">
 
                 <TextView
                     android:id="@+id/tv_ability"

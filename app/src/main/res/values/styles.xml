@@ -6,23 +6,22 @@
         <item name="android:layout_width">match_parent</item>
     </style>
 
-    <style name="layout_header">
+    <style name="layout_headerbar">
         <item name="android:background">@color/colorPrimary</item>
         <item name="android:id">@id/view_header</item>
-        <item name="android:layout_height">45dp</item>
+        <item name="android:layout_height">@dimen/headerbar_height</item>
         <item name="android:layout_width">match_parent</item>
     </style>
 
-    <style name="layout_shadow">
-        <item name="android:background">@drawable/header_shadow</item>
+    <style name="layout_shadowbar">
+        <item name="android:background">@drawable/shadow_header</item>
         <item name="android:layout_height">2dp</item>
         <item name="android:layout_width">match_parent</item>
     </style>
 
     <style name="view_header_title">
-        <item name="android:layout_marginLeft">10dp</item>
-        <item name="android:layout_marginRight">10dp</item>
-        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_marginLeft">@dimen/activity_horizontal_margin</item>
+        <item name="android:layout_height">@dimen/headerbar_height</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/white</item>
@@ -30,27 +29,23 @@
     </style>
 
     <style name="view_header_back">
-        <item name="android:layout_height">45dp</item>
-        <item name="android:layout_width">45dp</item>
+        <item name="android:layout_height">@dimen/headerbar_height</item>
+        <item name="android:layout_width">@dimen/headerbar_height</item>
         <item name="android:padding">10dp</item>
-        <item name="android:src">@drawable/img_back</item>
+        <item name="android:src">@drawable/ic_back</item>
     </style>
 
     <style name="view_header_menu">
-        <item name="android:layout_height">45dp</item>
-        <item name="android:layout_width">45dp</item>
+        <item name="android:layout_height">@dimen/headerbar_height</item>
+        <item name="android:layout_width">@dimen/headerbar_height</item>
         <item name="android:padding">10dp</item>
-        <item name="android:src">@drawable/img_menu</item>
+        <item name="android:src">@drawable/ic_menu</item>
     </style>
 
     <style name="recyclerview">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_marginLeft">5dp</item>
-        <item name="android:layout_marginRight">5dp</item>
-        <item name="android:layout_marginTop">5dp</item>
         <item name="android:background">@drawable/corners_primary</item>
-        <item name="android:padding">2.5dp</item>
     </style>
 
     <!-- 高宽自适应-->

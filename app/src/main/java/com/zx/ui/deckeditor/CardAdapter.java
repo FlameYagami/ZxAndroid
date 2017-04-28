@@ -42,7 +42,7 @@ public class CardAdapter extends BaseRecyclerViewAdapter
     protected void getView(RecyclerView.ViewHolder holder, int position) {
         ViewHolder viewHolder = (ViewHolder)holder;
         CardBean   cardBean   = (CardBean)data.get(position);
-        int        widthPx    = (DisplayUtils.getScreenWidth() - DisplayUtils.dip2px(15)) / 10;
+        int        widthPx    = (DisplayUtils.getScreenWidth() - DisplayUtils.dip2px(32)) / 10;
         int        heightPx   = widthPx * 7 / 5;
         viewHolder.imgThumbnail.setLayoutParams(new FrameLayout.LayoutParams(widthPx, heightPx));
         viewHolder.imgThumbnail.setOnClickListener(view -> mOnItemClickListener.onItemClick(view, data, position));
@@ -51,7 +51,7 @@ public class CardAdapter extends BaseRecyclerViewAdapter
             return false;
         });
         viewHolder.imgRestrict.setVisibility(cardBean.getRestrict().equals("0") ? View.VISIBLE : View.GONE);
-        Glide.with(context).load(CardUtils.getImagePathList(cardBean.getImage()).get(0)).error(R.drawable.img_unknown_thumbnail).into(viewHolder.imgThumbnail);
+        Glide.with(context).load(CardUtils.getImagePathList(cardBean.getImage()).get(0)).error(R.drawable.ic_unknown_thumbnail).into(viewHolder.imgThumbnail);
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder

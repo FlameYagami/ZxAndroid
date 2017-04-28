@@ -2,12 +2,16 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <View style="@style/layout_statusbar"/>
+    <View
+        android:id="@+id/view_statusbar"
+        style="@style/layout_statusbar"/>
 
-    <RelativeLayout style="@style/layout_header">
+    <RelativeLayout
+        android:id="@+id/view_headerbar"
+        style="@style/layout_headerbar">
 
         <LinearLayout
             android:id="@+id/view_header_left"
@@ -39,6 +43,8 @@
         </LinearLayout>
     </RelativeLayout>
 
-    <View style="@style/layout_shadow"/>
+    <View
+        android:id="@+id/view_shadowbar"
+        style="@style/layout_shadowbar"/>
 
 </LinearLayout>

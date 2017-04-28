@@ -13,41 +13,71 @@
         HeaderView:menu_visible="true"
         HeaderView:title_text="@string/deck_editor_about_title"/>
 
-    <include layout="@layout/include_detail"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:orientation="vertical">
 
-    <include layout="@layout/include_search"/>
+        <include layout="@layout/include_detail"/>
 
-    <include layout="@layout/include_result_count"/>
+        <RelativeLayout
+            android:layout_marginTop="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:gravity="center_vertical">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_preview"
-        style="@style/recyclerview"
-        android:layout_marginTop="0dp"
-        android:scrollbars="horizontal"/>
+            <include layout="@layout/include_search"/>
+        </RelativeLayout>
 
-    <include layout="@layout/include_slv_count"/>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:gravity="center_vertical">
 
-    <ScrollView
-        style="@style/layout_match_parent"
-        android:layout_marginTop="5dp">
+            <include layout="@layout/include_result_count"/>
+        </RelativeLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_preview"
+            style="@style/recyclerview"
+            android:scrollbars="horizontal"/>
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_ig"
-                style="@style/recyclerview"/>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:gravity="center_vertical">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_ug"
-                style="@style/recyclerview"/>
+            <include layout="@layout/include_slv_count"/>
+        </RelativeLayout>
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_ex"
-                style="@style/recyclerview"/>
+        <ScrollView
+            style="@style/layout_match_parent">
 
-        </LinearLayout>
-    </ScrollView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_ig"
+                    style="@style/recyclerview"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:layout_marginTop="4dp"
+                    android:id="@+id/rv_ug"
+                    style="@style/recyclerview"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:layout_marginTop="4dp"
+                    android:id="@+id/rv_ex"
+                    style="@style/recyclerview"/>
+
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+
 </LinearLayout>

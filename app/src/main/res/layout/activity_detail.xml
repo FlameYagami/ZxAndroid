@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+<LinearLayout
+    style="@style/layout_match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
 
     <com.zx.view.widget.HeaderView
         android:id="@+id/view_header"
@@ -13,137 +13,147 @@
         HeaderView:title_text="@string/detail_about_title">
     </com.zx.view.widget.HeaderView>
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/view_header">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
-        <LinearLayout
+        <com.youth.banner.Banner
+            android:id="@+id/banner"
+            android:layout_width="150dp"
+            android:layout_height="210dp"
+            app:is_auto_play="false"/>
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:orientation="vertical">
+            android:layout_height="210dp">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
                 android:orientation="horizontal">
-
-                <android.support.v7.widget.CardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/result_card_margin"
-                    app:cardElevation="5dp">
-
-                    <com.youth.banner.Banner
-                        android:id="@+id/banner"
-                        android:layout_width="150dp"
-                        android:layout_height="210dp"
-                        android:layout_margin="2.5dp"
-                        app:is_auto_play="false"/>
-
-                </android.support.v7.widget.CardView>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tv_cname"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="2dp"
-                        android:text="@string/cname_test"
-                        android:textColor="@color/black"
-                        android:textSize="20sp"/>
-
-                    <TextView
-                        android:id="@+id/tv_jname"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="2dp"
-                        android:text="@string/jname_test"
-                        android:textSize="16sp"/>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="2dp">
 
                 <ImageView
                     android:id="@+id/img_camp0"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginStart="5dp"
-                    android:src="@drawable/img_camp_red"/>
+                    android:src="@drawable/ic_camp_red"/>
 
                 <ImageView
                     android:id="@+id/img_camp1"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginStart="5dp"
-                    android:src="@drawable/img_camp_blue"/>
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginStart="4dp"
+                    android:src="@drawable/ic_camp_blue"/>
 
                 <ImageView
                     android:id="@+id/img_camp2"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginStart="5dp"
-                    android:src="@drawable/img_camp_white"/>
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginStart="4dp"
+                    android:src="@drawable/ic_camp_white"/>
 
                 <ImageView
                     android:id="@+id/img_camp3"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginStart="5dp"
-                    android:src="@drawable/img_camp_black"/>
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginStart="4dp"
+                    android:src="@drawable/ic_camp_black"/>
 
                 <ImageView
                     android:id="@+id/img_camp4"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginStart="5dp"
-                    android:src="@drawable/img_camp_green"/>
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginStart="4dp"
+                    android:src="@drawable/ic_camp_green"/>
+            </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/img_sign"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginStart="10dp"
-                    android:src="@drawable/img_sign_ig"/>
+            <ImageView
+                android:id="@+id/img_sign"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_sign_ig"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tv_rare"
-                    style="@style/layout_wrap_content"
-                    android:layout_weight="1"
+                    android:id="@+id/tv_cname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@string/rare_test"
+                    android:text="@string/cname_test"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"/>
+
+                <TextView
+                    android:id="@+id/tv_jname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center"
+                    android:text="@string/jname_test"
                     android:textSize="16sp"/>
+
+            </LinearLayout>
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/tv_type"
                     style="@style/layout_wrap_content"
-                    android:layout_weight="1"
                     android:gravity="center"
                     android:text="@string/type_test"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:id="@+id/tv_race"
+                    style="@style/layout_wrap_content"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:gravity="center"
+                    android:text="@string/race_test"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:id="@+id/tv_rare"
+                    style="@style/layout_wrap_content"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:gravity="center"
+                    android:text="@string/rare_test"
                     android:textSize="16sp"/>
 
             </LinearLayout>
@@ -151,13 +161,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:padding="2dp">
+                android:layout_marginTop="@dimen/activity_vertical_margin">
 
                 <TextView
                     android:id="@+id/tv_number"
                     style="@style/layout_wrap_content"
-                    android:layout_weight="2"
                     android:gravity="center"
                     android:text="@string/number_test"
                     android:textSize="16sp"/>
@@ -165,7 +173,8 @@
                 <TextView
                     android:id="@+id/tv_power"
                     style="@style/layout_wrap_content"
-                    android:layout_weight="2"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
                     android:gravity="center"
                     android:text="@string/power_test"
                     android:textSize="16sp"/>
@@ -173,17 +182,10 @@
                 <TextView
                     android:id="@+id/tv_cost"
                     style="@style/layout_wrap_content"
-                    android:layout_weight="1.5"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
                     android:gravity="center"
                     android:text="@string/cost_test"
-                    android:textSize="16sp"/>
-
-                <TextView
-                    android:id="@+id/tv_race"
-                    style="@style/layout_wrap_content"
-                    android:layout_weight="4.5"
-                    android:gravity="center"
-                    android:text="@string/race_test"
                     android:textSize="16sp"/>
 
             </LinearLayout>
@@ -191,30 +193,27 @@
             <TextView
                 android:id="@+id/tv_ability"
                 style="@style/layout_wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:gravity="center_vertical"
-                android:padding="2dp"
                 android:text="@string/cost_test"
                 android:textSize="16sp"/>
 
             <TextView
                 android:id="@+id/tv_lines"
                 style="@style/layout_wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:gravity="center_vertical"
-                android:padding="2dp"
                 android:text="@string/cost_test"
                 android:textSize="16sp"/>
 
             <TextView
                 android:id="@+id/tv_faq"
                 style="@style/layout_wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:gravity="center_vertical"
-                android:padding="2dp"
                 android:text="@string/cost_test"
                 android:textSize="16sp"/>
 
         </LinearLayout>
     </ScrollView>
-</RelativeLayout>
+</LinearLayout>

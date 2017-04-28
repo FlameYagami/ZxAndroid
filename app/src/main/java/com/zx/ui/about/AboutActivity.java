@@ -28,7 +28,7 @@ public class AboutActivity extends BaseActivity
     @Override
     public void initViewAndData() {
         ButterKnife.bind(this);
-        viewVersion.setMessage(SystemUtils.getVersionName());
+        viewVersion.setValue(SystemUtils.getVersionName());
     }
 
     @OnClick(R.id.img_back)

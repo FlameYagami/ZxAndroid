@@ -52,7 +52,7 @@
                     android:layout_width="100dp"
                     android:layout_height="140dp"
                     android:layout_centerInParent="true"
-                    android:src="@drawable/img_unknown_picture"/>
+                    android:src="@drawable/ic_unknown_picture"/>
 
                 <TextView
                     android:id="@+id/tv_deck_name_player0"
@@ -61,7 +61,7 @@
                     android:layout_below="@id/img_deck_player0"
                     android:layout_centerHorizontal="true"
                     android:layout_margin="10dp"
-                    android:src="@drawable/img_unknown_picture"/>
+                    android:src="@drawable/ic_unknown_picture"/>
 
                 <Button
                     android:layout_below="@+id/tv_deck_name_player0"
@@ -167,7 +167,7 @@
                     android:layout_below="@+id/img_deck_player1"
                     android:layout_centerHorizontal="true"
                     android:layout_margin="10dp"
-                    android:src="@drawable/img_unknown_picture"/>
+                    android:src="@drawable/ic_unknown_picture"/>
 
                 <TextView
                     android:id="@+id/tv_name_player1"
@@ -186,7 +186,7 @@
                     android:layout_height="140dp"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/img_unknown_picture"/>
+                    android:src="@drawable/ic_unknown_picture"/>
 
                 <Button
                     android:layout_below="@+id/tv_deck_name_player1"

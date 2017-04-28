@@ -120,7 +120,7 @@ public class DeckEditorActivity extends BaseActivity implements PopupMenu.OnMenu
 
         viewMenu.setOnClickListener(this::showPopMenu);
 
-        int minHeightPx = (DisplayUtils.getScreenWidth() - DisplayUtils.dip2px(15)) / 10 * 7 / 5;
+        int minHeightPx = (DisplayUtils.getScreenWidth() - DisplayUtils.dip2px(32)) / 10 * 7 / 5;
         rvIg.setMinimumHeight(minHeightPx);
         rvUg.setMinimumHeight(minHeightPx);
         rvEx.setMinimumHeight(minHeightPx);
@@ -275,7 +275,7 @@ public class DeckEditorActivity extends BaseActivity implements PopupMenu.OnMenu
         if (operateType.equals(Enum.OperateType.Add)) {
             if (areaType.equals(Enum.AreaType.Player)) {
                 Glide.with(this).load(PathManager.pictureCache + File.separator + mDeckManager.getPlayerList().get(0).getNumberEx() + context.getString(R.string.image_extension))
-                        .error(R.drawable.img_unknown_picture).into(imgPl);
+                        .error(R.drawable.ic_unknown_picture).into(imgPl);
             } else if (areaType.equals(Enum.AreaType.Ig)) {
                 mIgDeckAdapter.addData(mDeckManager.getIgList(), mDeckManager.getIgList().size() - 1);
             } else if (areaType.equals(Enum.AreaType.Ug)) {

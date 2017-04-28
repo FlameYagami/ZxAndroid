@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_centerHorizontal="true"
-    android:padding="5dp"
     android:gravity="center_vertical"
     android:orientation="horizontal">
 
@@ -12,14 +11,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/result_count"
-        android:textSize="12sp"/>
+        android:textSize="@dimen/roboto_medium"/>
 
     <TextView
         android:id="@+id/tv_result_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:textSize="12sp"/>
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:textSize="@dimen/roboto_medium"/>
 
 </LinearLayout>

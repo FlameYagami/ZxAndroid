@@ -17,33 +17,36 @@
         android:id="@+id/linearLayout"
         style="@style/layout_match_parent"
         android:layout_below="@+id/view_header"
-        android:layout_margin="10dp"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="48dp"
             android:gravity="center_vertical">
 
             <TextView
                 style="@style/layout_wrap_content"
-                android:textColor="@color/white"
-                android:text="@string/cost"/>
+                android:text="@string/cost"
+                android:textColor="@color/white"/>
 
             <EditText
                 android:id="@+id/txt_key"
                 style="@style/StyleEditText"
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:hint="@string/search_hint"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"/>
+                android:layout_height="32dp"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:hint="@string/search_hint"/>
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="48dp"
             android:gravity="center_vertical">
 
             <TextView
@@ -54,9 +57,9 @@
                 android:id="@+id/txt_cost"
                 style="@style/StyleEditText"
                 android:layout_width="0dp"
-                android:layout_height="30dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_height="32dp"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:layout_weight="1"/>
 
             <TextView
@@ -67,16 +70,16 @@
                 android:id="@+id/txt_power"
                 style="@style/StyleEditText"
                 android:layout_width="0dp"
-                android:layout_height="30dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_height="32dp"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:layout_weight="1"/>
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="48dp"
             android:gravity="center_vertical">
 
             <TextView
@@ -87,9 +90,9 @@
                 android:id="@+id/cmb_pack"
                 style="@style/StyleSpinner"
                 android:layout_width="0dip"
-                android:layout_height="30dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_height="32dp"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:layout_weight="1"
                 android:entries="@array/none"/>
 
@@ -97,7 +100,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="48dp"
             android:gravity="center_vertical">
 
             <TextView
@@ -108,9 +111,9 @@
                 android:id="@+id/cmb_illust"
                 style="@style/StyleSpinner"
                 android:layout_width="0dip"
-                android:layout_height="30dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_height="32dp"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:layout_weight="1"
                 android:entries="@array/none"/>
 
@@ -118,7 +121,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="48dp"
             android:gravity="center_vertical">
 
             <TextView
@@ -129,9 +132,9 @@
                 android:id="@+id/cmb_type"
                 style="@style/StyleSpinner"
                 android:layout_width="0dip"
-                android:layout_height="30dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_height="32dp"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:layout_weight="1"
                 android:entries="@array/type"/>
 
@@ -143,9 +146,9 @@
                 android:id="@+id/cmb_camp"
                 style="@style/StyleSpinner"
                 android:layout_width="0dip"
-                android:layout_height="30dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_height="32dp"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:layout_weight="1"
                 android:entries="@array/camp"/>
 
@@ -153,7 +156,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="48dp"
             android:gravity="center_vertical">
 
             <TextView
@@ -164,9 +167,9 @@
                 android:id="@+id/cmb_race"
                 style="@style/StyleSpinner"
                 android:layout_width="0dip"
-                android:layout_height="30dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_height="32dp"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:layout_weight="1"
                 android:entries="@array/none"/>
 
@@ -178,9 +181,9 @@
                 android:id="@+id/cmb_sign"
                 style="@style/StyleSpinner"
                 android:layout_width="0dip"
-                android:layout_height="30dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_height="32dp"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:layout_weight="1"
                 android:entries="@array/sign"/>
 
@@ -188,7 +191,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="48dp"
             android:gravity="center_vertical">
 
             <TextView
@@ -199,9 +202,9 @@
                 android:id="@+id/cmb_rare"
                 style="@style/StyleSpinner"
                 android:layout_width="0dip"
-                android:layout_height="30dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_height="32dp"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:layout_weight="1"
                 android:entries="@array/rare"/>
 
@@ -213,9 +216,9 @@
                 android:id="@+id/cmb_restrict"
                 style="@style/StyleSpinner"
                 android:layout_width="0dip"
-                android:layout_height="30dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_height="32dp"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:layout_weight="1"
                 android:entries="@array/restrict"/>
 
@@ -223,28 +226,27 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="5dp"
+            android:layout_height="48dp"
             android:gravity="center_vertical">
 
-            <Button
+            <android.support.v7.widget.AppCompatButton
                 android:id="@+id/btn_ability_type"
                 android:layout_width="0dip"
-                android:layout_height="30dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_height="32dp"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:layout_weight="1"
                 android:background="@drawable/btn_blue"
                 android:text="@string/ability_type"
                 android:textColor="@color/white"
                 android:textSize="16sp"/>
 
-            <Button
+            <android.support.v7.widget.AppCompatButton
                 android:id="@+id/btn_ability_detail"
                 android:layout_width="0dip"
-                android:layout_height="30dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_height="32dp"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:layout_weight="1"
                 android:background="@drawable/btn_blue"
                 android:text="@string/ability_detail"
@@ -262,7 +264,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_margin="15dp"
+        android:layout_margin="@dimen/activity_horizontal_margin"
         android:src="@android:drawable/ic_menu_search"/>
 
     <android.support.design.widget.FloatingActionButton
@@ -270,7 +272,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_margin="15dp"
+        android:layout_margin="@dimen/activity_horizontal_margin"
         android:src="@android:drawable/ic_menu_rotate"
         app:backgroundTint="@color/colorAccent"/>
 

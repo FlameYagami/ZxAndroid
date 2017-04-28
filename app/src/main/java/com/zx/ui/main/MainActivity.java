@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.zx.R;
@@ -22,7 +23,6 @@ import com.zx.ui.base.BaseActivity;
 import com.zx.ui.deckpreview.DeckPreviewActivity;
 import com.zx.ui.result.ResultActivity;
 import com.zx.ui.setting.SettingActivity;
-import com.zx.ui.versusmode.VersusModeActivity;
 import com.zx.uitls.AppManager;
 import com.zx.uitls.BundleUtils;
 import com.zx.uitls.DisplayUtils;
@@ -44,7 +44,7 @@ import static br.com.zbra.androidlinq.Linq.stream;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener
 {
-    @BindView(R.id.img_icon)
+    @BindView(R.id.img_back)
     ImageView         imgIcon;
     @BindView(R.id.view_drawer)
     DrawerLayout      viewDrawer;
@@ -72,6 +72,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         setSwipeBackEnable(false);
         initBGABanner();
 
+        Glide.with(this).load(R.drawable.ic_icon).into(imgIcon);
         Observable.just(this).observeOn(Schedulers.newThread()).subscribe(mainActivity -> {
             imgIcon.setOnClickListener(view -> viewDrawer.openDrawer(GravityCompat.START));
             navView.setNavigationItemSelectedListener(this);
@@ -107,7 +108,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         String         querySql     = SqlUtils.getKeyQuerySql(txtSearch.getText().toString().trim());
         List<CardBean> cardBeanList = SQLiteUtils.getCardList(querySql);
         if (cardBeanList.size() == 0) {
-            showSnackBar(viewContent, "没有查询到相关卡牌");
+            showToast("没有查询到相关卡牌");
         } else {
             ResultActivity.cardBeanList = cardBeanList;
             IntentUtils.gotoActivity(this, ResultActivity.class);
@@ -141,10 +142,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 IntentUtils.gotoActivity(this, DeckPreviewActivity.class);
                 break;
             }
-            case R.id.nav_duel: {
-                IntentUtils.gotoActivity(this, VersusModeActivity.class);
-                break;
-            }
+//            case R.id.nav_duel: {
+//                IntentUtils.gotoActivity(this, VersusModeActivity.class);
+//                break;
+//            }
             case R.id.nav_setting: {
                 IntentUtils.gotoActivity(this, SettingActivity.class);
                 break;

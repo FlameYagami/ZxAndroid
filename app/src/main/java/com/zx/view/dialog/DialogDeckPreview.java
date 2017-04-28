@@ -85,7 +85,7 @@ public class DialogDeckPreview extends AlertDialog implements BaseRecyclerViewLi
             DeckPreviewBean bean       = (DeckPreviewBean)data.get(position);
             viewHolder.viewContent.setOnClickListener(view -> mOnItemClickListener.onItemClick(viewHolder.viewContent, data, position));
             viewHolder.textView.setText(bean.getDeckName());
-            Glide.with(context).load(bean.getPlayerPath()).error(R.drawable.img_unknown_picture).into(viewHolder.imageView);
+            Glide.with(context).load(bean.getPlayerPath()).error(R.drawable.ic_unknown_picture).into(viewHolder.imageView);
         }
     }
 

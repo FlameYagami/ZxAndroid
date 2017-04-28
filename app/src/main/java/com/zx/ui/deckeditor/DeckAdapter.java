@@ -49,7 +49,7 @@ class DeckAdapter extends BaseRecyclerViewAdapter
             mOnItemLongClickListener.onItemLongClick(view, data, holder.getAdapterPosition());
             return true;
         });
-        Glide.with(context).load(deckBean.getImagePath()).error(R.drawable.img_unknown_thumbnail).centerCrop().into(viewHolder.imgThumbnail);
+        Glide.with(context).load(deckBean.getImagePath()).error(R.drawable.ic_unknown_thumbnail).centerCrop().into(viewHolder.imgThumbnail);
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder

@@ -20,12 +20,12 @@ public class MapConst
     public static final LinkedHashMap<String, String> AbilityDetailMap = new LinkedHashMap<>();
 
     static {
-        GuideMap.put("B18", R.drawable.img_guide_b18);
-        GuideMap.put("B19", R.drawable.img_guide_b19);
-        GuideMap.put("C16", R.drawable.img_guide_c16);
-        GuideMap.put("C17", R.drawable.img_guide_c17);
-        GuideMap.put("E07", R.drawable.img_guide_e07);
-        GuideMap.put("E08", R.drawable.img_guide_e08);
+        GuideMap.put("B18", R.drawable.ic_guide_b18);
+        GuideMap.put("B19", R.drawable.ic_guide_b19);
+        GuideMap.put("B20", R.drawable.ic_guide_b20);
+        GuideMap.put("C17", R.drawable.ic_guide_c17);
+        GuideMap.put("E07", R.drawable.ic_guide_e07);
+        GuideMap.put("E08", R.drawable.ic_guide_e08);
 
 //        RareMap.put("CVR",R.drawable.img_rare_cvr);
 //        RareMap.put("IGR",R.drawable.img_rare_igr);
@@ -38,15 +38,15 @@ public class MapConst
 //        RareMap.put("C",R.drawable.img_rare_c);
 //        RareMap.put("PR",R.drawable.img_rare_pr);
 
-        SignMap.put("点燃", R.drawable.img_sign_ig);
-        SignMap.put("觉醒之中", R.drawable.img_sign_el);
+        SignMap.put("点燃", R.drawable.ic_sign_ig);
+        SignMap.put("觉醒之中", R.drawable.ic_sign_el);
 
-        CampMap.put("红", R.drawable.img_camp_red);
-        CampMap.put("蓝", R.drawable.img_camp_blue);
-        CampMap.put("白", R.drawable.img_camp_white);
-        CampMap.put("黑", R.drawable.img_camp_black);
-        CampMap.put("绿", R.drawable.img_camp_green);
-        CampMap.put("无", R.drawable.img_camp_void);
+        CampMap.put("红", R.drawable.ic_camp_red);
+        CampMap.put("蓝", R.drawable.ic_camp_blue);
+        CampMap.put("白", R.drawable.ic_camp_white);
+        CampMap.put("黑", R.drawable.ic_camp_black);
+        CampMap.put("绿", R.drawable.ic_camp_green);
+        CampMap.put("无", R.drawable.ic_camp_void);
 
         KeySearchMap.put("卡名", SQLitConst.ColumnCName);
         KeySearchMap.put("日名", SQLitConst.ColumnJName);

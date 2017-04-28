@@ -16,7 +16,7 @@
         android:id="@+id/img_thumbnail"
         android:layout_width="50dp"
         android:layout_height="70dp"
-        android:src="@drawable/img_unknown_thumbnail"/>
+        android:src="@drawable/ic_unknown_thumbnail"/>
 
     <View
         android:id="@+id/view_bottom"

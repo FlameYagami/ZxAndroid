@@ -15,6 +15,6 @@ public class BannerImageLoader extends ImageLoader
 {
     @Override
     public void displayImage(Context context, Object path, ImageView imageView) {
-        Glide.with(context).load(path).fitCenter().error(R.drawable.img_unknown_picture).into(imageView);
+        Glide.with(context).load(path).fitCenter().error(R.drawable.ic_unknown_picture).into(imageView);
     }
 }

@@ -8,7 +8,7 @@
 
     <ImageView
         android:id="@+id/img_bg_loading"
-        android:src="@drawable/img_bg_loading"
+        android:src="@drawable/ic_bg_loading"
         android:scaleType="centerCrop"
         style="@style/layout_match_parent"/>
 
