@@ -6,7 +6,9 @@ import com.zx.ui.advanced.AdvancedActivity;
 import com.zx.ui.base.BaseActivity;
 import com.zx.ui.document.DocumentActivity;
 import com.zx.uitls.IntentUtils;
+import com.zx.view.widget.AppBarView;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -16,6 +18,9 @@ import butterknife.OnClick;
 
 public class SettingActivity extends BaseActivity
 {
+    @BindView(R.id.viewAppBar)
+    AppBarView viewAppBar;
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_setting;
@@ -24,11 +29,7 @@ public class SettingActivity extends BaseActivity
     @Override
     public void initViewAndData() {
         ButterKnife.bind(this);
-    }
-
-    @OnClick(R.id.img_back)
-    public void onBack_Click() {
-        super.onBackPressed();
+        viewAppBar.setNavigationClickListener(super::onBackPressed);
     }
 
     @OnClick(R.id.tv_advanced)

@@ -23,6 +23,7 @@ import com.zx.uitls.RxBus;
 import com.zx.uitls.database.SQLiteUtils;
 import com.zx.uitls.database.SqlUtils;
 import com.zx.view.dialog.DialogCheckBox;
+import com.zx.view.widget.AppBarView;
 
 import java.util.List;
 
@@ -63,6 +64,8 @@ public class AdvancedSearchActivity extends BaseActivity implements AdapterView.
     Spinner        cmbRestrict;
     @BindArray(R.array.camp)
     String         campArray[];
+    @BindView(R.id.viewAppBar)
+    AppBarView     viewAppBar;
 
     private String fromActivity;
 
@@ -74,6 +77,7 @@ public class AdvancedSearchActivity extends BaseActivity implements AdapterView.
     @Override
     public void initViewAndData() {
         ButterKnife.bind(this);
+        viewAppBar.setNavigationClickListener(super::onBackPressed);
         fromActivity = getIntent().getExtras().getString(Activity.class.getSimpleName(), "");
         cmbIllust.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, CardUtils.getIllust()));
         cmbPack.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, CardUtils.getAllPack()));
@@ -108,11 +112,6 @@ public class AdvancedSearchActivity extends BaseActivity implements AdapterView.
                 IntentUtils.gotoActivity(this, ResultActivity.class);
             }
         }
-    }
-
-    @OnClick(R.id.img_back)
-    public void onBack_Click() {
-        super.onBackPressed();
     }
 
     public CardBean getCardBean() {

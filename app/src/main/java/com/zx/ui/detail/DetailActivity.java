@@ -11,13 +11,13 @@ import com.zx.bean.CardBean;
 import com.zx.game.utils.CardUtils;
 import com.zx.ui.base.BaseActivity;
 import com.zx.view.banner.BannerImageLoader;
+import com.zx.view.widget.AppBarView;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * Created by 八神火焰 on 2016/12/13.
@@ -33,7 +33,7 @@ public class DetailActivity extends BaseActivity
     @BindView(R.id.tv_number)
     TextView    tvNumber;
     @BindView(R.id.tv_rare)
-    TextView   tvRare;
+    TextView    tvRare;
     @BindView(R.id.tv_race)
     TextView    tvRace;
     @BindView(R.id.tv_type)
@@ -54,6 +54,8 @@ public class DetailActivity extends BaseActivity
     TextView    tvLines;
     @BindView(R.id.tv_faq)
     TextView    tvFaq;
+    @BindView(R.id.viewAppBar)
+    AppBarView  viewAppBar;
 
     public static CardBean cardBean;
 
@@ -65,6 +67,7 @@ public class DetailActivity extends BaseActivity
     @Override
     public void initViewAndData() {
         ButterKnife.bind(this);
+        viewAppBar.setNavigationClickListener(super::onBackPressed);
         setCardBean();
     }
 
@@ -107,10 +110,4 @@ public class DetailActivity extends BaseActivity
             }
         }
     }
-
-    @OnClick(R.id.img_back)
-    public void onBack_Click() {
-        super.onBackPressed();
-    }
-
 }

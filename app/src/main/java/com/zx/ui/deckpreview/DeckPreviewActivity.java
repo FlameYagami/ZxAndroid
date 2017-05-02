@@ -16,6 +16,7 @@ import com.zx.uitls.FileUtils;
 import com.zx.uitls.IntentUtils;
 import com.zx.uitls.JsonUtils;
 import com.zx.view.dialog.DialogEditText;
+import com.zx.view.widget.AppBarView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +47,8 @@ public class DeckPreviewActivity extends BaseActivity implements BaseRecyclerVie
     String            deleteSucceed;
     @BindString(R.string.deck_name_exits)
     String            deckNameExits;
+    @BindView(R.id.viewAppBar)
+    AppBarView        viewAppBar;
 
     private static final String TAG = DeckPreviewActivity.class.getSimpleName();
 
@@ -59,7 +62,7 @@ public class DeckPreviewActivity extends BaseActivity implements BaseRecyclerVie
     @Override
     public void initViewAndData() {
         ButterKnife.bind(this);
-
+        viewAppBar.setNavigationClickListener(super::onBackPressed);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         mDeckPreviewAdapter = new DeckPreviewAdapter(this);
         rvDeckPreview.setLayoutManager(linearLayoutManager);
@@ -93,11 +96,6 @@ public class DeckPreviewActivity extends BaseActivity implements BaseRecyclerVie
                 showSnackBar(viewContent, deckNameExits);
             }
         }).show();
-    }
-
-    @OnClick(R.id.img_back)
-    public void onBack_Click() {
-        super.onBackPressed();
     }
 
     @Override

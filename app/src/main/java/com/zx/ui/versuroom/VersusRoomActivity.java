@@ -24,6 +24,7 @@ import com.zx.ui.versus.VersusActivity;
 import com.zx.uitls.IntentUtils;
 import com.zx.uitls.RxBus;
 import com.zx.view.dialog.DialogDeckPreview;
+import com.zx.view.widget.AppBarView;
 
 import java.util.concurrent.TimeUnit;
 
@@ -42,7 +43,7 @@ import static br.com.zbra.androidlinq.Linq.stream;
  * Created by 八神火焰 on 2017/1/16.
  */
 
-public class VersusRoomActivity extends BaseExActivity
+public class VersusRoomActivity extends BaseExActivity implements AppBarView.NavigationClickListener
 {
     @BindString(R.string.host)
     String host;
@@ -71,6 +72,8 @@ public class VersusRoomActivity extends BaseExActivity
     RelativeLayout viewPlayer[];
     @BindViews({R.id.view_hint_player0, R.id.view_hint_player1})
     RelativeLayout viewHintPlayer[];
+    @BindView(R.id.viewAppBar)
+    AppBarView     viewAppBar;
 
     private UISubscriber mUISubscriber;
     private byte         ownerType;
@@ -84,7 +87,7 @@ public class VersusRoomActivity extends BaseExActivity
     @Override
     public void initViewAndData() {
         ButterKnife.bind(this);
-
+        viewAppBar.setNavigationClickListener(this);
         // 选手进入房间事件注册
         RxBus.getInstance().addSubscription(this, RxBus.getInstance().toObservable(EnterGameEvent.class).subscribe(this::onEnterRoom));
         // 选手状态事件注册
@@ -104,17 +107,7 @@ public class VersusRoomActivity extends BaseExActivity
         super.onResume();
     }
 
-    @OnClick(R.id.img_back)
-    public void onBack_Click() {
-        showDialog("");
-        MyApp.Client.send(ModBusCreator.onLeaveRoom(MyApp.Client.Player));
-    }
 
-    @Override
-    public void onBackPressed() {
-        showDialog("");
-        MyApp.Client.send(ModBusCreator.onLeaveRoom(MyApp.Client.Player));
-    }
 
     /**
      * 卡组选择
@@ -214,6 +207,11 @@ public class VersusRoomActivity extends BaseExActivity
                 btnReady[i].setEnabled(players[i].getType() == ownerType);
             }
         }
+    }
+
+    @Override
+    public void onNavigationClick() {
+
     }
 
     /**

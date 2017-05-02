@@ -10,9 +10,7 @@ import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.zx.R;
@@ -30,6 +28,7 @@ import com.zx.uitls.IntentUtils;
 import com.zx.uitls.database.SQLiteUtils;
 import com.zx.uitls.database.SqlUtils;
 import com.zx.view.banner.BannerImageLoader;
+import com.zx.view.widget.AppBarView;
 
 import java.util.List;
 import java.util.Map;
@@ -44,8 +43,6 @@ import static br.com.zbra.androidlinq.Linq.stream;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener
 {
-    @BindView(R.id.img_back)
-    ImageView         imgIcon;
     @BindView(R.id.view_drawer)
     DrawerLayout      viewDrawer;
     @BindView(R.id.banner)
@@ -56,6 +53,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     EditText          txtSearch;
     @BindView(R.id.nav_view)
     NavigationView    navView;
+    @BindView(R.id.viewAppBar)
+    AppBarView        viewAppBar;
 
     private static final String TAG       = MainActivity.class.getSimpleName();
     private              long   firstTime = 0;
@@ -68,22 +67,20 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     public void initViewAndData() {
         ButterKnife.bind(this);
+
         // 主界面不可调用SwipeBack
         setSwipeBackEnable(false);
         initBGABanner();
-
-        Glide.with(this).load(R.drawable.ic_icon).into(imgIcon);
         Observable.just(this).observeOn(Schedulers.newThread()).subscribe(mainActivity -> {
-            imgIcon.setOnClickListener(view -> viewDrawer.openDrawer(GravityCompat.START));
+            viewAppBar.setNavigationClickListener(() -> viewDrawer.openDrawer(GravityCompat.START));
             navView.setNavigationItemSelectedListener(this);
             SQLiteUtils.getAllCardList();
         });
     }
 
     private void initBGABanner() {
-        int                      widthPx  = DisplayUtils.getScreenWidth() - DisplayUtils.dip2px(15 * 2);
-        int                      heightPx = widthPx * 29 / 68;
-        int                      marginPx = DisplayUtils.dip2px(15);
+        int                      heightPx = (DisplayUtils.getScreenWidth() - DisplayUtils.dip2px(16 * 2)) * 29 / 68;
+        int                      marginPx = DisplayUtils.dip2px(16);
         FrameLayout.LayoutParams params   = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, heightPx);
         params.setMargins(marginPx, marginPx, marginPx, marginPx);
         bannerGuide.setLayoutParams(params);

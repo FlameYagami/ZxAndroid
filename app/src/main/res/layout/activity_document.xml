@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.zx.view.widget.HeaderView
+    <com.zx.view.widget.AppBarView
+        android:id="@+id/viewAppBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:title_text="@string/document_about_title"/>

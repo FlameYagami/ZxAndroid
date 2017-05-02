@@ -20,8 +20,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.zx.view.widget.HeaderView
-                android:id="@+id/view_header"
+            <com.zx.view.widget.AppBarView
+                android:id="@+id/viewAppBar"
+                app:navigation_src="@mipmap/ic_icon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:title_text="@string/app_name"/>
@@ -30,7 +31,7 @@
                 android:id="@+id/view_banner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/view_header">
+                android:layout_below="@+id/viewAppBar">
 
                 <com.youth.banner.Banner
                     android:id="@+id/banner"
@@ -47,8 +48,8 @@
                 android:layout_height="40dp"
                 android:layout_below="@+id/view_banner"
                 android:layout_centerInParent="true"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:background="@drawable/txt_primary"
                 android:gravity="center"
                 android:hint="@string/search_hint"

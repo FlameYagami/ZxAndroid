@@ -9,10 +9,10 @@ import android.widget.Toast;
 
 import com.zx.config.MyApp;
 import com.zx.uitls.AppManager;
-import com.zx.view.dialog.DialogLoading;
 import com.zx.uitls.DisplayUtils;
 import com.zx.uitls.RxBus;
 import com.zx.uitls.StatusBarUtils;
+import com.zx.view.dialog.DialogLoading;
 import com.zx.view.widget.ToastView;
 
 import me.imid.swipebacklayout.lib.SwipeBackLayout;
@@ -47,7 +47,6 @@ public abstract class BaseActivity extends SwipeBackActivity
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         mSwipeBackLayout = getSwipeBackLayout();
         mSwipeBackLayout.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_LEFT);
         StatusBarUtils.enableTranslucentStatusBar(this);

@@ -14,6 +14,7 @@ import com.zx.uitls.IntentUtils;
 import com.zx.uitls.RxBus;
 import com.zx.view.dialog.DialogEditText;
 import com.zx.view.dialog.DialogVersusPersonal;
+import com.zx.view.widget.AppBarView;
 
 import java.util.Random;
 
@@ -27,9 +28,10 @@ import butterknife.OnClick;
 
 public class VersusModeActivity extends BaseActivity
 {
-
     @BindView(R.id.view_content)
     LinearLayout viewContent;
+    @BindView(R.id.viewAppBar)
+    AppBarView   viewAppBar;
 
     private static final String TAG = VersusModeActivity.class.getSimpleName();
 
@@ -44,15 +46,11 @@ public class VersusModeActivity extends BaseActivity
     @Override
     public void initViewAndData() {
         ButterKnife.bind(this);
+        viewAppBar.setNavigationClickListener(super::onBackPressed);
         MyApp.Client.initPlayer(String.valueOf(new Random().nextInt()));
         MyApp.Client.start();
 
         RxBus.getInstance().addSubscription(this, RxBus.getInstance().toObservable(JoinGameEvent.class).subscribe(this::onJoinRoom));
-    }
-
-    @OnClick(R.id.img_back)
-    public void onBack_Click() {
-        super.onBackPressed();
     }
 
     @OnClick({R.id.view_ladder_tournament, R.id.view_versus_freedom, R.id.view_versus_personal})

@@ -3,11 +3,11 @@ package com.zx.ui.about;
 import com.zx.R;
 import com.zx.ui.base.BaseActivity;
 import com.zx.uitls.SystemUtils;
+import com.zx.view.widget.AppBarView;
 import com.zx.view.widget.MessageView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * Created by 八神火焰 on 2017/1/5.
@@ -17,6 +17,8 @@ public class AboutActivity extends BaseActivity
 {
     @BindView(R.id.view_version)
     MessageView viewVersion;
+    @BindView(R.id.viewAppBar)
+    AppBarView  viewAppBar;
 
     private static final String TAG = AboutActivity.class.getSimpleName();
 
@@ -28,12 +30,8 @@ public class AboutActivity extends BaseActivity
     @Override
     public void initViewAndData() {
         ButterKnife.bind(this);
+        viewAppBar.setNavigationClickListener(super::onBackPressed);
         viewVersion.setValue(SystemUtils.getVersionName());
-    }
-
-    @OnClick(R.id.img_back)
-    public void onBack_Click() {
-        super.onBackPressed();
     }
 
 //    @OnClick(R.id.tv_check_update)

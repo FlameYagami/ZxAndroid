@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="HeaderView">
+    <declare-styleable name="AppBarView">
         <attr name="title_text" format="string"/>
         <attr name="menu_visible" format="boolean"/>
-        <attr name="back_visible" format="boolean"/>
-        <attr name="title_center" format="boolean"/>
+        <attr name="navigation_src" format="reference"/>
+        <attr name="menu_src" format="reference"/>
     </declare-styleable>
 
     <declare-styleable name="MessageView">

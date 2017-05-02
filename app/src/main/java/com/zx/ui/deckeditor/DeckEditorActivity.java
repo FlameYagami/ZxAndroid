@@ -3,9 +3,7 @@ package com.zx.ui.deckeditor;
 import android.app.Activity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -37,6 +35,7 @@ import com.zx.uitls.database.SQLiteUtils;
 import com.zx.uitls.database.SqlUtils;
 import com.zx.view.banner.BannerImageLoader;
 import com.zx.view.banner.BannerPageChangeListener;
+import com.zx.view.widget.AppBarView;
 
 import java.io.File;
 import java.util.List;
@@ -53,7 +52,7 @@ import static com.zx.config.MyApp.context;
  * Created by 八神火焰 on 2016/12/21.
  */
 
-public class DeckEditorActivity extends BaseActivity implements PopupMenu.OnMenuItemClickListener
+public class DeckEditorActivity extends BaseActivity
 {
     @BindView(R.id.rv_preview)
     RecyclerView rvPreview;
@@ -87,8 +86,6 @@ public class DeckEditorActivity extends BaseActivity implements PopupMenu.OnMenu
     String       saveSucceed;
     @BindString(R.string.save_failed)
     String       saveFailed;
-    @BindView(R.id.img_menu)
-    ImageView    viewMenu;
     @BindView(R.id.tv_result_count)
     TextView     tvResultCount;
     @BindView(R.id.tv_start_count)
@@ -97,6 +94,8 @@ public class DeckEditorActivity extends BaseActivity implements PopupMenu.OnMenu
     TextView     tvLifeCount;
     @BindView(R.id.tv_void_count)
     TextView     tvVoidCount;
+    @BindView(R.id.viewAppBar)
+    AppBarView   viewAppBar;
 
     private static final String TAG = DeckEditorActivity.class.getSimpleName();
 
@@ -117,8 +116,8 @@ public class DeckEditorActivity extends BaseActivity implements PopupMenu.OnMenu
     @Override
     public void initViewAndData() {
         ButterKnife.bind(this);
-
-        viewMenu.setOnClickListener(this::showPopMenu);
+        viewAppBar.setNavigationClickListener(super::onBackPressed);
+        viewAppBar.setMenuClickListener(R.menu.item_deck_editor_menu, MenuClickListener);
 
         int minHeightPx = (DisplayUtils.getScreenWidth() - DisplayUtils.dip2px(32)) / 10 * 7 / 5;
         rvIg.setMinimumHeight(minHeightPx);
@@ -155,11 +154,6 @@ public class DeckEditorActivity extends BaseActivity implements PopupMenu.OnMenu
         updateStartAndLifeAndVoid(DeckUtils.getStartAndLifeAndVoidCount(mDeckManager));
 
         RxBus.getInstance().addSubscription(this, RxBus.getInstance().toObservable(CardListEvent.class).subscribe(this::updatePreview));
-    }
-
-    @OnClick(R.id.img_back)
-    public void onBack_Click() {
-        super.onBackPressed();
     }
 
     @OnClick(R.id.img_pl)
@@ -317,26 +311,21 @@ public class DeckEditorActivity extends BaseActivity implements PopupMenu.OnMenu
 //        tvVoidCount.setTextColor((voidCount == 0) || (voidCount == 1) ? Color.RED : voidCount == 2 ? Color.YELLOW : Color.GREEN);
     }
 
-    public void showPopMenu(View v) {
-        PopupMenu    popup    = new PopupMenu(this, v);
-        MenuInflater inflater = popup.getMenuInflater();
-        inflater.inflate(R.menu.item_deck_editor_menu, popup.getMenu());
-        popup.setOnMenuItemClickListener(this);
-        popup.show();
-    }
+    private AppBarView.MenuClickListener MenuClickListener = new AppBarView.MenuClickListener()
+    {
 
-    @Override
-    public boolean onMenuItemClick(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.nav_order_by_value:
-                mDeckManager.orderDeck(Enum.DeckOrderType.Value);
-                updateAllRecyclerView();
-                break;
-            case R.id.nav_order_by_random:
-                mDeckManager.orderDeck(Enum.DeckOrderType.Random);
-                updateAllRecyclerView();
-                break;
+        @Override
+        public void onMenuClick(MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.nav_order_by_value:
+                    mDeckManager.orderDeck(Enum.DeckOrderType.Value);
+                    updateAllRecyclerView();
+                    break;
+                case R.id.nav_order_by_random:
+                    mDeckManager.orderDeck(Enum.DeckOrderType.Random);
+                    updateAllRecyclerView();
+                    break;
+            }
         }
-        return false;
-    }
+    };
 }

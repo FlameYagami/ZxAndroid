@@ -9,12 +9,12 @@ import com.zx.bean.CardBean;
 import com.zx.ui.base.BaseActivity;
 import com.zx.ui.detail.DetailActivity;
 import com.zx.uitls.IntentUtils;
+import com.zx.view.widget.AppBarView;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * Created by 八神火焰 on 2016/12/10.
@@ -26,6 +26,8 @@ public class ResultActivity extends BaseActivity
     RecyclerView rvResult;
     @BindView(R.id.tv_result_count)
     TextView     tvResultCount;
+    @BindView(R.id.viewAppBar)
+    AppBarView   viewAppBar;
 
     ResultAdapter resultAdapter;
     public static List<CardBean> cardBeanList;
@@ -38,7 +40,7 @@ public class ResultActivity extends BaseActivity
     @Override
     public void initViewAndData() {
         ButterKnife.bind(this);
-
+        viewAppBar.setNavigationClickListener(super::onBackPressed);
         tvResultCount.setText(String.format("%s", cardBeanList.size()));
         resultAdapter = new ResultAdapter(this);
         rvResult.setLayoutManager(new LinearLayoutManager(this));
@@ -48,10 +50,5 @@ public class ResultActivity extends BaseActivity
             DetailActivity.cardBean = cardBeanList.get(position);
             IntentUtils.gotoActivity(this, DetailActivity.class);
         });
-    }
-
-    @OnClick(R.id.img_back)
-    public void onBack_Click() {
-        super.onBackPressed();
     }
 }

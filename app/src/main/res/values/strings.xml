@@ -162,5 +162,6 @@
     <string name="guest">GUEST</string>
     <string name="ready">准备</string>
     <string name="waiting_for_player">等待玩家</string>
+    <string name="nav_test">测试</string>
 
 </resources>

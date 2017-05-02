@@ -8,6 +8,7 @@ import com.zx.config.SpConst;
 import com.zx.ui.base.BaseActivity;
 import com.zx.uitls.StringUtils;
 import com.zx.view.dialog.DialogCheckBox;
+import com.zx.view.widget.AppBarView;
 import com.zx.view.widget.MessageView;
 
 import butterknife.BindArray;
@@ -27,6 +28,8 @@ public class AdvancedActivity extends BaseActivity
     MessageView viewOrderPattern;
     @BindView(R.id.view_key_search)
     MessageView viewKeySearch;
+    @BindView(R.id.viewAppBar)
+    AppBarView  viewAppBar;
 
     @Override
     public int getLayoutId() {
@@ -36,14 +39,9 @@ public class AdvancedActivity extends BaseActivity
     @Override
     public void initViewAndData() {
         ButterKnife.bind(this);
-
+        viewAppBar.setNavigationClickListener(super::onBackPressed);
         viewOrderPattern.setDefaultSp(SpConst.OrderPattern, mOrderPatternArrays[0]);
         viewKeySearch.setValue(StringUtils.changeList2String(KeySearchBean.getSelectKeySearchList()));
-    }
-
-    @OnClick(R.id.img_back)
-    public void onBack_Click() {
-        super.onBackPressed();
     }
 
     @OnClick(R.id.view_order_pattern)
