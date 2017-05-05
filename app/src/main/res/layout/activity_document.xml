@@ -15,28 +15,25 @@
     <com.zx.view.widget.MessageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_margin"
         app:message_text="@string/key_search_hint"
         app:title_text="@string/key_search"/>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/gray"/>
+    <include layout="@layout/include_divider_ex"/>
 
     <com.zx.view.widget.MessageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_margin"
         app:message_text="@string/interval_search_hint"
         app:title_text="@string/interval_search"/>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/gray"/>
+    <include layout="@layout/include_divider_ex"/>
 
     <com.zx.view.widget.MessageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_margin"
         app:message_text="@string/deck_operate_hint"
         app:title_text="@string/deck_operate"/>
 

@@ -14,7 +14,6 @@ public interface SQLitConst
     String ColumnSign          = "Sign";
     String ColumnRare          = "Rare";
     String ColumnPack          = "Pack";
-    String ColumnRestrict      = "Restrict";
     String ColumnCName         = "CName";
     String ColumnJName         = "JName";
     String ColumnIllust        = "Illust";

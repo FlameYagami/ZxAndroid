@@ -15,7 +15,7 @@ import butterknife.ButterKnife;
 
 public class AboutActivity extends BaseActivity
 {
-    @BindView(R.id.view_version)
+    @BindView(R.id.msg_version)
     MessageView viewVersion;
     @BindView(R.id.viewAppBar)
     AppBarView  viewAppBar;
@@ -34,7 +34,7 @@ public class AboutActivity extends BaseActivity
         viewVersion.setValue(SystemUtils.getVersionName());
     }
 
-//    @OnClick(R.id.tv_check_update)
+//    @OnClick(R.id.msg_update)
 //    public void onCheckUpdate(){
 //        RequestApi.checkUpdate().subscribe(mUpdateBean -> {
 //            LogUtils.e(TAG, JsonUtils.serializer(mUpdateBean));

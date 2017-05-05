@@ -107,51 +107,49 @@ public class RequestApi
      * @return 报警信息列表
      */
     public static Observable<UpdateBean> checkUpdate() {
-        return Observable.create(subscriber -> {
-            FileDownloader.getImpl().create(BASE_URL)
-                    .setPath(downloadPath + "UpdateJson")
-                    .setListener(new FileDownloadListener()
-                    {
-                        @Override
-                        protected void pending(BaseDownloadTask task, int soFarBytes, int totalBytes) {
-                        }
+        return Observable.create(subscriber -> FileDownloader.getImpl().create(BASE_URL + "releases/download/UpdateJson/UpdateJson.txt")
+                .setPath(downloadPath + "UpdateJson")
+                .setListener(new FileDownloadListener()
+                {
+                    @Override
+                    protected void pending(BaseDownloadTask task, int soFarBytes, int totalBytes) {
+                    }
 
-                        @Override
-                        protected void connected(BaseDownloadTask task, String etag, boolean isContinue, int soFarBytes, int totalBytes) {
-                        }
+                    @Override
+                    protected void connected(BaseDownloadTask task, String etag, boolean isContinue, int soFarBytes, int totalBytes) {
+                    }
 
-                        @Override
-                        protected void progress(BaseDownloadTask task, int soFarBytes, int totalBytes) {
-                        }
+                    @Override
+                    protected void progress(BaseDownloadTask task, int soFarBytes, int totalBytes) {
+                    }
 
-                        @Override
-                        protected void blockComplete(BaseDownloadTask task) {
-                        }
+                    @Override
+                    protected void blockComplete(BaseDownloadTask task) {
+                    }
 
-                        @Override
-                        protected void retry(final BaseDownloadTask task, final Throwable ex, final int retryingTimes, final int soFarBytes) {
-                        }
+                    @Override
+                    protected void retry(final BaseDownloadTask task, final Throwable ex, final int retryingTimes, final int soFarBytes) {
+                    }
 
-                        @Override
-                        protected void completed(BaseDownloadTask task) {
-                            String     updateJson = FileUtils.getFileContent(downloadPath + "UpdateJson");
-                            UpdateBean updateBean = JsonUtils.deserializer(updateJson, UpdateBean.class);
-                            subscriber.onNext(updateBean);
-                        }
+                    @Override
+                    protected void completed(BaseDownloadTask task) {
+                        String     updateJson = FileUtils.getFileContent(downloadPath + "UpdateJson");
+                        UpdateBean updateBean = JsonUtils.deserializer(updateJson, UpdateBean.class);
+                        subscriber.onNext(updateBean);
+                    }
 
-                        @Override
-                        protected void paused(BaseDownloadTask task, int soFarBytes, int totalBytes) {
-                        }
+                    @Override
+                    protected void paused(BaseDownloadTask task, int soFarBytes, int totalBytes) {
+                    }
 
-                        @Override
-                        protected void error(BaseDownloadTask task, Throwable e) {
-                            subscriber.onError(e);
-                        }
+                    @Override
+                    protected void error(BaseDownloadTask task, Throwable e) {
+                        subscriber.onError(e);
+                    }
 
-                        @Override
-                        protected void warn(BaseDownloadTask task) {
-                        }
-                    }).start();
-        });
+                    @Override
+                    protected void warn(BaseDownloadTask task) {
+                    }
+                }).start());
     }
 }

@@ -7,11 +7,9 @@
 
     <com.zx.view.widget.AppBarView
         android:id="@+id/viewAppBar"
-        xmlns:HeaderView="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        HeaderView:title_text="@string/detail_about_title">
-    </com.zx.view.widget.AppBarView>
+        app:title_text="@string/detail_about_title"/>
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -13,10 +13,9 @@
 
         <com.zx.view.widget.AppBarView
             android:id="@+id/viewAppBar"
-            xmlns:HeaderView="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            HeaderView:title_text="@string/deck_preview_about_title">
+            app:title_text="@string/deck_preview_about_title">
         </com.zx.view.widget.AppBarView>
 
         <android.support.v7.widget.RecyclerView

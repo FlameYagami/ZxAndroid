@@ -8,7 +8,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -80,8 +79,6 @@ public class DeckEditorActivity extends BaseActivity
     Banner       banner;
     @BindView(R.id.txt_search)
     EditText     txtSearch;
-    @BindView(R.id.view_content)
-    LinearLayout viewContent;
     @BindString(R.string.save_succeed)
     String       saveSucceed;
     @BindString(R.string.save_failed)
@@ -234,12 +231,12 @@ public class DeckEditorActivity extends BaseActivity
     @OnClick(R.id.fab_search)
     public void onSearch_Click() {
         DisplayUtils.hideKeyboard(this);
-        String         querySql     = SqlUtils.getKeyQuerySql(txtSearch.getText().toString().trim());
-        List<CardBean> cardBeanList = SQLiteUtils.getCardList(querySql);
-        tvResultCount.setText(String.format("%s", cardBeanList.size()));
-        mPreviewCardAdapter.updateData(cardBeanList);
-        if (cardBeanList.size() == 0) {
-            showSnackBar(viewContent, "没有查询到相关卡牌");
+        String         querySql = SqlUtils.getKeyQuerySql(txtSearch.getText().toString().trim());
+        List<CardBean> cardList = SQLiteUtils.getCardList(querySql);
+        tvResultCount.setText(String.format("%s", cardList.size()));
+        mPreviewCardAdapter.updateData(cardList);
+        if (cardList.size() == 0) {
+            showToast("没有查询到相关卡牌");
         }
     }
 
@@ -258,7 +255,7 @@ public class DeckEditorActivity extends BaseActivity
 
     @OnClick(R.id.tv_deck_save)
     public void onDeckSave_Click() {
-        showSnackBar(viewContent, DeckUtils.saveDeck(mDeckManager) ? saveSucceed : saveFailed);
+        showToast(DeckUtils.saveDeck(mDeckManager) ? saveSucceed : saveFailed);
     }
 
     private void updateSingleRecyclerView(Enum.AreaType areaType, Enum.OperateType operateType, int position) {

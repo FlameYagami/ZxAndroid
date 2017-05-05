@@ -2,7 +2,6 @@ package com.zx.ui.result;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.TextView;
 
 import com.zx.R;
 import com.zx.bean.CardBean;
@@ -13,6 +12,7 @@ import com.zx.view.widget.AppBarView;
 
 import java.util.List;
 
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -24,10 +24,10 @@ public class ResultActivity extends BaseActivity
 {
     @BindView(R.id.rv_result)
     RecyclerView rvResult;
-    @BindView(R.id.tv_result_count)
-    TextView     tvResultCount;
     @BindView(R.id.viewAppBar)
     AppBarView   viewAppBar;
+    @BindString(R.string.result_about_title)
+    String       title;
 
     ResultAdapter resultAdapter;
     public static List<CardBean> cardBeanList;
@@ -41,7 +41,7 @@ public class ResultActivity extends BaseActivity
     public void initViewAndData() {
         ButterKnife.bind(this);
         viewAppBar.setNavigationClickListener(super::onBackPressed);
-        tvResultCount.setText(String.format("%s", cardBeanList.size()));
+        viewAppBar.setTitleText(title + String.format("：%s", cardBeanList.size()));
         resultAdapter = new ResultAdapter(this);
         rvResult.setLayoutManager(new LinearLayoutManager(this));
         rvResult.setAdapter(resultAdapter);

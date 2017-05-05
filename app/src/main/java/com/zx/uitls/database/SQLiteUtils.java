@@ -4,10 +4,14 @@ import android.database.Cursor;
 import android.text.TextUtils;
 
 import com.zx.bean.CardBean;
+import com.zx.bean.RestrictBean;
 import com.zx.config.SQLitConst;
+import com.zx.game.utils.RestrictUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static br.com.zbra.androidlinq.Linq.stream;
 
 /**
  * Created by Administrator on 2016/6/30.
@@ -47,7 +51,6 @@ public class SQLiteUtils implements SQLitConst
             String Sign     = result.getString(result.getColumnIndex(ColumnSign));
             String Rare     = result.getString(result.getColumnIndex(ColumnRare));
             String Pack     = result.getString(result.getColumnIndex(ColumnPack));
-            String Restrict = result.getString(result.getColumnIndex(ColumnRestrict));
             String CName    = result.getString(result.getColumnIndex(ColumnCName));
             String JName    = result.getString(result.getColumnIndex(ColumnJName));
             String Illust   = result.getString(result.getColumnIndex(ColumnIllust));
@@ -58,9 +61,9 @@ public class SQLiteUtils implements SQLitConst
             String Lines    = result.getString(result.getColumnIndex(ColumnLines));
             String Faq      = result.getString(result.getColumnIndex(ColumnFaq));
             String Image    = result.getString(result.getColumnIndex(ColumnImage));
-
-            Cost = TextUtils.isEmpty(Cost) || Cost.equals("0") ? "" : Cost;
-            Power = TextUtils.isEmpty(Power) || Power.equals("0") ? "" : Power;
+            String Restrict = String.valueOf(stream(RestrictUtils.getRestrictList()).firstOrDefault(bean -> bean.getMd5().equals(Md5), new RestrictBean()).getRestrict());
+            Cost = TextUtils.isEmpty(Cost) || Cost.equals("0") ? "-" : Cost;
+            Power = TextUtils.isEmpty(Power) || Power.equals("0") ? "-" : Power;
             CardBean cardBean = new CardBean(Md5, Type, Race, Camp, Sign, Rare, Pack, Restrict, CName, JName, Illust, Number, Cost, Power, Ability, Lines, Faq, Image);
             deviceList.add(cardBean);
         }

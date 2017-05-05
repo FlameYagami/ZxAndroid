@@ -24,9 +24,9 @@ public class AdvancedActivity extends BaseActivity
 {
     @BindArray(R.array.order)
     String[]    mOrderPatternArrays;
-    @BindView(R.id.view_order_pattern)
+    @BindView(R.id.msg_order_pattern)
     MessageView viewOrderPattern;
-    @BindView(R.id.view_key_search)
+    @BindView(R.id.msg_key_search)
     MessageView viewKeySearch;
     @BindView(R.id.viewAppBar)
     AppBarView  viewAppBar;
@@ -44,7 +44,7 @@ public class AdvancedActivity extends BaseActivity
         viewKeySearch.setValue(StringUtils.changeList2String(KeySearchBean.getSelectKeySearchList()));
     }
 
-    @OnClick(R.id.view_order_pattern)
+    @OnClick(R.id.msg_order_pattern)
     public void onOrderPattern_Click() {
         new AlertDialog.Builder(this)
                 .setTitle(getString(R.string.order_pattern))
@@ -52,7 +52,7 @@ public class AdvancedActivity extends BaseActivity
                 .show();
     }
 
-    @OnClick(R.id.view_key_search)
+    @OnClick(R.id.msg_key_search)
     public void onKeySearch_Click() {
         new DialogCheckBox(this, getString(R.string.key_search), KeySearchBean.getKeySearchMap(), keySearchMap -> {
             KeySearchBean.saveKeySearchMap(keySearchMap);

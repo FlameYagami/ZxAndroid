@@ -135,6 +135,27 @@ public class FileUtils
     }
 
     /**
+     * 获取资源文件内容
+     *
+     * @param fileName 资源文件名称
+     */
+    public static String getAssetsContent(String fileName) {
+        String content = "";
+        try {
+            InputStream       inputStream       = context.getResources().getAssets().open(fileName);
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "utf-8");
+            char              input[]           = new char[inputStream.available()];
+            inputStreamReader.read(input);
+            content = new String(input);
+        } catch (Exception e) {
+            e.printStackTrace();
+            LogUtils.e(TAG, e.getMessage());
+        }
+        return content;
+    }
+
+
+    /**
      * 获取文件名称（不包含扩展名）
      *
      * @param path 文件路径

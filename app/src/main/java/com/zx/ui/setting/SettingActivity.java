@@ -32,17 +32,17 @@ public class SettingActivity extends BaseActivity
         viewAppBar.setNavigationClickListener(super::onBackPressed);
     }
 
-    @OnClick(R.id.tv_advanced)
-    public void onAdvanced_Click() {
+    @OnClick(R.id.msg_advance)
+    public void onAdvance_Click() {
         IntentUtils.gotoActivity(this, AdvancedActivity.class);
     }
 
-    @OnClick(R.id.tv_document)
+    @OnClick(R.id.msg_document)
     public void onDocument_Click() {
         IntentUtils.gotoActivity(this, DocumentActivity.class);
     }
 
-    @OnClick(R.id.tv_about)
+    @OnClick(R.id.msg_about)
     public void onAbout_Click() {
         IntentUtils.gotoActivity(this, AboutActivity.class);
     }

@@ -97,6 +97,9 @@
 
     <!-- SettingActivity -->
     <string name="setting_about_title">设置</string>
+    <string name="setting_about_advanced">高级</string>
+    <string name="setting_about_document">说明</string>
+    <string name="setting_about_about">关于</string>
 
     <!-- AdvancedActivity -->
     <string name="advanced_about_title">高级</string>
@@ -111,7 +114,7 @@
     <string name="deck_operate_hint">添加、删除卡片时请长按对应区域卡面&#x000A;信息显示卡面长按时进入详细信息界面</string>
 
     <!-- AboutActivity -->
-    <string name="about_title">关于</string>
+    <string name="about_about_title">关于</string>
     <string name="about_version">版本号</string>
     <string name="about_thank">特别鸣谢</string>
     <string name="about_thank_name">异界群敌翻译小组</string>

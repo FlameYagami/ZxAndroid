@@ -2,6 +2,7 @@ package com.zx.view.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +37,11 @@ public class MessageView extends LinearLayout
         String     valueText  = typedArray.getString(R.styleable.MessageView_message_text);
         typedArray.recycle();
         tvKey.setText(keyText);
-        tvValue.setText(valueText);
+        if (TextUtils.isEmpty(valueText)) {
+            tvValue.setVisibility(GONE);
+        } else {
+            tvValue.setText(valueText);
+        }
         view.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
     }
 

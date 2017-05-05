@@ -14,6 +14,7 @@ import com.zx.bean.AbilityTypeBean;
 import com.zx.bean.CardBean;
 import com.zx.event.CardListEvent;
 import com.zx.game.utils.CardUtils;
+import com.zx.game.utils.RestrictUtils;
 import com.zx.ui.base.BaseActivity;
 import com.zx.ui.deckeditor.DeckEditorActivity;
 import com.zx.ui.main.MainActivity;
@@ -36,7 +37,7 @@ import butterknife.OnClick;
  * Created by 八神火焰 on 2016/12/10.
  */
 
-public class AdvancedSearchActivity extends BaseActivity implements AdapterView.OnItemSelectedListener
+public class AdvancedSearchActivity extends BaseActivity
 {
     @BindView(R.id.view_content)
     RelativeLayout viewContent;
@@ -81,7 +82,7 @@ public class AdvancedSearchActivity extends BaseActivity implements AdapterView.
         fromActivity = getIntent().getExtras().getString(Activity.class.getSimpleName(), "");
         cmbIllust.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, CardUtils.getIllust()));
         cmbPack.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, CardUtils.getAllPack()));
-        cmbCamp.setOnItemSelectedListener(this);
+        cmbCamp.setOnItemSelectedListener(onCampItemSelectedListener);
         AbilityTypeBean.initAbilityTypeMap();
         AbilityDetailBean.initAbilityDetailMap();
     }
@@ -98,17 +99,18 @@ public class AdvancedSearchActivity extends BaseActivity implements AdapterView.
 
     @OnClick(R.id.fab_search)
     public void onSearch_Click() {
-        CardBean       cardBean     = getCardBean();
-        String         querySql     = SqlUtils.getQuerySql(cardBean);
-        List<CardBean> cardBeanList = SQLiteUtils.getCardList(querySql);
-        if (cardBeanList.size() == 0) {
-            showSnackBar(viewContent, "没有查询到相关卡牌");
+        CardBean       cardBean = getCardBean();
+        String         querySql = SqlUtils.getQuerySql(cardBean);
+        List<CardBean> cardList = SQLiteUtils.getCardList(querySql);
+        cardList = RestrictUtils.getRestrictCardList(cardList, cardBean);
+        if (cardList.size() == 0) {
+            showToast("没有查询到相关卡牌");
         } else {
             if (fromActivity.equals(DeckEditorActivity.class.getSimpleName())) {
-                RxBus.getInstance().post(new CardListEvent(cardBeanList));
+                RxBus.getInstance().post(new CardListEvent(cardList));
                 super.onBackPressed();
             } else if (fromActivity.equals(MainActivity.class.getSimpleName())) {
-                ResultActivity.cardBeanList = cardBeanList;
+                ResultActivity.cardBeanList = cardList;
                 IntentUtils.gotoActivity(this, ResultActivity.class);
             }
         }
@@ -131,15 +133,19 @@ public class AdvancedSearchActivity extends BaseActivity implements AdapterView.
         return new CardBean(Key, Type, Camp, Race, Sign, Rare, Pack, Illust, Restrict, Cost, Power, AbilityType, AbilityDetail);
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        cmbRace.setAdapter(new ArrayAdapter<>(AdvancedSearchActivity.this, android.R.layout.simple_spinner_item, CardUtils.getPartRace(campArray[i])));
-    }
+    private AdapterView.OnItemSelectedListener onCampItemSelectedListener = new AdapterView.OnItemSelectedListener()
+    {
 
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            cmbRace.setAdapter(new ArrayAdapter<>(AdvancedSearchActivity.this, android.R.layout.simple_spinner_item, CardUtils.getPartRace(campArray[position])));
+        }
 
-    }
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+
+        }
+    };
 
     @OnClick(R.id.fab_reset)
     public void onReset_Click() {

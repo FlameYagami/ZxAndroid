@@ -6,8 +6,8 @@ import com.zx.R;
 import com.zx.bean.CardBean;
 import com.zx.bean.KeySearchBean;
 import com.zx.config.MapConst;
-import com.zx.config.SpConst;
 import com.zx.config.SQLitConst;
+import com.zx.config.SpConst;
 import com.zx.uitls.LogUtils;
 import com.zx.uitls.SpUtil;
 
@@ -57,7 +57,7 @@ public class SqlUtils implements SQLitConst
         builder.append(SqlUtils.getPackSql(cardBean.getPack(), ColumnPack)); // 卡包
         builder.append(SqlUtils.getIntervalSql(cardBean.getCost(), ColumnCost)); // 费用
         builder.append(SqlUtils.getIntervalSql(cardBean.getPower(), ColumnPower)); // 力量
-        builder.append(SqlUtils.getAccurateSql(cardBean.getRestrict(), ColumnRestrict)); // 限制
+//        builder.append(SqlUtils.getAccurateSql(cardBean.getRestrict(), ColumnRestrict)); // 限制
         builder.append(cardBean.getAbilityType()); //  能力类型
         builder.append(cardBean.getAbilityDetail()); // 详细能力
         builder.append(getFooterSql()); // 排序

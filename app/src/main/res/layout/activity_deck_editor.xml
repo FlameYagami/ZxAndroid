@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    android:id="@+id/view_content"
     style="@style/layout_match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.zx.view.widget.AppBarView
         android:id="@+id/viewAppBar"
-        xmlns:HeaderView="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        HeaderView:menu_visible="true"
-        HeaderView:title_text="@string/deck_editor_about_title"/>
+        app:menu_visible="true"
+        app:title_text="@string/deck_editor_about_title"/>
 
     <LinearLayout
         android:layout_width="match_parent"

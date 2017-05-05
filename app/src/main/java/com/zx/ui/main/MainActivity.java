@@ -16,6 +16,7 @@ import com.youth.banner.BannerConfig;
 import com.zx.R;
 import com.zx.bean.CardBean;
 import com.zx.config.MapConst;
+import com.zx.game.utils.RestrictUtils;
 import com.zx.ui.advancedsearch.AdvancedSearchActivity;
 import com.zx.ui.base.BaseActivity;
 import com.zx.ui.deckpreview.DeckPreviewActivity;
@@ -74,6 +75,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         Observable.just(this).observeOn(Schedulers.newThread()).subscribe(mainActivity -> {
             viewAppBar.setNavigationClickListener(() -> viewDrawer.openDrawer(GravityCompat.START));
             navView.setNavigationItemSelectedListener(this);
+            RestrictUtils.getRestrictList();
             SQLiteUtils.getAllCardList();
         });
     }

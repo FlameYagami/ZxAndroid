@@ -23,6 +23,8 @@ public class MyApp extends Application
 
     @Override
     public void onCreate() {
+        super.onCreate();
+
         context = getApplicationContext();
         Client = new Client();
         PathManager.init(context);

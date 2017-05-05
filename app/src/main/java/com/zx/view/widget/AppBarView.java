@@ -24,7 +24,7 @@ public class AppBarView extends LinearLayout
     @BindView(R.id.view_shadowbar)
     View    viewShadowBar;
     @BindView(R.id.view_statusbar)
-    View    viewStatusbar;
+    View    viewStatusBar;
 
     public interface NavigationClickListener
     {
@@ -69,8 +69,12 @@ public class AppBarView extends LinearLayout
         });
     }
 
+    public void setTitleText(String titleText) {
+        mToolbar.setTitle(titleText);
+    }
+
     public View getStatusbar() {
-        return viewStatusbar;
+        return viewStatusBar;
     }
 
     public View getShadowBar() {
