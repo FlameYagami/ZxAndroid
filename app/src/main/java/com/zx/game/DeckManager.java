@@ -134,24 +134,24 @@ public class DeckManager
         Md5List.add(CardUtils.getMd5(number));
         if (areaType.equals(Enum.AreaType.Player)) {
             PlayerList.clear();
-            addBeanToList(number, thumbnailPath, PlayerList);
+            addCardToList(number, thumbnailPath, PlayerList);
             return Enum.AreaType.Player;
         } else if (areaType.equals(Enum.AreaType.Ig)) {
             if (checkAreaIg(number)) {
-                addBeanToList(number, thumbnailPath, IgList);
+                addCardToList(number, thumbnailPath, IgList);
                 return Enum.AreaType.Ig;
             }
         } else if (areaType.equals(Enum.AreaType.Ug)) {
             if (checkAreaUg(number)) {
-                addBeanToList(number, thumbnailPath, UgList);
+                addCardToList(number, thumbnailPath, UgList);
                 if (CardUtils.getUgType(number).equals(Enum.UgType.Start)) {
-                    addBeanToList(number, thumbnailPath, StartList);
+                    addCardToList(number, thumbnailPath, StartList);
                 }
                 return Enum.AreaType.Ug;
             }
         } else if (areaType.equals(Enum.AreaType.Ex)) {
             if (checkAreaEx(number)) {
-                addBeanToList(number, thumbnailPath, ExList);
+                addCardToList(number, thumbnailPath, ExList);
                 return Enum.AreaType.Ex;
             }
         }
@@ -191,16 +191,18 @@ public class DeckManager
      *
      * @param thumbnailPath 卡片缩略图
      * @param numberEx      扩展卡编
-     * @param collection    指定的集合
+     * @param deckList    指定的集合
      */
-    private void addBeanToList(String numberEx, String thumbnailPath, List<DeckBean> collection) {
+    private void addCardToList(String numberEx, String thumbnailPath, List<DeckBean> deckList) {
         CardBean cardBean = stream(SQLiteUtils.getAllCardList())
                 .first(bean -> bean.getNumber().equals(numberEx));
-        String name  = cardBean.getCName();
-        String camp  = cardBean.getCamp();
-        int    cost  = TextUtils.isEmpty(cardBean.getCost()) ? 0 : Integer.valueOf(cardBean.getCost());
-        int    power = TextUtils.isEmpty(cardBean.getPower()) ? 0 : Integer.valueOf(cardBean.getPower());
-        collection.add(new DeckBean(thumbnailPath, name, camp, numberEx, cost, power));
+        String name     = cardBean.getCName();
+        String camp     = cardBean.getCamp();
+        String cost     = cardBean.getCost();
+        String power    = cardBean.getPower();
+        int    costInt  = (TextUtils.isEmpty(cost) || cost.equals("-")) ? 0 : Integer.valueOf(cost);
+        int    powerInt = (TextUtils.isEmpty(power) || power.equals("-")) ? 0 : Integer.valueOf(power);
+        deckList.add(new DeckBean(thumbnailPath, name, camp, numberEx, costInt, powerInt));
     }
 
     /**

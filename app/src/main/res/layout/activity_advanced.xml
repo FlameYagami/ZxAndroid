@@ -23,11 +23,11 @@
     <include layout="@layout/include_divider_ex"/>
 
     <com.zx.view.widget.MessageView
-        android:id="@+id/msg_order_pattern"
+        android:id="@+id/msg_preview_order"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/activity_padding"
         app:message_text="@string/order_by_value"
-        app:title_text="@string/order_pattern"/>
+        app:title_text="@string/preview_order"/>
 
 </LinearLayout>

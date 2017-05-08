@@ -45,7 +45,7 @@ public class DialogCheckBox extends AlertDialog implements DialogInterface.OnCli
         setButton(BUTTON_NEGATIVE, "取 消", this);
         this.mOnClickListener = mOnClickListener;
         RecyclerView mRecyclerView = (RecyclerView)view.findViewById(R.id.rv_checkbox);
-        mRecyclerView.setLayoutManager(new GridLayoutManager(context, 3));
+        mRecyclerView.setLayoutManager(new GridLayoutManager(context, 2));
         mCheckBoxAdapter = new CheckBoxAdapter(context, mCheckboxMap);
         mRecyclerView.setAdapter(mCheckBoxAdapter);
     }
@@ -85,9 +85,7 @@ public class DialogCheckBox extends AlertDialog implements DialogInterface.OnCli
             String     key        = mKey.get(position);
             viewHolder.compatCheckBox.setText(key);
             viewHolder.compatCheckBox.setChecked(mCheckboxMap.get(key));
-            viewHolder.compatCheckBox.setOnCheckedChangeListener((compoundButton, b) -> {
-                mCheckboxMap.put(key, !mCheckboxMap.get(key));
-            });
+            viewHolder.compatCheckBox.setOnCheckedChangeListener((compoundButton, b) -> mCheckboxMap.put(key, !mCheckboxMap.get(key)));
         }
 
         @Override

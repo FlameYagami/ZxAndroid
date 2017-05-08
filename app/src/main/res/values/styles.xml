@@ -63,10 +63,8 @@
         <item name="android:progressDrawable">@drawable/prg_primary_mini</item>
     </style>
 
-    <style name="StyleSpinner">
+    <style name="StyleSpinner" parent="Widget.AppCompat.Spinner.DropDown.ActionBar">
         <item name="android:background">@drawable/cmb_primary</item>
-        <item name="android:maxHeight">50dp</item>
-        <item name="android:minHeight">20dp</item>
     </style>
 
     <style name="StyleEditText">
@@ -75,6 +73,15 @@
         <item name="android:minHeight">20dp</item>
         <item name="android:paddingLeft">5dp</item>
         <item name="android:paddingRight">5dp</item>
+    </style>
+
+    <style name="ToolbarPopupTheme" parent="@style/ThemeOverlay.AppCompat.Light">
+        <!--<item name="android:colorBackground">#000000</item> 也可以设置背景色以及menu中的其他属性-->
+        <item name="actionOverflowMenuStyle">@style/OverflowMenuStyle</item>
+    </style>
+
+    <style name="OverflowMenuStyle" parent="Widget.AppCompat.Light.PopupMenu.Overflow">
+        <item name="overlapAnchor">false</item>  <!--设置不覆盖锚点-->
     </style>
 
 </resources>

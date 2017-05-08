@@ -28,8 +28,7 @@
 
             <android.support.v7.widget.AppCompatTextView
                 style="@style/layout_wrap_content"
-                android:text="@string/cost"
-                android:textColor="@color/white"/>
+                android:text="@string/key"/>
 
             <android.support.v7.widget.AppCompatEditText
                 android:id="@+id/txt_key"

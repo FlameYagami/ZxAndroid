@@ -24,7 +24,7 @@ public class AdvancedActivity extends BaseActivity
 {
     @BindArray(R.array.order)
     String[]    mOrderPatternArrays;
-    @BindView(R.id.msg_order_pattern)
+    @BindView(R.id.msg_preview_order)
     MessageView viewOrderPattern;
     @BindView(R.id.msg_key_search)
     MessageView viewKeySearch;
@@ -44,10 +44,10 @@ public class AdvancedActivity extends BaseActivity
         viewKeySearch.setValue(StringUtils.changeList2String(KeySearchBean.getSelectKeySearchList()));
     }
 
-    @OnClick(R.id.msg_order_pattern)
+    @OnClick(R.id.msg_preview_order)
     public void onOrderPattern_Click() {
         new AlertDialog.Builder(this)
-                .setTitle(getString(R.string.order_pattern))
+                .setTitle(getString(R.string.preview_order))
                 .setItems(mOrderPatternArrays, (view, index) -> viewOrderPattern.setDefaultSp(SpConst.OrderPattern, mOrderPatternArrays[index]))
                 .show();
     }

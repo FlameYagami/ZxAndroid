@@ -50,7 +50,8 @@ public class MessageView extends LinearLayout
         tvValue.setText(value);
     }
 
-    public void setValue(String message) {
-        tvValue.setText(message);
+    public void setValue(String valueText) {
+        tvValue.setVisibility(TextUtils.isEmpty(valueText) ? GONE : VISIBLE);
+        tvValue.setText(valueText);
     }
 }

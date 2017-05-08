@@ -248,12 +248,7 @@ public class DeckEditorActivity extends BaseActivity
         return false;
     }
 
-    @OnClick(R.id.tv_advanced_search)
-    public void onAdvancedSearch_Click() {
-        IntentUtils.gotoActivity(this, AdvancedSearchActivity.class, BundleUtils.putString(Activity.class.getSimpleName(), DeckEditorActivity.class.getSimpleName()));
-    }
-
-    @OnClick(R.id.tv_deck_save)
+    @OnClick(R.id.btn_deck_save)
     public void onDeckSave_Click() {
         showToast(DeckUtils.saveDeck(mDeckManager) ? saveSucceed : saveFailed);
     }
@@ -303,9 +298,6 @@ public class DeckEditorActivity extends BaseActivity
         tvStartCount.setText(String.format("%s", startCount));
         tvLifeCount.setText(String.format("%s", lifeCount));
         tvVoidCount.setText(String.format("%s", voidCount));
-//        tvStartCount.setTextColor(startCount == 0 ? Color.RED : startCount == 1 ? Color.GREEN : Color.YELLOW);
-//        tvLifeCount.setTextColor((lifeCount == 0) || (lifeCount == 1) ? Color.RED : lifeCount == 2 ? Color.YELLOW : Color.GREEN);
-//        tvVoidCount.setTextColor((voidCount == 0) || (voidCount == 1) ? Color.RED : voidCount == 2 ? Color.YELLOW : Color.GREEN);
     }
 
     private AppBarView.MenuClickListener MenuClickListener = new AppBarView.MenuClickListener()
@@ -314,6 +306,10 @@ public class DeckEditorActivity extends BaseActivity
         @Override
         public void onMenuClick(MenuItem item) {
             switch (item.getItemId()) {
+                case R.id.nav_advanced_search:
+                    IntentUtils.gotoActivity(DeckEditorActivity.this, AdvancedSearchActivity.class,
+                            BundleUtils.putString(Activity.class.getSimpleName(), DeckEditorActivity.class.getSimpleName()));
+                    break;
                 case R.id.nav_order_by_value:
                     mDeckManager.orderDeck(Enum.DeckOrderType.Value);
                     updateAllRecyclerView();
