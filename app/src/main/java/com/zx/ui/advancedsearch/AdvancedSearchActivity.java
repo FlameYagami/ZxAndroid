@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 
+import com.michaelflisar.rxbus2.RxBus;
 import com.zx.R;
 import com.zx.bean.AbilityDetailBean;
 import com.zx.bean.AbilityTypeBean;
@@ -20,7 +21,6 @@ import com.zx.ui.deckeditor.DeckEditorActivity;
 import com.zx.ui.main.MainActivity;
 import com.zx.ui.result.ResultActivity;
 import com.zx.uitls.IntentUtils;
-import com.zx.uitls.RxBus;
 import com.zx.uitls.database.SQLiteUtils;
 import com.zx.uitls.database.SqlUtils;
 import com.zx.view.dialog.DialogCheckBox;
@@ -107,7 +107,7 @@ public class AdvancedSearchActivity extends BaseActivity
             showToast("没有查询到相关卡牌");
         } else {
             if (fromActivity.equals(DeckEditorActivity.class.getSimpleName())) {
-                RxBus.getInstance().post(new CardListEvent(cardList));
+                RxBus.get().send(new CardListEvent(cardList));
                 super.onBackPressed();
             } else if (fromActivity.equals(MainActivity.class.getSimpleName())) {
                 ResultActivity.cardBeanList = cardList;

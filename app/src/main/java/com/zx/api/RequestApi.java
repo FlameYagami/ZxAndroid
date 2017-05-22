@@ -12,13 +12,13 @@ import com.zx.uitls.JsonUtils;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import io.reactivex.Observable;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import rx.Observable;
 
 import static com.zx.uitls.PathManager.downloadPath;
 
@@ -46,34 +46,26 @@ public class RequestApi
         if (instance == null) {
             synchronized (RequestApi.class) {
                 if (instance == null) {
-                    instance = new RequestApi();
+                    instance = new RequestApi(BASE_URL);
                 }
             }
         }
         return instance;
     }
 
-    private RequestApi() {
+    /**
+     * 私有构造方法
+     *
+     * @param url 访问地址
+     */
+    private RequestApi(String url) {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         builder.connectTimeout(DEFAULT_TIMEOUT, TimeUnit.MILLISECONDS);
         builder.addInterceptor(new LogInterceptor());
         Retrofit retrofit = new Retrofit.Builder()
                 .client(builder.build())
                 .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .baseUrl(BASE_URL)
-                .build();
-        requestService = retrofit.create(RequestService.class);
-    }
-
-    public RequestApi(String url) {
-        OkHttpClient.Builder builder = new OkHttpClient.Builder();
-        builder.connectTimeout(DEFAULT_TIMEOUT, TimeUnit.MILLISECONDS);
-        builder.addInterceptor(new LogInterceptor());
-        Retrofit retrofit = new Retrofit.Builder()
-                .client(builder.build())
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .baseUrl(url)
                 .build();
         requestService = retrofit.create(RequestService.class);

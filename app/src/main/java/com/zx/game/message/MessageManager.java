@@ -10,20 +10,19 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.concurrent.TimeUnit;
 
-import rx.Observable;
-import rx.Subscription;
+import io.reactivex.Observable;
+import io.reactivex.disposables.Disposable;
 
 /**
  * Created by 八神火焰 on 2017/2/10.
  */
-
 public class MessageManager
 {
     private static String TAG = MessageManager.class.getSimpleName();
 
     private ModBusAnalyser mModBusAnalyser;
     private ClientSocket   mClientSocket;
-    private TickSubscriber mTickSubscriber;
+    private TickDisposable mTickDisposable;
     private Queue<byte[]>        sendQueue    = new LinkedList<>();
     private Queue<ServicePacket> receiveQueue = new LinkedList<>();
 
@@ -33,11 +32,11 @@ public class MessageManager
     }
 
     public void start() {
-        mTickSubscriber = new TickSubscriber();
+        mTickDisposable = new TickDisposable();
     }
 
     public void finish() {
-        mTickSubscriber.releaseSubscriber();
+        mTickDisposable.releaseSubscriber();
     }
 
     public void sendMessage(ClientPacket clientPacket) {
@@ -89,19 +88,17 @@ public class MessageManager
         }
     }
 
-    private class TickSubscriber
+    private class TickDisposable
     {
-        Subscription stopMePlease;
+        Disposable disposable;
 
-        TickSubscriber() {
-            stopMePlease = Observable.interval(100, TimeUnit.MILLISECONDS).subscribe(aLong -> {
-                tick();
-            });
+        TickDisposable() {
+            disposable = Observable.interval(100, TimeUnit.MILLISECONDS).subscribe(aLong -> tick());
         }
 
         void releaseSubscriber() {
-            stopMePlease.unsubscribe();
-            stopMePlease = null;
+            disposable.dispose();
+            disposable = null;
         }
     }
 }

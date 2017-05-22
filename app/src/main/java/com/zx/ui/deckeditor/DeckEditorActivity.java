@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.michaelflisar.rxbus2.RxBusBuilder;
+import com.michaelflisar.rxbus2.rx.RxDisposableManager;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.zx.R;
@@ -29,7 +31,6 @@ import com.zx.uitls.BundleUtils;
 import com.zx.uitls.DisplayUtils;
 import com.zx.uitls.IntentUtils;
 import com.zx.uitls.PathManager;
-import com.zx.uitls.RxBus;
 import com.zx.uitls.database.SQLiteUtils;
 import com.zx.uitls.database.SqlUtils;
 import com.zx.view.banner.BannerImageLoader;
@@ -149,8 +150,7 @@ public class DeckEditorActivity extends BaseActivity
         mDeckManager = new DeckManager(deckPreviewBean.getDeckName(), deckPreviewBean.getNumberExList());
         updateAllRecyclerView();
         updateStartAndLifeAndVoid(DeckUtils.getStartAndLifeAndVoidCount(mDeckManager));
-
-        RxBus.getInstance().addSubscription(this, RxBus.getInstance().toObservable(CardListEvent.class).subscribe(this::updatePreview));
+        RxDisposableManager.addDisposable(this, RxBusBuilder.create(CardListEvent.class).subscribe(this::updatePreview));
     }
 
     @OnClick(R.id.img_pl)

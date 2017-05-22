@@ -1,6 +1,5 @@
 package com.zx.uitls;
 
-
 import com.zx.R;
 
 import java.io.File;
@@ -10,7 +9,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
 
-import rx.Observable;
+import io.reactivex.Observable;
 
 import static com.zx.config.MyApp.context;
 
@@ -32,7 +31,7 @@ public class ZipUtils
         return Observable.create(subscriber -> {
             int zipCount = getZipSize(directoryPath + context.getString(R.string.zip_extension)) - 1; // PS:-1是因为存在文件夹
             if (zipCount == FileUtils.getFileSize(directoryPath)) {
-                subscriber.onCompleted();
+                subscriber.onComplete();
             } else {
                 int            len;
                 int            count     = 0;
@@ -64,7 +63,7 @@ public class ZipUtils
                             subscriber.onNext(count * 100 / zipCount);
                         }
                     }
-                    subscriber.onCompleted();
+                    subscriber.onComplete();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

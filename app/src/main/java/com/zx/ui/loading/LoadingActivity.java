@@ -7,7 +7,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.tbruyelle.rxpermissions.RxPermissions;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.zx.R;
 import com.zx.ui.base.BaseExActivity;
 import com.zx.ui.main.MainActivity;
@@ -21,11 +21,11 @@ import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import rx.Observable;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
+import static com.zx.uitls.PathManager.banlistPath;
 import static com.zx.uitls.PathManager.databasePath;
 import static com.zx.uitls.PathManager.pictureCache;
 import static com.zx.uitls.PathManager.pictureZipPath;
@@ -88,34 +88,19 @@ public class LoadingActivity extends BaseExActivity
             // 拷贝资源文件
             FileUtils.copyAssets("data.db", databasePath, false);
             FileUtils.copyAssets("picture.zip", pictureZipPath, false);
+            FileUtils.copyAssets("restrict", banlistPath, false);
             // 解压资源文件到外部
             UnZipPicture();
-        }, throwable -> {
-            LogUtils.e(TAG, throwable.getMessage());
-        });
+        }, throwable -> LogUtils.e(TAG, throwable.getMessage()));
     }
 
     private void UnZipPicture() {
-        ZipUtils.UnZipFolder("picture.zip", pictureCache).observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<Integer>()
-        {
-            @Override
-            public void onCompleted() {
-                IntentUtils.gotoActivityAndFinish(LoadingActivity.this, MainActivity.class);
+        ZipUtils.UnZipFolder("picture.zip", pictureCache).observeOn(AndroidSchedulers.mainThread()).subscribe(progress -> {
+            if (-1 != progress) {
+                prgLoading.setProgress(progress);
+                prgHint.setText(String.format("%s/100", progress));
             }
-
-            @Override
-            public void onError(Throwable e) {
-                LogUtils.e(TAG, e.getMessage());
-            }
-
-            @Override
-            public void onNext(Integer progress) {
-                if (-1 != progress) {
-                    prgLoading.setProgress(progress);
-                    prgHint.setText(String.format("%s/100", progress));
-                }
-            }
-        });
+        }, throwable -> LogUtils.e(TAG, throwable.getMessage()), () -> IntentUtils.gotoActivityAndFinish(LoadingActivity.this, MainActivity.class));
     }
 
     @Override

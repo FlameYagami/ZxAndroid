@@ -7,10 +7,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
+import com.michaelflisar.rxbus2.rx.RxDisposableManager;
 import com.zx.config.MyApp;
 import com.zx.uitls.AppManager;
 import com.zx.uitls.DisplayUtils;
-import com.zx.uitls.RxBus;
 import com.zx.uitls.StatusBarUtils;
 import com.zx.view.dialog.DialogLoading;
 import com.zx.view.widget.ToastView;
@@ -76,7 +76,7 @@ public abstract class BaseActivity extends SwipeBackActivity
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        RxBus.getInstance().unSubscribe(this);
+        RxDisposableManager.unsubscribe(this);
         AppManager.getInstances().finishActivity(this);
     }
 }

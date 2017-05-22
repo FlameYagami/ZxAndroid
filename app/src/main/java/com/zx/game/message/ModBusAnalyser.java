@@ -1,5 +1,6 @@
 package com.zx.game.message;
 
+import com.michaelflisar.rxbus2.RxBus;
 import com.zx.config.MyApp;
 import com.zx.event.DuelistStateEvent;
 import com.zx.event.EnterGameEvent;
@@ -11,7 +12,6 @@ import com.zx.game.Player;
 import com.zx.game.enums.PlayerChange;
 import com.zx.game.enums.PlayerType;
 import com.zx.game.enums.ServiceMessage;
-import com.zx.uitls.RxBus;
 
 /**
  * Created by 八神火焰 on 2017/2/11.
@@ -52,7 +52,7 @@ class ModBusAnalyser
      * 开始游戏
      */
     private void onStartGame(ServicePacket servicePacket) {
-        RxBus.getInstance().post(new StartGameEvent());
+        RxBus.get().send(new StartGameEvent());
     }
 
     /**
@@ -65,7 +65,7 @@ class ModBusAnalyser
             String playerName = servicePacket.readStringToEnd();
             Player player     = new Player(playerType, playerName);
             // 对已经在房间的玩家发送其他玩家进入的消息
-            RxBus.getInstance().post(new EnterGameEvent(player));
+            RxBus.get().send(new EnterGameEvent(player));
             if (null != MyApp.Client.Game) {
                 MyApp.Client.Game.updateDuelist(player);
             }
@@ -83,9 +83,9 @@ class ModBusAnalyser
             // Game中的本地玩家取自索引
             MyApp.Client.Player.setType(playerType);
             MyApp.Client.createGame(String.valueOf(roomId), MyApp.Client.Player);
-            RxBus.getInstance().post(new JoinGameEvent(playerType));
+            RxBus.get().send(new JoinGameEvent(playerType));
         } else {
-            RxBus.getInstance().post(new JoinGameEvent(playerType, false));
+            RxBus.get().send(new JoinGameEvent(playerType, false));
         }
     }
 
@@ -105,14 +105,14 @@ class ModBusAnalyser
         boolean isReady    = servicePacket.readByte() == PlayerChange.Ready;
         MyApp.Client.Game.setPlayerReady(playerType, isReady);
         // 向界面告知选手状态改变
-        RxBus.getInstance().post(new DuelistStateEvent());
+        RxBus.get().send(new DuelistStateEvent());
     }
 
     private void onLeaveGame(ServicePacket servicePacket) {
         byte   playerType = servicePacket.readByte();
         String playerName = servicePacket.readStringToEnd();
         // 向界面告知选手离开
-        RxBus.getInstance().post(new LeaveGameEvent(new Player(playerType, playerName), MyApp.Client.Player.getType()));
+        RxBus.get().send(new LeaveGameEvent(new Player(playerType, playerName), MyApp.Client.Player.getType()));
         // 对应本地用户准备状态更新
         if (playerType == MyApp.Client.Player.getType()) {
             MyApp.Client.leaveGame();

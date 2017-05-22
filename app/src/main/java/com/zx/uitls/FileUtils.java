@@ -1,6 +1,5 @@
 package com.zx.uitls;
 
-import android.text.TextUtils;
 import android.util.Log;
 
 import java.io.File;
@@ -8,7 +7,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.List;
 
 import static br.com.zbra.androidlinq.Linq.stream;
@@ -203,15 +201,15 @@ public class FileUtils
     public static String getFileContent(String path) {
         File   file    = new File(path);
         String content = "";
+        if (!file.exists()) {
+            return content;
+        }
         try {
             FileInputStream   fileInputStream   = new FileInputStream(file);
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, "utf-8");
             char              input[]           = new char[fileInputStream.available()];
             inputStreamReader.read(input);
             content = new String(input);
-            if (TextUtils.isEmpty(content)) {
-                content = JsonUtils.serializer(new ArrayList<String>());
-            }
         } catch (Exception e) {
             e.printStackTrace();
         }

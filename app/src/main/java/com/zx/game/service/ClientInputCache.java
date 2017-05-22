@@ -6,8 +6,8 @@ import com.zx.uitls.Md5Utils;
 import java.nio.ByteBuffer;
 import java.util.concurrent.TimeUnit;
 
-import rx.Observable;
-import rx.Subscription;
+import io.reactivex.Observable;
+import io.reactivex.disposables.Disposable;
 
 /**
  * Created by 八神火焰 on 2017/2/25.
@@ -81,10 +81,10 @@ public class ClientInputCache
 
     private class ReadSubscriber
     {
-        Subscription subscription;
+        Disposable disposable;
 
         ReadSubscriber() {
-            subscription = Observable.interval(500, TimeUnit.MILLISECONDS).subscribe(aLong -> {
+            disposable = Observable.interval(500, TimeUnit.MILLISECONDS).subscribe(aLong -> {
                 byte[] readBytes;
                 if (null != (readBytes = read())) {
                     mOnReadListener.read(readBytes);
@@ -93,8 +93,8 @@ public class ClientInputCache
         }
 
         void releaseSubscriber() {
-            subscription.unsubscribe();
-            subscription = null;
+            disposable.dispose();
+            disposable = null;
         }
     }
 }

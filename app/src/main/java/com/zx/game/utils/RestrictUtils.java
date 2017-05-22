@@ -1,9 +1,12 @@
 package com.zx.game.utils;
 
+import android.text.TextUtils;
+
 import com.zx.bean.CardBean;
 import com.zx.bean.RestrictBean;
 import com.zx.uitls.FileUtils;
 import com.zx.uitls.JsonUtils;
+import com.zx.uitls.PathManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +56,11 @@ public class RestrictUtils
      */
     public static List<RestrictBean> getRestrictList() {
         if (restrictList.size() == 0) {
-            String restrictJson = FileUtils.getAssetsContent("restrict");
+            String restrictJson = FileUtils.getFileContent(PathManager.banlistPath);
+            // 判空处理,保证序列化不抛出异常
+            if (TextUtils.isEmpty(restrictJson)) {
+                restrictJson = JsonUtils.serializer(new ArrayList<RestrictBean>());
+            }
             restrictList = JsonUtils.deserializerList(restrictJson, RestrictBean.class);
         }
         return restrictList;

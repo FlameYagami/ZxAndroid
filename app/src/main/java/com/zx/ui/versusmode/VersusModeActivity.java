@@ -3,6 +3,8 @@ package com.zx.ui.versusmode;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.michaelflisar.rxbus2.RxBusBuilder;
+import com.michaelflisar.rxbus2.rx.RxDisposableManager;
 import com.zx.R;
 import com.zx.config.MyApp;
 import com.zx.event.JoinGameEvent;
@@ -11,7 +13,6 @@ import com.zx.game.message.ModBusCreator;
 import com.zx.ui.base.BaseActivity;
 import com.zx.ui.versuroom.VersusRoomActivity;
 import com.zx.uitls.IntentUtils;
-import com.zx.uitls.RxBus;
 import com.zx.view.dialog.DialogEditText;
 import com.zx.view.dialog.DialogVersusPersonal;
 import com.zx.view.widget.AppBarView;
@@ -49,8 +50,7 @@ public class VersusModeActivity extends BaseActivity
         viewAppBar.setNavigationClickListener(super::onBackPressed);
         MyApp.Client.initPlayer(String.valueOf(new Random().nextInt()));
         MyApp.Client.start();
-
-        RxBus.getInstance().addSubscription(this, RxBus.getInstance().toObservable(JoinGameEvent.class).subscribe(this::onJoinRoom));
+        RxDisposableManager.addDisposable(this, RxBusBuilder.create(JoinGameEvent.class).subscribe(this::onJoinRoom));
     }
 
     @OnClick({R.id.view_ladder_tournament, R.id.view_versus_freedom, R.id.view_versus_personal})

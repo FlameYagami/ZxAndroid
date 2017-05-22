@@ -9,6 +9,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.michaelflisar.rxbus2.RxBusBuilder;
+import com.michaelflisar.rxbus2.rx.RxDisposableManager;
 import com.zx.R;
 import com.zx.config.MyApp;
 import com.zx.event.DuelistStateEvent;
@@ -22,7 +24,6 @@ import com.zx.game.message.ModBusCreator;
 import com.zx.ui.base.BaseExActivity;
 import com.zx.ui.versus.VersusActivity;
 import com.zx.uitls.IntentUtils;
-import com.zx.uitls.RxBus;
 import com.zx.view.dialog.DialogDeckPreview;
 import com.zx.view.widget.AppBarView;
 
@@ -33,9 +34,9 @@ import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import rx.Observable;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 
 import static br.com.zbra.androidlinq.Linq.stream;
 
@@ -89,13 +90,13 @@ public class VersusRoomActivity extends BaseExActivity implements AppBarView.Nav
         ButterKnife.bind(this);
         viewAppBar.setNavigationClickListener(this);
         // 选手进入房间事件注册
-        RxBus.getInstance().addSubscription(this, RxBus.getInstance().toObservable(EnterGameEvent.class).subscribe(this::onEnterRoom));
+        RxDisposableManager.addDisposable(this, RxBusBuilder.create(EnterGameEvent.class).subscribe(this::onEnterRoom));
         // 选手状态事件注册
-        RxBus.getInstance().addSubscription(this, RxBus.getInstance().toObservable(DuelistStateEvent.class).subscribe(this::onDuelistState));
+        RxDisposableManager.addDisposable(this, RxBusBuilder.create(DuelistStateEvent.class).subscribe(this::onDuelistState));
         // 离开房间事件注册
-        RxBus.getInstance().addSubscription(this, RxBus.getInstance().toObservable(LeaveGameEvent.class).observeOn(AndroidSchedulers.mainThread()).subscribe(this::onLeaveRoom));
+        RxDisposableManager.addDisposable(this, RxBusBuilder.create(LeaveGameEvent.class).subscribe(this::onLeaveRoom));
         // 开始游戏事件注册
-        RxBus.getInstance().addSubscription(this, RxBus.getInstance().toObservable(StartGameEvent.class).subscribe(this::onStartGame));
+        RxDisposableManager.addDisposable(this, RxBusBuilder.create(StartGameEvent.class).subscribe(this::onStartGame));
 
         ownerType = MyApp.Client.Player.getType();
         tvRoomId.setText(MyApp.Client.Room.getRoomId());
@@ -106,7 +107,6 @@ public class VersusRoomActivity extends BaseExActivity implements AppBarView.Nav
         mUISubscriber = new UISubscriber();
         super.onResume();
     }
-
 
 
     /**
@@ -219,17 +219,15 @@ public class VersusRoomActivity extends BaseExActivity implements AppBarView.Nav
      */
     private class UISubscriber
     {
-        Subscription stopMePlease;
+        Disposable disposable;
 
         UISubscriber() {
-            stopMePlease = Observable.interval(100, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread()).subscribe(aLong -> {
-                updateUI();
-            });
+            disposable = Observable.interval(100, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread()).subscribe(aLong -> updateUI());
         }
 
         void releaseSubscriber() {
-            stopMePlease.unsubscribe();
-            stopMePlease = null;
+            disposable.dispose();
+            disposable = null;
         }
     }
 }
