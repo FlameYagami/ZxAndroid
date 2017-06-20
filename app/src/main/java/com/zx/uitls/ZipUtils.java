@@ -33,7 +33,6 @@ public class ZipUtils
             if (zipCount == FileUtils.getFileSize(directoryPath)) {
                 subscriber.onComplete();
             } else {
-                int            len;
                 int            count     = 0;
                 String         unZipPath = new File(directoryPath).getParent() + File.separator;
                 String         szName;
@@ -48,16 +47,7 @@ public class ZipUtils
                             szName = szName.substring(0, szName.length() - 1);
                             FileUtils.createDirectory(unZipPath + szName);
                         } else {
-                            File file = new File(unZipPath + szName);
-                            if (!file.exists()) {
-                                file.createNewFile();
-                                FileOutputStream out    = new FileOutputStream(file);
-                                byte[]           buffer = new byte[2048];
-                                while ((len = inZip.read(buffer)) > 0) {
-                                    out.write(buffer, 0, len);
-                                }
-                                out.close();
-                            }
+                            unZipFile(unZipPath + szName, inZip);
                         }
                         if (++count % 20 == 0) {
                             subscriber.onNext(count * 100 / zipCount);
@@ -78,6 +68,36 @@ public class ZipUtils
         });
     }
 
+    /**
+     * 解压单个文件
+     *
+     * @param filePath    解压路径
+     * @param inputStream 文件流
+     */
+    private static void unZipFile(String filePath, ZipInputStream inputStream) {
+        try {
+            int  len;
+            File file = new File(filePath);
+            if (!file.exists()) {
+                file.createNewFile();
+                FileOutputStream out    = new FileOutputStream(file);
+                byte[]           buffer = new byte[2048];
+                while ((len = inputStream.read(buffer)) > 0) {
+                    out.write(buffer, 0, len);
+                }
+                out.close();
+            }
+        } catch (Exception e) {
+            LogUtils.e(TAG, e.getMessage());
+        }
+    }
+
+    /**
+     * 获取Zip大小
+     *
+     * @param path Zip路径
+     * @return size
+     */
     private static int getZipSize(String path) {
         int zipSize = 0;
         try {

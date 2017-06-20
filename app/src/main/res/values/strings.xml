@@ -30,6 +30,9 @@
     <string name="image_extension">.jpg</string>
     <string name="ok">确定</string>
     <string name="cancel">取消</string>
+    <string name="waiting">请稍后&#8230;</string>
+    <string name="network_exception">无法连接到网络</string>
+    <string name="service_exception">无法连接到服务器</string>
 
     <!-- Test -->
     <string name="cname_test">海洋服 莉洁尔</string>
@@ -98,9 +101,9 @@
 
     <!-- SettingActivity -->
     <string name="setting_about_title">设置</string>
-    <string name="setting_about_advanced">高级</string>
-    <string name="setting_about_document">说明</string>
-    <string name="setting_about_about">关于</string>
+    <string name="setting_advanced">高级</string>
+    <string name="setting_document">说明</string>
+    <string name="setting_about">关于</string>
 
     <!-- AdvancedActivity -->
     <string name="advanced_about_title">高级</string>

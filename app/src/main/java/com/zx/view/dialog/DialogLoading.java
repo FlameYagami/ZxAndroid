@@ -1,25 +1,60 @@
 package com.zx.view.dialog;
 
-import android.app.ProgressDialog;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.text.TextUtils;
+import android.view.View;
+import android.widget.TextView;
+
+import com.zx.R;
+
+import butterknife.BindString;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by 八神火焰 on 2016/12/1.
  */
 
-public class DialogLoading
+public class DialogLoading extends AlertDialog
 {
-    private static ProgressDialog dialog;
+    @BindView(R.id.tv_message)
+    TextView tvMessage;
+    @BindString(R.string.waiting)
+    String   pleaseWaiting;
 
-    public static void showDialog(Context context, String msg, boolean cancelable) {
-        dialog = ProgressDialog.show(context, null, !TextUtils.isEmpty(msg) ? msg : "请稍后...", true, cancelable);
+    protected DialogLoading(Context context) {
+        super(context);
+        initView(context, null, null);
     }
 
-    public static void hideDialog() {
-        if (null != dialog && dialog.isShowing()) {
-            dialog.dismiss();
-            dialog = null;
+    protected DialogLoading(Context context, CharSequence message) {
+        super(context);
+        initView(context, message, null);
+    }
+
+    protected DialogLoading(Context context, OnKeyListener onKeyListener) {
+        super(context);
+        initView(context, null, onKeyListener);
+    }
+
+    protected DialogLoading(Context context, CharSequence message, OnKeyListener onKeyListener) {
+        super(context);
+        initView(context, message, onKeyListener);
+    }
+
+    private void initView(Context context, CharSequence message, OnKeyListener onKeyListener) {
+        View view = View.inflate(context, R.layout.dialog_loading, null);
+        ButterKnife.bind(this, view);
+        setView(view);
+        tvMessage.setText(TextUtils.isEmpty(message) ? pleaseWaiting : message);
+        setCanceledOnTouchOutside(false);
+        if (onKeyListener != null) {
+            setCancelable(true);
+            setOnKeyListener(onKeyListener);
+        } else {
+            setCancelable(false);
+            setOnKeyListener(null);
         }
     }
 }

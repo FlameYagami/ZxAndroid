@@ -12,28 +12,32 @@
         app:title_text="@string/setting_about_title">
     </com.zx.view.widget.AppBarView>
 
-    <com.zx.view.widget.MessageView
-        android:id="@+id/msg_advance"
+    <com.zx.view.widget.SelectView
+        android:id="@+id/sel_advance"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/activity_margin"
-        app:title_text="@string/setting_about_advanced"/>
+        android:background="@color/white"
+        android:padding="@dimen/activity_padding"
+        app:title_text="@string/setting_advanced"/>
 
-    <include layout="@layout/include_divider_ex"/>
+    <include layout="@layout/include_divider"/>
 
-    <com.zx.view.widget.MessageView
-        android:id="@+id/msg_document"
+    <com.zx.view.widget.SelectView
+        android:id="@+id/sel_document"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/activity_margin"
-        app:title_text="@string/setting_about_document"/>
+        android:background="@color/white"
+        android:padding="@dimen/activity_padding"
+        app:title_text="@string/setting_document"/>
 
-    <include layout="@layout/include_divider_ex"/>
+    <include layout="@layout/include_divider"/>
 
-    <com.zx.view.widget.MessageView
-        android:id="@+id/msg_about"
+    <com.zx.view.widget.SelectView
+        android:id="@+id/sel_about"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/activity_margin"
-        app:title_text="@string/setting_about_about"/>
+        android:background="@color/white"
+        android:padding="@dimen/activity_padding"
+        app:title_text="@string/setting_about"/>
+
 </LinearLayout>

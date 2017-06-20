@@ -20,7 +20,7 @@
         app:message_text="@string/app_name"
         app:title_text="@string/key_search"/>
 
-    <include layout="@layout/include_divider_ex"/>
+    <include layout="@layout/include_divider"/>
 
     <com.zx.view.widget.MessageView
         android:id="@+id/msg_preview_order"

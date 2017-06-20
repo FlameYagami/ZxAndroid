@@ -12,7 +12,7 @@ import com.zx.config.MyApp;
 import com.zx.uitls.AppManager;
 import com.zx.uitls.DisplayUtils;
 import com.zx.uitls.StatusBarUtils;
-import com.zx.view.dialog.DialogLoading;
+import com.zx.view.dialog.DialogLoadingUtils;
 import com.zx.view.widget.ToastView;
 
 import me.imid.swipebacklayout.lib.SwipeBackLayout;
@@ -30,11 +30,11 @@ public abstract class BaseActivity extends SwipeBackActivity
     }
 
     protected void showDialog(String message) {
-        DialogLoading.showDialog(this, message, false);
+        DialogLoadingUtils.show(this, message);
     }
 
     protected void hideDialog() {
-        DialogLoading.hideDialog();
+        DialogLoadingUtils.hide();
     }
 
     public abstract int getLayoutId();
@@ -68,7 +68,6 @@ public abstract class BaseActivity extends SwipeBackActivity
 
     @Override
     public void onBackPressed() {
-        DialogLoading.hideDialog();
         mSwipeBackLayout.scrollToFinishActivity();
 
     }

@@ -19,7 +19,7 @@
         app:message_text="@string/key_search_hint"
         app:title_text="@string/key_search"/>
 
-    <include layout="@layout/include_divider_ex"/>
+    <include layout="@layout/include_divider"/>
 
     <com.zx.view.widget.MessageView
         android:layout_width="match_parent"
@@ -28,7 +28,7 @@
         app:message_text="@string/interval_search_hint"
         app:title_text="@string/interval_search"/>
 
-    <include layout="@layout/include_divider_ex"/>
+    <include layout="@layout/include_divider"/>
 
     <com.zx.view.widget.MessageView
         android:layout_width="match_parent"

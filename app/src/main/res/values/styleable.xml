@@ -12,6 +12,12 @@
         <attr name="message_text" format="string"/>
     </declare-styleable>
 
+    <declare-styleable name="SelectView">
+        <attr name="title_text"/>
+        <attr name="message_text"/>
+        <attr name="enable" format="boolean"/>
+    </declare-styleable>
+
     <declare-styleable name="SwitchView">
         <attr name="title_text"/>
     </declare-styleable>

@@ -79,5 +79,5 @@
 
     </RelativeLayout>
 
-    <include layout="@layout/include_divider_ex"/>
+    <include layout="@layout/include_divider"/>
 </LinearLayout>

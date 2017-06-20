@@ -3,15 +3,16 @@ package com.zx.view.dialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.AppCompatEditText;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import com.zx.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
 
 /**
  * Created by 八神火焰 on 2016/12/22.
@@ -20,11 +21,11 @@ import butterknife.ButterKnife;
 public class DialogEditText extends AlertDialog
 {
     @BindView(R.id.editText)
-    EditText editText;
-    @BindView(R.id.tv_cancel)
-    TextView tvCancel;
-    @BindView(R.id.tv_ok)
-    TextView tvOk;
+    AppCompatEditText editText;
+    @BindView(R.id.btn_cancel)
+    AppCompatButton   btnCancel;
+    @BindView(R.id.btn_ok)
+    AppCompatButton   btnOk;
 
     private OnButtonClick onButtonClick;
 
@@ -44,8 +45,8 @@ public class DialogEditText extends AlertDialog
         editText.setText(content);
         editText.setSelection(editText.getText().length());
         this.onButtonClick = mOnButtonClick;
-        tvCancel.setOnClickListener(v -> dismiss());
-        tvOk.setOnClickListener(v -> {
+        btnCancel.setOnClickListener(v -> dismiss());
+        btnOk.setOnClickListener(v -> {
             String text = editText.getText().toString().trim();
             if (!TextUtils.isEmpty(text)) {
                 this.onButtonClick.getText(this, text);

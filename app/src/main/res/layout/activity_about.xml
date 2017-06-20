@@ -15,27 +15,28 @@
     <com.zx.view.widget.MessageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/activity_margin"
+        android:padding="@dimen/activity_padding"
         app:message_text="@string/about_author_name"
         app:title_text="@string/about_author"/>
 
-    <include layout="@layout/include_divider_ex"/>
+    <include layout="@layout/include_divider"/>
 
     <com.zx.view.widget.MessageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/activity_margin"
+        android:padding="@dimen/activity_padding"
         app:message_text="@string/about_thank_name"
         app:title_text="@string/about_thank"/>
 
-    <include layout="@layout/include_divider_ex"/>
+    <include layout="@layout/include_divider"/>
 
     <com.zx.view.widget.MessageView
         android:id="@+id/msg_version"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/activity_margin"
-        app:title_text="@string/about_version"/>
+        android:padding="@dimen/activity_padding"
+        app:title_text="@string/about_version"
+        app:message_text="@string/about_version"/>
 
     <!--<include layout="@layout/include_divider_ex"/>-->
 
