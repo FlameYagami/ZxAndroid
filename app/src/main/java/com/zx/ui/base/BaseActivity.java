@@ -39,9 +39,6 @@ public abstract class BaseActivity extends SwipeBackActivity
 
     public abstract int getLayoutId();
 
-    /**
-     * 初始化控件以及装填数据
-     */
     public abstract void initViewAndData();
 
     @Override
@@ -55,9 +52,6 @@ public abstract class BaseActivity extends SwipeBackActivity
         AppManager.getInstances().addActivity(this);
     }
 
-    /**
-     * 点击空白位置 隐藏软键盘
-     */
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (null != this.getCurrentFocus()) {
@@ -69,7 +63,6 @@ public abstract class BaseActivity extends SwipeBackActivity
     @Override
     public void onBackPressed() {
         mSwipeBackLayout.scrollToFinishActivity();
-
     }
 
     @Override

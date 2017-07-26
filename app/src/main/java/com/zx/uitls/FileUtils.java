@@ -9,6 +9,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
 
+import io.reactivex.Observable;
+
 import static br.com.zbra.androidlinq.Linq.stream;
 import static com.zx.config.MyApp.context;
 
@@ -98,38 +100,57 @@ public class FileUtils
      * @param outPath  输出路径
      * @param isCover  是否覆写
      */
-    public static void copyAssets(String fileName, String outPath, boolean isCover) {
-        createDirectory(new File(outPath).getParent());
-        File file = new File(outPath);
+    public static Observable<Integer> copyAssets(String fileName, String outPath, boolean isCover) {
+        return Observable.create(subscriber -> {
+            createDirectory(new File(outPath).getParent());
+            File file = new File(outPath);
 
-        try {
-            InputStream in = context.getResources().getAssets().open(fileName);
-            // 条件同时满足 压缩文件存在、压缩文件大小未变、不进行覆盖操作
-            if (file.exists() && SpUtil.getInstances().getLong(outPath) == in.available() && !isCover) {
+            try {
+                InputStream in = context.getResources().getAssets().open(fileName);
+                // 条件同时满足 压缩文件存在、压缩文件大小未变、不进行覆盖操作
+                if (file.exists() && SpUtil.getInstances().getLong(outPath) == in.available() && !isCover) {
+                    in.close();
+                    subscriber.onComplete();
+                    return;
+                }
+
+                // 压缩文件存在执行删除操作
+                if (file.exists()) {
+                    boolean isDelete = file.delete();
+                    LogUtils.d(TAG, "resourcesDelete->" + fileName + ":" + isDelete);
+                }
+
+                // 重新创建压缩文件
+                long    available = in.available();
+                boolean isCreate  = file.createNewFile();
+                LogUtils.d(TAG, "resourcesCreate->" + fileName + ":" + isCreate);
+
+                // 拷贝文件
+                int              copyBytes   = 0; // 已拷贝长度
+                float            copyPercent = 0; // 已拷贝十分比,取整范围(0-10)
+                FileOutputStream out         = new FileOutputStream(file);
+                byte[]           buffer      = new byte[2048];
+                int              bytesRead;
+                subscriber.onNext(0);
+                while ((bytesRead = in.read(buffer)) != -1) {
+                    out.write(buffer, 0, bytesRead);
+                    copyBytes += bytesRead;
+                    float tempCopyPercent = (int)((float)copyBytes * 10 / (float)available); // 将拷贝百分比扩大10倍,取整范围(0-10)
+                    if (tempCopyPercent > copyPercent) {
+                        copyPercent = tempCopyPercent;
+                        subscriber.onNext((int)copyPercent * 10); // 将拷贝十分比扩大10倍,,取整范围(0-100)
+                    }
+                }
+                out.close();
                 in.close();
-                return;
+                subscriber.onComplete();
+                SpUtil.getInstances().putLong(outPath, available);
+                LogUtils.i(TAG, "copyAssets->" + fileName + ":" + true);
+            } catch (Exception e) {
+                subscriber.onError(e);
+                LogUtils.e(TAG, "copyAssets->" + fileName + ":" + false);
             }
-            // 压缩文件存在执行删除操作
-            if (file.exists()) {
-                file.delete();
-            }
-            // 重新创建压缩文件
-            long available = in.available();
-            file.createNewFile();
-            FileOutputStream out    = new FileOutputStream(file);
-            byte[]           buffer = new byte[2048];
-            int              bytesRead;
-            while ((bytesRead = in.read(buffer)) != -1) {
-                out.write(buffer, 0, bytesRead);
-            }
-            in.close();
-            out.close();
-            SpUtil.getInstances().putLong(outPath, available);
-            LogUtils.i(TAG, "copyRaw->Succeed");
-        } catch (Exception e) {
-            e.printStackTrace();
-            LogUtils.e(TAG, "copyRaw->Failed:" + outPath);
-        }
+        });
     }
 
     /**

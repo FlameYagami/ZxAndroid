@@ -14,15 +14,17 @@ import com.zx.ui.main.MainActivity;
 import com.zx.uitls.AppManager;
 import com.zx.uitls.FileUtils;
 import com.zx.uitls.IntentUtils;
-import com.zx.uitls.LogUtils;
 import com.zx.uitls.ZipUtils;
+import com.zx.uitls.rxjava.ResourcesSubscriber;
 
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.Observable;
+import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 import static com.zx.uitls.PathManager.banlistPath;
@@ -55,7 +57,6 @@ public class LoadingActivity extends BaseExActivity
     @Override
     public void initViewAndData() {
         ButterKnife.bind(this);
-
         if (Build.VERSION.SDK_INT >= 23) {
             requestPermissions();
         } else {
@@ -83,28 +84,34 @@ public class LoadingActivity extends BaseExActivity
      * 初始化数据库
      */
     private void initData() {
-        Observable.just(this).observeOn(Schedulers.io()).subscribe(activity ->
-        {
-            // 拷贝资源文件
-            FileUtils.copyAssets("data.db", databasePath, false);
-            FileUtils.copyAssets("picture.zip", pictureZipPath, false);
-            FileUtils.copyAssets("restrict", banlistPath, false);
-            // 解压资源文件到外部
-            UnZipPicture();
-        }, throwable -> LogUtils.e(TAG, throwable.getMessage()));
+        ResourcesSubscriber.ObservableEx observable0 = new ResourcesSubscriber.ObservableEx(FileUtils.copyAssets("data.db", databasePath, false), "正在拷贝数据库...");
+        ResourcesSubscriber.ObservableEx observable1 = new ResourcesSubscriber.ObservableEx(FileUtils.copyAssets("restrict", banlistPath, false), "正在拷贝制限卡表...");
+        ResourcesSubscriber.ObservableEx observable2 = new ResourcesSubscriber.ObservableEx(FileUtils.copyAssets("picture.zip", pictureZipPath, false), "正在拷贝图片资源...");
+        ResourcesSubscriber.ObservableEx observable3 = new ResourcesSubscriber.ObservableEx(ZipUtils.unZipFolder("picture.zip", pictureCache, false), "正在解压图片资源");
+        new ResourcesSubscriber(observable0, observable1, observable2, observable3).apply(prgLoading, prgHint)
+                .subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<ResourcesSubscriber.ObservableEx>()
+                {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(ResourcesSubscriber.ObservableEx observableEx) {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        showToast(e.getMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        IntentUtils.gotoActivityAndFinish(LoadingActivity.this, MainActivity.class);
+                    }
+                });
     }
 
-    private void UnZipPicture() {
-        ZipUtils.UnZipFolder("picture.zip", pictureCache).observeOn(AndroidSchedulers.mainThread()).subscribe(progress -> {
-            if (-1 != progress) {
-                prgLoading.setProgress(progress);
-                prgHint.setText(String.format("%s/100", progress));
-            }
-        }, throwable -> LogUtils.e(TAG, throwable.getMessage()), () -> IntentUtils.gotoActivityAndFinish(LoadingActivity.this, MainActivity.class));
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
 }

@@ -8,30 +8,40 @@
 
     <ImageView
         android:id="@+id/img_bg_loading"
-        android:src="@drawable/ic_bg_loading"
+        style="@style/layout_match_parent"
         android:scaleType="centerCrop"
-        style="@style/layout_match_parent"/>
+        android:src="@drawable/ic_bg_loading"/>
 
-    <RelativeLayout
+    <FrameLayout
+        android:background="@color/transparent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="@dimen/activity_margin">
+        android:layout_alignParentBottom="true">
 
-        <ProgressBar
-            android:id="@+id/prg_loading"
-            style="@style/StyleProgressBarMini"
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/prg_primary_bg"
-            android:max="100"/>
+            android:layout_margin="@dimen/activity_margin">
 
-        <TextView
-            android:id="@+id/prg_hint"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:textColor="@color/gold"/>
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/prg_hint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="@color/gold"/>
+
+            <ProgressBar
+                android:layout_marginTop="4dp"
+                android:id="@+id/prg_loading"
+                style="@style/StyleProgressBarMini"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:background="@drawable/prg_primary_bg"
+                android:max="100"/>
+        </LinearLayout>
+
+    </FrameLayout>
+
 
 </RelativeLayout>
