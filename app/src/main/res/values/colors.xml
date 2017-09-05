@@ -27,9 +27,9 @@
     <!-- 金色 -->
     <color name="gold">#ffcc00</color>
 
-    <!-- 背景 -->
-    <color name="background">#1E1E1E</color>
-
     <!-- 透明 -->
     <color name="transparent">#B0000000</color>
+
+    <!-- 背景 -->
+    <color name="background">#F5F5F9</color>
 </resources>

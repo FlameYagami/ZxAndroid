@@ -25,7 +25,6 @@ public class CardBean implements Serializable
     private String Power;
     private String Ability;
     private String Lines;
-    private String Faq;
     private String AbilityDetail;
     private String Image;
 
@@ -48,7 +47,7 @@ public class CardBean implements Serializable
     /**
      * 全数据缓存构造方法
      */
-    public CardBean(String md5, String type, String race, String camp, String sign, String rare, String pack, String restrict, String cname, String jname, String illust, String number, String cost, String power, String ability, String lines, String faq, String image) {
+    public CardBean(String md5, String type, String race, String camp, String sign, String rare, String pack, String restrict, String cname, String jname, String illust, String number, String cost, String power, String ability, String lines, String image) {
         Md5 = md5;
         Type = type;
         Race = race;
@@ -65,7 +64,6 @@ public class CardBean implements Serializable
         Power = power;
         Ability = ability;
         Lines = lines;
-        Faq = faq;
         Image = image;
     }
 
@@ -145,10 +143,6 @@ public class CardBean implements Serializable
 
     public String getLines() {
         return Lines;
-    }
-
-    public String getFaq() {
-        return Faq;
     }
 
     public String getAbilityType() {

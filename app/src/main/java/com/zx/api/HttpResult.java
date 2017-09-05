@@ -9,33 +9,27 @@ class HttpResult<T>
     private String reason;
     private T      result;
 
-    public int getCode()
-    {
+    public int getCode() {
         return code;
     }
 
-    public void setCode(int code)
-    {
+    public void setCode(int code) {
         this.code = code;
     }
 
-    public String getReason()
-    {
+    public String getReason() {
         return reason;
     }
 
-    public void setReason(String reason)
-    {
+    public void setReason(String reason) {
         this.reason = reason;
     }
 
-    public T getResult()
-    {
+    public T getResult() {
         return result;
     }
 
-    public void setResult(T result)
-    {
+    public void setResult(T result) {
         this.result = result;
     }
 }

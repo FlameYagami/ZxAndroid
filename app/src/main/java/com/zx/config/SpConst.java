@@ -6,7 +6,8 @@ package com.zx.config;
 
 public class SpConst
 {
-    public static final String OrderPattern = "OrderPattern";
-    public static final String KeySearch    = "KeySearch";
-    public static final String NickName     = "NickName";
+    public static final String PreviewOrderPattern  = "PreviewOrderPattern";
+    public static final String KeySearch            = "KeySearch";
+    public static final String DeckConfirmSpanCount = "DeckConfirmSpanCount";
+    public static final String DeckEditorSpanCount  = "DeckEditorSpanCount";
 }

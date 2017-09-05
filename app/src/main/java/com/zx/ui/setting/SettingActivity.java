@@ -1,10 +1,7 @@
 package com.zx.ui.setting;
 
 import com.zx.R;
-import com.zx.ui.about.AboutActivity;
-import com.zx.ui.advanced.AdvancedActivity;
 import com.zx.ui.base.BaseActivity;
-import com.zx.ui.document.DocumentActivity;
 import com.zx.uitls.IntentUtils;
 import com.zx.view.widget.AppBarView;
 
@@ -47,4 +44,8 @@ public class SettingActivity extends BaseActivity
         IntentUtils.gotoActivity(this, AboutActivity.class);
     }
 
+    @OnClick(R.id.sel_terminology)
+    public void onTerminology_Click() {
+        IntentUtils.gotoActivity(this, TerminologyActivity.class);
+    }
 }

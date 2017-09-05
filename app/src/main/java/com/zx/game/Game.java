@@ -29,7 +29,7 @@ public class Game
 
     public void updateDuelist(Player player) {
         if (0 == player.getType() || 1 == player.getType()) {
-            if (null == duelists[player.getType()]){
+            if (null == duelists[player.getType()]) {
                 duelists[player.getType()] = player;
             } else {
                 duelists[player.getType()].setReady(player.isReady());

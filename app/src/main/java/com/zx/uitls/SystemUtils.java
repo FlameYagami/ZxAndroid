@@ -21,7 +21,7 @@ public class SystemUtils
      * 获取当前系统版本号
      */
     public static int getSystemVersionCode() {
-        int versionCode = 100;
+        int versionCode = 1;
         // 获取PackageManager的实例
         PackageManager packageManager = MyApp.context.getPackageManager();
         // getPackageName()是你当前类的包名，0代表是获取版本信息

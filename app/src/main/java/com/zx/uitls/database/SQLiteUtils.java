@@ -59,12 +59,11 @@ public class SQLiteUtils implements SQLitConst
             String Power    = result.getString(result.getColumnIndex(ColumnPower));
             String Ability  = result.getString(result.getColumnIndex(ColumnAbility));
             String Lines    = result.getString(result.getColumnIndex(ColumnLines));
-            String Faq      = result.getString(result.getColumnIndex(ColumnFaq));
             String Image    = result.getString(result.getColumnIndex(ColumnImage));
             String Restrict = String.valueOf(stream(RestrictUtils.getRestrictList()).firstOrDefault(bean -> bean.getMd5().equals(Md5), new RestrictBean()).getRestrict());
             Cost = TextUtils.isEmpty(Cost) || Cost.equals("0") ? "-" : Cost;
             Power = TextUtils.isEmpty(Power) || Power.equals("0") ? "-" : Power;
-            CardBean cardBean = new CardBean(Md5, Type, Race, Camp, Sign, Rare, Pack, Restrict, CName, JName, Illust, Number, Cost, Power, Ability, Lines, Faq, Image);
+            CardBean cardBean = new CardBean(Md5, Type, Race, Camp, Sign, Rare, Pack, Restrict, CName, JName, Illust, Number, Cost, Power, Ability, Lines, Image);
             deviceList.add(cardBean);
         }
         result.close();

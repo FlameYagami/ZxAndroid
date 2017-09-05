@@ -11,24 +11,23 @@ import java.util.LinkedHashMap;
 
 public class MapConst
 {
-    public static final HashMap<String, Integer>      GuideMap         = new HashMap<>();
-    public static final HashMap<String, Integer>      SignMap          = new HashMap<>();
-    public static final HashMap<String, Integer>      CampMap          = new HashMap<>();
-    public static final HashMap<String, Integer>      RareMap          = new HashMap<>();
-    public static final LinkedHashMap<String, String> KeySearchMap     = new LinkedHashMap<>();
-    public static final LinkedHashMap<String, String> AbilityTypeMap   = new LinkedHashMap<>();
-    public static final LinkedHashMap<String, String> AbilityDetailMap = new LinkedHashMap<>();
+    public static final HashMap<String, Integer>       GuideMap         = new HashMap<>();
+    public static final HashMap<String, Integer>       SignMap          = new HashMap<>();
+    public static final HashMap<String, Integer>       CampMap          = new HashMap<>();
+    public static final HashMap<String, Integer>       RareMap          = new HashMap<>();
+    public static final LinkedHashMap<String, String>  KeySearchMap     = new LinkedHashMap<>();
+    public static final LinkedHashMap<String, String>  AbilityTypeMap   = new LinkedHashMap<>();
+    public static final LinkedHashMap<String, Integer> AbilityDetailMap = new LinkedHashMap<>();
 
     static {
-        GuideMap.put("B19", R.drawable.ic_guide_b19);
         GuideMap.put("B20", R.drawable.ic_guide_b20);
         GuideMap.put("B21", R.drawable.ic_guide_b21);
         GuideMap.put("C17", R.drawable.ic_guide_c17);
-        GuideMap.put("E07", R.drawable.ic_guide_e07);
         GuideMap.put("E08", R.drawable.ic_guide_e08);
+        GuideMap.put("E09", R.drawable.ic_guide_e09);
 
         SignMap.put("点燃", R.drawable.ic_sign_ig);
-        SignMap.put("觉醒之中", R.drawable.ic_sign_el);
+        SignMap.put("觉醒之种", R.drawable.ic_sign_el);
 
         CampMap.put("红", R.drawable.ic_camp_red);
         CampMap.put("蓝", R.drawable.ic_camp_blue);
@@ -59,30 +58,29 @@ public class MapConst
         AbilityTypeMap.put("进化原力", "【自】进化原力");
         AbilityTypeMap.put("零点优化", "【※】零点优化");
 
-        AbilityDetailMap.put("资源联动", "");
-        AbilityDetailMap.put("方阵联动", "");
-        AbilityDetailMap.put("充能联动", "");
-        AbilityDetailMap.put("卡片登场", "");
-        AbilityDetailMap.put("卡片破坏", "");
-        AbilityDetailMap.put("卡片除外", "");
-        AbilityDetailMap.put("返回手牌", "");
-        AbilityDetailMap.put("返回卡组", "");
-        AbilityDetailMap.put("资源放置", "");
-        AbilityDetailMap.put("方阵置换", "");
-        AbilityDetailMap.put("充能放置", "");
-        AbilityDetailMap.put("废弃放置", "");
-        AbilityDetailMap.put("重启休眠", "");
-        AbilityDetailMap.put("抽卡辅助", "");
-        AbilityDetailMap.put("卡组检索", "");
-        AbilityDetailMap.put("充能上限", "");
-        AbilityDetailMap.put("玩家相关", "");
-        AbilityDetailMap.put("费用相关", "");
-        AbilityDetailMap.put("力量相关", "");
-        AbilityDetailMap.put("种族相关", "");
-        AbilityDetailMap.put("伤害相关", "");
-        AbilityDetailMap.put("原力相关", "");
-        AbilityDetailMap.put("标记相关", "");
-        AbilityDetailMap.put("生命相关", "");
-        AbilityDetailMap.put("特殊胜利", "");
+        AbilityDetailMap.put("卡牌登场", 10);
+        AbilityDetailMap.put("卡牌移位", 11);
+        AbilityDetailMap.put("卡牌破坏", 12);
+        AbilityDetailMap.put("卡牌除外", 13);
+        AbilityDetailMap.put("卡牌抽取", 14);
+        AbilityDetailMap.put("卡牌检索", 15);
+        AbilityDetailMap.put("资源放置", 20);
+        AbilityDetailMap.put("废弃放置", 21);
+        AbilityDetailMap.put("充能放置", 22);
+        AbilityDetailMap.put("生命放置", 23);
+        AbilityDetailMap.put("返回手牌", 24);
+        AbilityDetailMap.put("返回卡组", 25);
+        AbilityDetailMap.put("阵营相关", 30);
+        AbilityDetailMap.put("种族相关", 31);
+        AbilityDetailMap.put("标记相关", 32);
+        AbilityDetailMap.put("费用相关", 33);
+        AbilityDetailMap.put("力量相关", 34);
+        AbilityDetailMap.put("原力相关", 35);
+        AbilityDetailMap.put("伤害相关", 40);
+        AbilityDetailMap.put("玩家相关", 41);
+        AbilityDetailMap.put("联动相关", 42);
+        AbilityDetailMap.put("规则相关", 43);
+        AbilityDetailMap.put("状态调整", 50);
+        AbilityDetailMap.put("牌库调整", 51);
     }
 }

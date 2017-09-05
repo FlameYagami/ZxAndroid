@@ -55,9 +55,11 @@
     <string name="realNumber">数值</string>
     <string name="value">编号</string>
     <string name="preview_order">预览排序</string>
-    <string name="order_by_number">编号排序</string>
-    <string name="order_by_value">数值排序</string>
-    <string name="order_by_random">随机排序</string>
+    <string name="order_by_number">编号</string>
+    <string name="order_by_value">数值</string>
+    <string name="main_adv_search">高级查询</string>
+    <string name="main_setting">设置</string>
+    <string name="main_deck_preview">卡组预览</string>
 
     <!-- AdvancedSearchActivity  -->
     <string name="advanced_search_about_title">高级检索</string>
@@ -75,10 +77,10 @@
     <string name="ability_type">能力类型</string>
     <string name="ability_detail">能力分类</string>
 
-    <!-- ResultActivity  -->
+    <!-- CardPreviewActivity  -->
     <string name="result_about_title">查询预览</string>
 
-    <!-- DetailActivity -->
+    <!-- CardDetailActivity -->
     <string name="detail_about_title">详细信息</string>
 
     <!-- DeckPreview -->
@@ -98,15 +100,42 @@
     <string name="start_card">起始卡:</string>
     <string name="life_card">生命恢复:</string>
     <string name="void_card">虚空使者:</string>
+    <string name="deck_editor_ig_area">点燃区</string>
+    <string name="deck_editor_deck_detail">预览</string>
+
+    <!-- DeckDetail -->
+    <string name="deck_detail_about_title">卡组名称</string>
 
     <!-- SettingActivity -->
     <string name="setting_about_title">设置</string>
     <string name="setting_advanced">高级</string>
     <string name="setting_document">说明</string>
+    <string name="setting_terminology">术语</string>
     <string name="setting_about">关于</string>
+
+    <!-- TerminologyActivity -->
+    <string name="terminology_about_title">术语</string>
+    <string name="terminology_life">生命恢复</string>
+    <string name="terminology_void">虚空使者</string>
+    <string name="terminology_range">射程</string>
+    <string name="terminology_insulate_wards">绝界</string>
+    <string name="terminology_zero_optimize">零点优化</string>
+    <string name="terminology_start">起始卡</string>
+    <string name="terminology_evo">进化原力</string>
+    <string name="terminology_life_des">这张卡从生命区登场时，你的生命在对手的生命以下的话，回复1点生命。</string>
+    <string name="terminology_void_des">这张卡从生命区登场时，你的生命在对手的生命以下的话，选择场上1张Z/X，送去废弃区。</string>
+    <string name="terminology_range_des">这张卡可以攻击X格远的方阵。</string>
+    <string name="terminology_start_des">你可以将这张卡放置在玩家方阵上后再开始游戏。</string>
+    <string name="terminology_evo_des">这张卡登场时，你可以选择你的废弃区中的1张卡，以正面表示放置到这张卡下方作为原力素材。</string>
+    <string name="terminology_zero_optimize_des">你的资源区中的具备点燃标记的卡有X张以上的场合，以下的能力才有效。</string>
+    <string name="terminology_insulate_wards_des">任何人都不能以卡片的效果选择这张卡。</string>
 
     <!-- AdvancedActivity -->
     <string name="advanced_about_title">高级</string>
+    <string name="advanced_deck_confirm_span_count">卡组确认行容量</string>
+    <string name="advanced_deck_editor_span_count">卡组编辑行容量</string>
+    <integer name="advanced_deck_confirm_default_span_count">5</integer>
+    <integer name="advanced_deck_editor_default_span_count">7</integer>
 
     <!-- DocumentActivity -->
     <string name="document_about_title">说明</string>
@@ -170,5 +199,8 @@
     <string name="ready">准备</string>
     <string name="waiting_for_player">等待玩家</string>
     <string name="nav_test">测试</string>
+    <string name="deck_editor_ug_area">非点燃区</string>
+    <string name="deck_editor_ex_area">额外区</string>
+    <string name="deck_editor_player_area">玩家卡</string>
 
 </resources>

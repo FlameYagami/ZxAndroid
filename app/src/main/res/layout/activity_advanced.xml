@@ -17,7 +17,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/activity_padding"
-        app:message_text="@string/app_name"
         app:title_text="@string/key_search"/>
 
     <include layout="@layout/include_divider"/>
@@ -27,7 +26,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/activity_padding"
-        app:message_text="@string/order_by_value"
         app:title_text="@string/preview_order"/>
+
+    <include layout="@layout/include_divider"/>
+
+    <com.zx.view.widget.MessageView
+        android:id="@+id/msg_deck_editor_span_count"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/activity_padding"
+        app:title_text="@string/advanced_deck_editor_span_count"/>
+
+    <include layout="@layout/include_divider"/>
+
+    <com.zx.view.widget.MessageView
+        android:id="@+id/msg_deck_confirm_span_count"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/activity_padding"
+        app:title_text="@string/advanced_deck_confirm_span_count"/>
 
 </LinearLayout>

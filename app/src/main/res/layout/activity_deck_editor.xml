@@ -2,14 +2,13 @@
 <LinearLayout
     style="@style/layout_match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
 
     <com.zx.view.widget.AppBarView
         android:id="@+id/viewAppBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:menu_visible="true"
         app:title_text="@string/deck_editor_about_title"/>
 
     <LinearLayout
@@ -20,61 +19,187 @@
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:orientation="vertical">
 
-        <include layout="@layout/include_detail"/>
-
         <RelativeLayout
-            android:layout_marginTop="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="24dp"
-            android:gravity="center_vertical">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-            <include layout="@layout/include_search"/>
+            <RelativeLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_toLeftOf="@+id/btn_adv_search">
+
+                <EditText
+                    android:id="@+id/txt_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp"
+                    android:background="@drawable/txt_primary"
+                    android:hint="@string/search_hint"
+                    android:maxLines="1"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:textSize="14sp"/>
+
+                <ImageView
+                    android:id="@+id/fab_search"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginRight="4dp"
+                    android:src="@android:drawable/ic_menu_search"/>
+
+            </RelativeLayout>
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/btn_adv_search"
+                style="@style/Base.Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="@string/advanced_search"
+                android:textSize="12sp"/>
         </RelativeLayout>
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="24dp"
-            android:gravity="center_vertical">
-
-            <include layout="@layout/include_result_count"/>
-        </RelativeLayout>
+        <include layout="@layout/include_result_count"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_preview"
             style="@style/recyclerview"
-            android:scrollbars="horizontal"/>
+            android:layout_marginBottom="4dp"/>
+
+        <include layout="@layout/include_card_detail"/>
 
         <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="24dp"
-            android:gravity="center_vertical">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-            <include layout="@layout/include_slv_count"/>
+            <LinearLayout
+                android:id="@+id/player_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/deck_editor_player_area"/>
+
+                <ImageView
+                    android:id="@+id/img_pl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_unknown_thumbnail"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/deck_operation_view"
+                android:layout_toRightOf="@+id/player_view"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/view_stats"
+                    android:layout_width="match_parent"
+                    android:layout_height="24dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/start_card"
+                        android:textSize="@dimen/roboto_medium"/>
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:id="@+id/tv_start_count"
+                        android:layout_width="0dp"
+                        android:gravity="start"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/roboto_medium"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/life_card"
+                        android:textSize="@dimen/roboto_medium"/>
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:id="@+id/tv_life_count"
+                        android:layout_width="0dp"
+                        android:gravity="start"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/roboto_medium"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/void_card"
+                        android:textSize="@dimen/roboto_medium"/>
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:id="@+id/tv_void_count"
+                        android:layout_width="0dp"
+                        android:gravity="start"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/roboto_medium"/>
+
+                </LinearLayout>
+
+                <com.zx.view.charts.view.ColumnChartView
+                    android:id="@+id/chart"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/deck_operation_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/btn_deck_save"
+                    style="@style/Base.Widget.AppCompat.Button.Colored"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:text="@string/save"
+                    android:textSize="12sp"
+                    android:visibility="visible"/>
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/btn_deck_detail"
+                    style="@style/Base.Widget.AppCompat.Button.Colored"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:text="@string/deck_editor_deck_detail"
+                    android:textSize="12sp"
+                    android:visibility="visible"/>
+            </LinearLayout>
+
         </RelativeLayout>
 
         <ScrollView
             style="@style/layout_match_parent">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_ig"
-                    style="@style/recyclerview"/>
-
-                <android.support.v7.widget.RecyclerView
-                    android:layout_marginTop="4dp"
-                    android:id="@+id/rv_ug"
-                    style="@style/recyclerview"/>
-
-                <android.support.v7.widget.RecyclerView
-                    android:layout_marginTop="4dp"
-                    android:id="@+id/rv_ex"
-                    style="@style/recyclerview"/>
-
-            </LinearLayout>
+            <include layout="@layout/include_deck"/>
         </ScrollView>
 
     </LinearLayout>

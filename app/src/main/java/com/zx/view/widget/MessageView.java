@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.zx.R;
-import com.zx.uitls.SpUtil;
+import com.zx.uitls.SpUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,9 +45,14 @@ public class MessageView extends LinearLayout
         view.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
     }
 
-    public void setDefaultSp(String key, String value) {
-        SpUtil.getInstances().putString(key, value);
-        tvValue.setText(value);
+    public void setStringSp(String key, String value) {
+        SpUtils.putString(key, value);
+        setValue(value);
+    }
+
+    public void setIntSp(String key, int value) {
+        SpUtils.putInt(key, value);
+        setValue(String.valueOf(value));
     }
 
     public void setValue(String valueText) {

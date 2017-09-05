@@ -9,7 +9,7 @@ import com.zx.config.MapConst;
 import com.zx.config.SQLitConst;
 import com.zx.config.SpConst;
 import com.zx.uitls.LogUtils;
-import com.zx.uitls.SpUtil;
+import com.zx.uitls.SpUtils;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -65,8 +65,7 @@ public class SqlUtils implements SQLitConst
         return builder.toString(); // 完整的查询语句
     }
 
-    public static String getQueryAllSql()
-    {
+    public static String getQueryAllSql() {
         return "SELECT * FROM " + TableName + " ORDER BY " + ColumnNumber + " ASC";
     }
 
@@ -75,8 +74,7 @@ public class SqlUtils implements SQLitConst
      *
      * @return sql
      */
-    private static String getHeaderSql()
-    {
+    private static String getHeaderSql() {
         return "SELECT * FROM " + TableName + " WHERE 1=1";
     }
 
@@ -86,7 +84,7 @@ public class SqlUtils implements SQLitConst
      * @return sql
      */
     private static String getFooterSql() {
-        return SpUtil.getInstances().getString(SpConst.OrderPattern).equals(context.getString(R.string.order_by_number)) ? getOrderNumberSql() : getOrderValueSql();
+        return SpUtils.getString(SpConst.PreviewOrderPattern).equals(context.getString(R.string.order_by_number)) ? getOrderNumberSql() : getOrderValueSql();
     }
 
     /**
@@ -186,8 +184,8 @@ public class SqlUtils implements SQLitConst
         StringBuilder sql         = new StringBuilder();
         List<String>  tempKeyList = stream(checkboxMap).where(Map.Entry::getValue).select(Map.Entry::getKey).toList();
         for (String tempKey : tempKeyList) {
-            String ability = stream(MapConst.AbilityDetailMap).first(entry -> entry.getKey().equals(tempKey)).getKey();
-            sql.append(" AND " + ColumnAbilityDetail + " LIKE '%\"" + ability + "\":1%'");
+            int abilityCode = stream(MapConst.AbilityDetailMap).first(entry -> entry.getKey().equals(tempKey)).getValue();
+            sql.append(" AND " + ColumnAbilityDetail + " LIKE '%[" + abilityCode + ",1]%'");
         }
         return sql.toString();
     }

@@ -6,7 +6,7 @@ package com.zx.bean;
 
 public class ResourceBean
 {
-    private boolean resourceVisible;
+    private boolean  resourceVisible;
     private DuelBean duelBean;
 
     public ResourceBean(DuelBean duelBean) {

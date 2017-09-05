@@ -26,9 +26,9 @@ class SQLiteHelper extends SQLiteOpenHelper
     /**
      * 构造方法.
      *
-     * @param context       上下文环境.
-     * @param name          数据库名称.
-     * @param version       数据库版本号.
+     * @param context 上下文环境.
+     * @param name    数据库名称.
+     * @param version 数据库版本号.
      */
     public SQLiteHelper(Context context, String name, int version) {
         super(context, name, null, version);

@@ -12,7 +12,6 @@ import com.zx.uitls.database.SQLiteUtils;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import static br.com.zbra.androidlinq.Linq.stream;
 import static com.zx.config.MyApp.context;
@@ -191,7 +190,7 @@ public class DeckManager
      *
      * @param thumbnailPath 卡片缩略图
      * @param numberEx      扩展卡编
-     * @param deckList    指定的集合
+     * @param deckList      指定的集合
      */
     private void addCardToList(String numberEx, String thumbnailPath, List<DeckBean> deckList) {
         CardBean cardBean = stream(SQLiteUtils.getAllCardList())
@@ -249,19 +248,11 @@ public class DeckManager
 
     /**
      * 卡组排序
-     *
-     * @param value 排序枚举类型
      */
-    public void orderDeck(Enum.DeckOrderType value) {
-        if (value.equals(Enum.DeckOrderType.Value)) {
-            orderByValue(IgList);
-            orderByValue(UgList);
-            orderByValue(ExList);
-        } else if (value.equals(Enum.DeckOrderType.Random)) {
-            orderByRandom(IgList);
-            orderByRandom(UgList);
-            orderByRandom(ExList);
-        }
+    public void orderDeck() {
+        orderByValue(IgList);
+        orderByValue(UgList);
+        orderByValue(ExList);
     }
 
     /**
@@ -281,17 +272,15 @@ public class DeckManager
     }
 
     /**
-     * 随机排序
+     * 获取卡组中起始卡和生命恢复和虚空使者总数的集合
      *
-     * @param deckList 卡组集合
+     * @return 集合
      */
-    private void orderByRandom(List<DeckBean> deckList) {
-        List<DeckBean> tempDeckList = new ArrayList<>();
-        Random         random       = new Random();
-        for (DeckBean deck : deckList) {
-            tempDeckList.add(random.nextInt(tempDeckList.size() + 1), deck);
-        }
-        deckList.clear();
-        deckList.addAll(tempDeckList);
+    public List<Integer> getStartAndLifeAndVoidCount() {
+        List<Integer> countList = new ArrayList<>();
+        countList.add(stream(getUgList()).where(bean -> CardUtils.isStart(bean.getNumberEx())).count());
+        countList.add(stream(getIgList()).where(bean -> CardUtils.isLife(bean.getNumberEx())).count());
+        countList.add(stream(getIgList()).where(bean -> CardUtils.isVoid(bean.getNumberEx())).count());
+        return countList;
     }
 }

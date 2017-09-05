@@ -33,6 +33,16 @@
     <include layout="@layout/include_divider"/>
 
     <com.zx.view.widget.SelectView
+        android:id="@+id/sel_terminology"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="@dimen/activity_padding"
+        app:title_text="@string/setting_terminology"/>
+
+    <include layout="@layout/include_divider"/>
+
+    <com.zx.view.widget.SelectView
         android:id="@+id/sel_about"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

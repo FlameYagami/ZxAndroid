@@ -24,8 +24,8 @@ public class MyPopup extends PopupWindow
         setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
         setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
         setOutsideTouchable(true);
-        switch (layoutId){
-            case R.layout.popupwindow_hand:{
+        switch (layoutId) {
+            case R.layout.popupwindow_hand: {
                 mHandViewHolder = new HandViewHolder(view);
                 break;
             }
@@ -34,17 +34,17 @@ public class MyPopup extends PopupWindow
 
     public class HandViewHolder
     {
-        HandViewHolder(View view){
+        HandViewHolder(View view) {
             ButterKnife.bind(this, view);
         }
 
         @OnClick(R.id.popup_set)
-        public void Set_Click(){
+        public void Set_Click() {
             dismiss();
         }
 
         @OnClick(R.id.popup_launch)
-        public void Launch_Click(){
+        public void Launch_Click() {
             dismiss();
         }
     }

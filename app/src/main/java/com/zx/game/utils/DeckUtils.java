@@ -178,19 +178,6 @@ public class DeckUtils
     }
 
     /**
-     * 获取卡组中起始卡和生命恢复和虚空使者总数的集合
-     *
-     * @return 集合
-     */
-    public static List<Integer> getStartAndLifeAndVoidCount(DeckManager mDeckManager) {
-        List<Integer> countList = new ArrayList<>();
-        countList.add(stream(mDeckManager.getUgList()).where(bean -> CardUtils.isStart(bean.getNumberEx())).count());
-        countList.add(stream(mDeckManager.getIgList()).where(bean -> CardUtils.isLife(bean.getNumberEx())).count());
-        countList.add(stream(mDeckManager.getIgList()).where(bean -> CardUtils.isVoid(bean.getNumberEx())).count());
-        return countList;
-    }
-
-    /**
      * 保存卡组
      *
      * @return ture|false

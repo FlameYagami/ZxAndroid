@@ -14,8 +14,6 @@ public class StatusBarUtils
 {
     /**
      * 启用 透明状态栏
-     *
-     * @param activity
      */
     public static void enableTranslucentStatusBar(Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -28,7 +26,8 @@ public class StatusBarUtils
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(Color.TRANSPARENT);
             window.setNavigationBarColor(Color.TRANSPARENT);
-        } if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Window window = activity.getWindow();
             // Translucent status bar
             window.setFlags(

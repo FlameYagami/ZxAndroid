@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/layout_match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <com.zx.view.widget.AppBarView
+        android:id="@+id/viewAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title_text="@string/terminology_about_title">
+    </com.zx.view.widget.AppBarView>
+
+    <com.zx.view.widget.MessageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="@dimen/activity_padding"
+        app:title_text="@string/terminology_range"
+        app:message_text="@string/terminology_range_des"/>
+
+    <include layout="@layout/include_divider"/>
+
+    <com.zx.view.widget.MessageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="@dimen/activity_padding"
+        app:title_text="@string/terminology_insulate_wards"
+        app:message_text="@string/terminology_insulate_wards_des"/>
+
+    <include layout="@layout/include_divider"/>
+
+    <com.zx.view.widget.MessageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="@dimen/activity_padding"
+        app:title_text="@string/terminology_start"
+        app:message_text="@string/terminology_start_des"/>
+
+    <include layout="@layout/include_divider"/>
+
+    <com.zx.view.widget.MessageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="@dimen/activity_padding"
+        app:title_text="@string/terminology_life"
+        app:message_text="@string/terminology_life_des"/>
+
+    <include layout="@layout/include_divider"/>
+
+    <com.zx.view.widget.MessageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="@dimen/activity_padding"
+        app:title_text="@string/terminology_void"
+        app:message_text="@string/terminology_void_des"/>
+
+    <include layout="@layout/include_divider"/>
+
+    <com.zx.view.widget.MessageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="@dimen/activity_padding"
+        app:title_text="@string/terminology_evo"
+        app:message_text="@string/terminology_evo_des"/>
+
+    <include layout="@layout/include_divider"/>
+
+    <com.zx.view.widget.MessageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="@dimen/activity_padding"
+        app:title_text="@string/terminology_zero_optimize"
+        app:message_text="@string/terminology_zero_optimize_des"/>
+
+    <include layout="@layout/include_divider"/>
+
+
+</LinearLayout>

@@ -21,7 +21,6 @@ public interface SQLitConst
     String ColumnCost          = "Cost";
     String ColumnPower         = "Power";
     String ColumnLines         = "Lines";
-    String ColumnFaq           = "Faq";
     String ColumnImage         = "Image";
     String ColumnAbility       = "Ability";
     String ColumnAbilityDetail = "AbilityDetail"; // 存放Json数据的字段

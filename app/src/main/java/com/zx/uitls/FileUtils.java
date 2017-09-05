@@ -66,7 +66,7 @@ public class FileUtils
         try {
             InputStream in = context.getResources().openRawResource(resId);
             // 条件同时满足 压缩文件存在、压缩文件大小未变、不进行覆盖操作
-            if (file.exists() && SpUtil.getInstances().getLong(childPath) == in.available() && !isCover) {
+            if (file.exists() && SpUtils.getInt(childPath) == SystemUtils.getSystemVersionCode() && !isCover) {
                 in.close();
                 return;
             }
@@ -75,7 +75,6 @@ public class FileUtils
                 file.delete();
             }
             // 重新创建压缩文件
-            long available = in.available();
             file.createNewFile();
             FileOutputStream out    = new FileOutputStream(file);
             byte[]           buffer = new byte[2048];
@@ -85,7 +84,7 @@ public class FileUtils
             }
             in.close();
             out.close();
-            SpUtil.getInstances().putLong(childPath, available);
+            SpUtils.putInt(childPath, SystemUtils.getSystemVersionCode());
             LogUtils.e(TAG, "copyRaw->Succeed");
         } catch (Exception e) {
             e.printStackTrace();
@@ -107,8 +106,8 @@ public class FileUtils
 
             try {
                 InputStream in = context.getResources().getAssets().open(fileName);
-                // 条件同时满足 压缩文件存在、压缩文件大小未变、不进行覆盖操作
-                if (file.exists() && SpUtil.getInstances().getLong(outPath) == in.available() && !isCover) {
+                // 条件同时满足 压缩文件存在、压缩文件版本未变、不进行覆盖操作
+                if (file.exists() && SpUtils.getInt(outPath) == SystemUtils.getSystemVersionCode() && !isCover) {
                     in.close();
                     subscriber.onComplete();
                     return;
@@ -144,7 +143,7 @@ public class FileUtils
                 out.close();
                 in.close();
                 subscriber.onComplete();
-                SpUtil.getInstances().putLong(outPath, available);
+                SpUtils.putInt(outPath, SystemUtils.getSystemVersionCode());
                 LogUtils.i(TAG, "copyAssets->" + fileName + ":" + true);
             } catch (Exception e) {
                 subscriber.onError(e);

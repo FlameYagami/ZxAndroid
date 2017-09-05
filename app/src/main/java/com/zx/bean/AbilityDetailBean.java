@@ -13,7 +13,7 @@ public class AbilityDetailBean
     private static LinkedHashMap<String, Boolean> abilityDetailMap = new LinkedHashMap<>();
 
     static {
-        for (LinkedHashMap.Entry<String, String> entry : MapConst.AbilityDetailMap.entrySet()) {
+        for (LinkedHashMap.Entry<String, Integer> entry : MapConst.AbilityDetailMap.entrySet()) {
             abilityDetailMap.put(entry.getKey(), false);
         }
     }

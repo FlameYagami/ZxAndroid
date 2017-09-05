@@ -5,7 +5,7 @@ import android.text.TextUtils;
 import com.zx.config.MapConst;
 import com.zx.config.SpConst;
 import com.zx.uitls.JsonUtils;
-import com.zx.uitls.SpUtil;
+import com.zx.uitls.SpUtils;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -29,7 +29,7 @@ public class KeySearchBean
     }
 
     private static void initKeySearchMap() {
-        String keySearchJson = SpUtil.getInstances().getString(SpConst.KeySearch);
+        String keySearchJson = SpUtils.getString(SpConst.KeySearch);
         // Json异常处理
         if (TextUtils.isEmpty(keySearchJson)) {
             keySearchJson = JsonUtils.serializer(new ArrayList<String>());
@@ -47,7 +47,7 @@ public class KeySearchBean
         }
     }
 
-    public static List<String> getSelectKeySearchList(){
+    public static List<String> getSelectKeySearchList() {
         initKeySearchMap();
         return stream(keySearchMap).where(Map.Entry::getValue).select(Map.Entry::getKey).toList();
     }
@@ -59,6 +59,6 @@ public class KeySearchBean
 
     public static void saveKeySearchMap(LinkedHashMap<String, Boolean> keySearchMap) {
         String keySearchJson = JsonUtils.serializer(stream(keySearchMap).where(Map.Entry::getValue).select(Map.Entry::getKey).toList());
-        SpUtil.getInstances().putString(SpConst.KeySearch, keySearchJson);
+        SpUtils.putString(SpConst.KeySearch, keySearchJson);
     }
 }

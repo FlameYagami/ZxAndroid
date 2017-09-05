@@ -42,8 +42,8 @@
 
     <!--<com.zx.view.widget.MessageView-->
     <!--android:id="@+id/msg_update"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
     <!--android:padding="@dimen/activity_padding"-->
     <!--app:title_text="@string/about_check_for_updates"/>-->
 

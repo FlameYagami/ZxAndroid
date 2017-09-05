@@ -1,12 +1,7 @@
 package com.zx.ui.main;
 
 import android.app.Activity;
-import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -17,10 +12,10 @@ import com.zx.R;
 import com.zx.bean.CardBean;
 import com.zx.config.MapConst;
 import com.zx.game.utils.RestrictUtils;
-import com.zx.ui.advancedsearch.AdvancedSearchActivity;
 import com.zx.ui.base.BaseActivity;
-import com.zx.ui.deckpreview.DeckPreviewActivity;
-import com.zx.ui.result.ResultActivity;
+import com.zx.ui.deck.DeckPreviewActivity;
+import com.zx.ui.search.AdvancedSearchActivity;
+import com.zx.ui.search.CardPreviewActivity;
 import com.zx.ui.setting.SettingActivity;
 import com.zx.uitls.AppManager;
 import com.zx.uitls.BundleUtils;
@@ -42,18 +37,14 @@ import io.reactivex.schedulers.Schedulers;
 
 import static br.com.zbra.androidlinq.Linq.stream;
 
-public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener
+public class MainActivity extends BaseActivity
 {
-    @BindView(R.id.view_drawer)
-    DrawerLayout      viewDrawer;
     @BindView(R.id.banner)
     Banner            bannerGuide;
     @BindView(R.id.view_content)
     CoordinatorLayout viewContent;
     @BindView(R.id.txt_search)
     EditText          txtSearch;
-    @BindView(R.id.nav_view)
-    NavigationView    navView;
     @BindView(R.id.viewAppBar)
     AppBarView        viewAppBar;
 
@@ -73,8 +64,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         setSwipeBackEnable(false);
         initBGABanner();
         Observable.just(this).observeOn(Schedulers.newThread()).subscribe(mainActivity -> {
-            viewAppBar.setNavigationClickListener(() -> viewDrawer.openDrawer(GravityCompat.START));
-            navView.setNavigationItemSelectedListener(this);
             RestrictUtils.getRestrictList();
             SQLiteUtils.getAllCardList();
         });
@@ -92,8 +81,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         bannerGuide.setImages(stream(MapConst.GuideMap.entrySet()).select(Map.Entry::getValue).toList());
         bannerGuide.setOnBannerClickListener(position -> {
             String querySql = SqlUtils.getPackQuerySql(stream(MapConst.GuideMap.entrySet()).select(Map.Entry::getKey).toList().get(position - 1));
-            ResultActivity.cardBeanList = SQLiteUtils.getCardList(querySql);
-            IntentUtils.gotoActivity(this, ResultActivity.class);
+            CardPreviewActivity.cardBeanList = SQLiteUtils.getCardList(querySql);
+            IntentUtils.gotoActivity(this, CardPreviewActivity.class);
         });
         bannerGuide.start();
     }
@@ -109,48 +98,36 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         if (cardBeanList.size() == 0) {
             showToast("没有查询到相关卡牌");
         } else {
-            ResultActivity.cardBeanList = cardBeanList;
-            IntentUtils.gotoActivity(this, ResultActivity.class);
+            CardPreviewActivity.cardBeanList = cardBeanList;
+            IntentUtils.gotoActivity(this, CardPreviewActivity.class);
         }
     }
 
     @Override
     public void onBackPressed() {
-        if (viewDrawer.isDrawerOpen(GravityCompat.START)) {
-            viewDrawer.closeDrawer(GravityCompat.START);
+        long lastTime = System.currentTimeMillis();
+        long between  = lastTime - firstTime;
+        if (between < 2000) {
+            AppManager.getInstances().AppExit(this);
         } else {
-            long lastTime = System.currentTimeMillis();
-            long between  = lastTime - firstTime;
-            if (between < 2000) {
-                AppManager.getInstances().AppExit(this);
-            } else {
-                firstTime = lastTime;
-                showSnackBar(viewContent, "再按一次退出应用");
-            }
+            firstTime = lastTime;
+            showSnackBar(viewContent, "再按一次退出应用");
         }
     }
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.nav_advanced_search: {
-                IntentUtils.gotoActivity(this, AdvancedSearchActivity.class, BundleUtils.putString(Activity.class.getSimpleName(), MainActivity.class.getSimpleName()));
-                break;
-            }
-            case R.id.nav_deck_preview: {
-                IntentUtils.gotoActivity(this, DeckPreviewActivity.class);
-                break;
-            }
-//            case R.id.nav_duel: {
-//                IntentUtils.gotoActivity(this, VersusModeActivity.class);
-//                break;
-//            }
-            case R.id.nav_setting: {
-                IntentUtils.gotoActivity(this, SettingActivity.class);
-                break;
-            }
-        }
-        viewDrawer.closeDrawer(GravityCompat.START);
-        return false;
+    @OnClick(R.id.btn_adv_search)
+    public void onAdvSearch_Click() {
+        IntentUtils.gotoActivity(this, AdvancedSearchActivity.class,
+                BundleUtils.putString(Activity.class.getSimpleName(), MainActivity.class.getSimpleName()));
+    }
+
+    @OnClick(R.id.btn_deck_preview)
+    public void onDeckPreview_Click() {
+        IntentUtils.gotoActivity(this, DeckPreviewActivity.class);
+    }
+
+    @OnClick(R.id.btn_setting)
+    public void onSetting_Click() {
+        IntentUtils.gotoActivity(this, SettingActivity.class);
     }
 }
