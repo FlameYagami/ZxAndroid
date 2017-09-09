@@ -9,14 +9,12 @@
         android:id="@+id/viewAppBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title_text="@string/detail_about_title"/>
+        app:title_text="@string/card_detail_about_title"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_margin="@dimen/activity_margin"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -26,37 +24,28 @@
             android:layout_height="210dp"
             app:is_auto_play="false"/>
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_width="match_parent"
-            android:layout_height="210dp">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/tv_cname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:orientation="vertical">
+                android:text="@string/test_cname"
+                android:textColor="@color/black"
+                android:textSize="20sp"/>
 
-                <TextView
-                    android:id="@+id/tv_cname"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@string/cname_test"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"/>
+            <TextView
+                android:id="@+id/tv_jname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/test_jname"
+                android:textSize="16sp"/>
 
-                <TextView
-                    android:id="@+id/tv_jname"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:gravity="center"
-                    android:text="@string/jname_test"
-                    android:textSize="16sp"/>
-
-            </LinearLayout>
-        </RelativeLayout>
+        </LinearLayout>
     </LinearLayout>
 
     <ScrollView
@@ -73,7 +62,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -132,7 +120,7 @@
                     android:id="@+id/tv_type"
                     style="@style/layout_wrap_content"
                     android:gravity="center"
-                    android:text="@string/type_test"
+                    android:text="@string/test_type"
                     android:textSize="16sp"/>
 
                 <TextView
@@ -141,7 +129,7 @@
                     android:layout_marginLeft="@dimen/activity_horizontal_margin"
                     android:layout_marginStart="@dimen/activity_horizontal_margin"
                     android:gravity="center"
-                    android:text="@string/race_test"
+                    android:text="@string/test_race"
                     android:textSize="16sp"/>
 
                 <TextView
@@ -150,7 +138,7 @@
                     android:layout_marginLeft="@dimen/activity_horizontal_margin"
                     android:layout_marginStart="@dimen/activity_horizontal_margin"
                     android:gravity="center"
-                    android:text="@string/rare_test"
+                    android:text="@string/test_rare"
                     android:textSize="16sp"/>
 
             </LinearLayout>
@@ -164,7 +152,7 @@
                     android:id="@+id/tv_number"
                     style="@style/layout_wrap_content"
                     android:gravity="center"
-                    android:text="@string/number_test"
+                    android:text="@string/test_number"
                     android:textSize="16sp"/>
 
                 <TextView
@@ -173,7 +161,7 @@
                     android:layout_marginLeft="@dimen/activity_horizontal_margin"
                     android:layout_marginStart="@dimen/activity_horizontal_margin"
                     android:gravity="center"
-                    android:text="@string/power_test"
+                    android:text="@string/test_power"
                     android:textSize="16sp"/>
 
                 <TextView
@@ -182,7 +170,7 @@
                     android:layout_marginLeft="@dimen/activity_horizontal_margin"
                     android:layout_marginStart="@dimen/activity_horizontal_margin"
                     android:gravity="center"
-                    android:text="@string/cost_test"
+                    android:text="@string/test_cost"
                     android:textSize="16sp"/>
 
             </LinearLayout>
@@ -192,7 +180,7 @@
                 style="@style/layout_wrap_content"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:gravity="center_vertical"
-                android:text="@string/cost_test"
+                android:text="@string/test_cost"
                 android:textSize="16sp"/>
 
             <TextView
@@ -200,7 +188,7 @@
                 style="@style/layout_wrap_content"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:gravity="center_vertical"
-                android:text="@string/cost_test"
+                android:text="@string/test_cost"
                 android:textSize="16sp"/>
 
         </LinearLayout>

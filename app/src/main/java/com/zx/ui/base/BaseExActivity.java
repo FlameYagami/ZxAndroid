@@ -12,7 +12,6 @@ import com.michaelflisar.rxbus2.rx.RxDisposableManager;
 import com.zx.config.MyApp;
 import com.zx.uitls.AppManager;
 import com.zx.uitls.DisplayUtils;
-import com.zx.uitls.StatusBarUtils;
 import com.zx.view.dialog.DialogLoadingUtils;
 import com.zx.view.widget.ToastView;
 
@@ -41,10 +40,9 @@ public abstract class BaseExActivity extends Activity
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        StatusBarUtils.enableTranslucentStatusBar(this);
         setContentView(getLayoutId());
         initViewAndData();
-        AppManager.getInstances().addActivity(this);
+        AppManager.addActivity(this);
     }
 
     @Override
@@ -64,6 +62,6 @@ public abstract class BaseExActivity extends Activity
     protected void onDestroy() {
         super.onDestroy();
         RxDisposableManager.unsubscribe(this);
-        AppManager.getInstances().finishActivity(this);
+        AppManager.finishActivity(this);
     }
 }

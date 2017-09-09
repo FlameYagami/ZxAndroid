@@ -7,10 +7,13 @@ import com.zx.bean.CardBean;
 import com.zx.config.Enum;
 import com.zx.config.MapConst;
 import com.zx.uitls.JsonUtils;
+import com.zx.uitls.PathManager;
 import com.zx.uitls.database.SQLiteUtils;
 
+import java.io.File;
 import java.util.AbstractMap;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -85,15 +88,9 @@ public class CardUtils
      */
     public static List<String> getAllPack() {
         List<String> packList = new ArrayList<>();
-        packList.addAll(getPartPack("B"));
-        packList.addAll(getPartPack("C"));
-        packList.addAll(getPartPack("E"));
-        packList.addAll(getPartPack("P"));
-        packList.addAll(getPartPack("L"));
-        packList.addAll(getPartPack("M"));
-        packList.addAll(getPartPack("I"));
-        packList.addAll(getPartPack("V"));
         packList.add(0, context.getString(R.string.not_applicable));
+        List<String> packSeriesList = Arrays.asList(context.getResources().getStringArray(R.array.pack_series));
+        packList.addAll(stream(packSeriesList).selectMany(CardUtils::getPartPack).toList());
         return packList;
     }
 
@@ -294,19 +291,6 @@ public class CardUtils
         return cardBean.getAbility().contains(context.getString(R.string.AbilityStart));
     }
 
-    /**
-     * 获取卡牌的扩展编号
-     *
-     * @param imageJson 卡牌图片编号Json
-     * @param index     索引
-     * @return 扩展编号
-     */
-    public static String getNumberEx(String imageJson, int index) {
-        return JsonUtils.deserializerArray(imageJson, String[].class)
-                .get(index)
-                .replace("/", "")
-                .replace(context.getString(R.string.image_extension), "");
-    }
 
     /**
      * 获取卡牌对应图片的路经集合
@@ -316,6 +300,54 @@ public class CardUtils
      */
     public static List<String> getImagePathList(String imageJson) {
         return stream(JsonUtils.deserializerArray(imageJson, String[].class)).select(image -> pictureCache + image).toList();
+    }
+
+
+    /**
+     * 获取卡编相关卡编集合
+     *
+     * @param imageJson 图片Json
+     * @return 卡牌扩展编号集合
+     */
+    public static List<String> GetNumberExList(String imageJson) {
+        List<String> imageExList = JsonUtils.deserializerArray(imageJson, String[].class);
+        return stream(imageExList)
+                .select(imageEx -> imageEx.replace(context.getString(R.string.slash), context.getString(R.string.empty)).replace(context.getString(R.string.image_extension), context.getString(R.string.empty)))
+                .toList();
+    }
+
+    /**
+     * 获取玩家卡牌路径
+     *
+     * @param cardBeanList 卡牌信息集合
+     * @return 玩家卡牌路径
+     */
+    public static String getPlayerPath(List<CardBean> cardBeanList) {
+        return PathManager.pictureCache + File.separator
+                + stream(cardBeanList).firstOrDefault(cardBean -> getAreaType(cardBean).equals(Enum.AreaType.Player), new CardBean(context.getString(R.string.empty))).getNumber()
+                + context.getString(R.string.image_extension);
+    }
+
+    /**
+     * 获取玩家卡牌路径
+     *
+     * @param cardBeanList 卡牌信息集合
+     * @return 玩家卡牌路径
+     */
+    public static String getStartPath(List<CardBean> cardBeanList) {
+        return PathManager.pictureCache + File.separator
+                + stream(cardBeanList).firstOrDefault(CardUtils::isStart, new CardBean(context.getString(R.string.empty))).getNumber()
+                + context.getString(R.string.image_extension);
+    }
+
+    /**
+     * 获取玩家卡牌路径集合
+     *
+     * @param numberEx 拍拍扩展编号
+     * @return 玩家卡牌路径
+     */
+    public static String getPlayerPath(String numberEx) {
+        return PathManager.pictureCache + File.separator + numberEx + context.getString(R.string.image_extension);
     }
 
     /**

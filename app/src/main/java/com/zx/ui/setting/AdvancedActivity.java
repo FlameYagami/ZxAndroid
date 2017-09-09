@@ -70,7 +70,7 @@ public class AdvancedActivity extends BaseActivity
     @OnClick(R.id.msg_preview_order)
     public void onOrderPattern_Click() {
         new AlertDialog.Builder(this)
-                .setTitle(getString(R.string.preview_order))
+                .setTitle(getString(R.string.adv_preview_order))
                 .setItems(mPreOrder, (view, index)
                         -> viewOrderPattern.setStringSp(SpConst.PreviewOrderPattern, mPreOrder[index]))
                 .show();
@@ -78,7 +78,7 @@ public class AdvancedActivity extends BaseActivity
 
     @OnClick(R.id.msg_key_search)
     public void onKeySearch_Click() {
-        new DialogCheckBox(this, getString(R.string.key_search), KeySearchBean.getKeySearchMap(), keySearchMap -> {
+        new DialogCheckBox(this, getString(R.string.doc_key_search), KeySearchBean.getKeySearchMap(), keySearchMap -> {
             KeySearchBean.saveKeySearchMap(keySearchMap);
             viewKeySearch.setValue(StringUtils.changeList2String(KeySearchBean.getSelectKeySearchList()));
         }).show();
@@ -87,7 +87,7 @@ public class AdvancedActivity extends BaseActivity
     @OnClick(R.id.msg_deck_confirm_span_count)
     public void onDeckConfirmSpanCount_Click() {
         new AlertDialog.Builder(this)
-                .setTitle(getString(R.string.advanced_deck_confirm_span_count))
+                .setTitle(getString(R.string.adv_deck_confirm_span_count))
                 .setItems(mSpanCount, (view, index)
                         -> viewDeckConfirmSpanCount.setIntSp(SpConst.DeckConfirmSpanCount, Integer.valueOf(mSpanCount[index])))
                 .show();
@@ -96,7 +96,7 @@ public class AdvancedActivity extends BaseActivity
     @OnClick(R.id.msg_deck_editor_span_count)
     public void onDeckEditorSpanCount_Click() {
         new AlertDialog.Builder(this)
-                .setTitle(getString(R.string.advanced_deck_editor_span_count))
+                .setTitle(getString(R.string.adv_deck_editor_span_count))
                 .setItems(mSpanCount, (view, index)
                         -> viewDeckEditorSpanCount.setIntSp(SpConst.DeckEditorSpanCount, Integer.valueOf(mSpanCount[index])))
                 .show();

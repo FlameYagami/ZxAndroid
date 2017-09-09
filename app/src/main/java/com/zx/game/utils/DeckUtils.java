@@ -12,7 +12,6 @@ import com.zx.uitls.FileUtils;
 import com.zx.uitls.JsonUtils;
 import com.zx.uitls.PathManager;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -81,23 +80,13 @@ public class DeckUtils
             numberListJson = TextUtils.isEmpty(numberListJson) ? JsonUtils.serializer(new ArrayList<String>()) : numberListJson;
             List<String>   numberListEx = JsonUtils.deserializerArray(numberListJson, String[].class);
             List<CardBean> cardBeanList = CardUtils.getCardBeanList(numberListEx);
-            String         playerPath   = getPlayerImagePath(cardBeanList);
-            String         statusMain   = context.getString(getMainCount(cardBeanList) == 50 ? R.string.deck_complete : R.string.deck_not_complete);
-            String         statusExtra  = context.getString(getExtraCount(cardBeanList) == 10 ? R.string.deck_complete : R.string.deck_not_complete);
-            deckPreviewList.add(new DeckPreviewBean(deckName, statusMain, statusExtra, playerPath, numberListEx));
+            String         playerPath   = CardUtils.getPlayerPath(cardBeanList);
+            String         startPath    = CardUtils.getStartPath(cardBeanList);
+            String         statusMain   = context.getString(getMainCount(cardBeanList) == 50 ? R.string.deck_pre_complete : R.string.deck_pre_not_complete);
+            String         statusExtra  = context.getString(getExtraCount(cardBeanList) == 10 ? R.string.deck_pre_complete : R.string.deck_pre_not_complete);
+            deckPreviewList.add(new DeckPreviewBean(deckName, statusMain, statusExtra, playerPath, startPath, numberListEx));
         }
         return deckPreviewList;
-    }
-
-    public static List<String> getNumberListEx(String deckName) {
-        List<String> numberListEx   = new ArrayList<>();
-        String       deckPath       = DeckUtils.getDeckPath(deckName);
-        String       numberListJson = FileUtils.getFileContent(deckPath);
-        numberListJson = TextUtils.isEmpty(numberListJson) ? JsonUtils.serializer(new ArrayList<String>()) : numberListJson;
-        List<String> tempNumberListEx = JsonUtils.deserializerArray(numberListJson, String[].class);
-        assert tempNumberListEx != null;
-        numberListEx.addAll(tempNumberListEx);
-        return numberListEx;
     }
 
     /**
@@ -134,33 +123,6 @@ public class DeckUtils
         return stream(cardBeanList)
                 .where(cardBean -> getAreaType(cardBean).equals(Enum.AreaType.Ex))
                 .count();
-    }
-
-    /**
-     * 获取玩家卡牌路径
-     *
-     * @param cardBeanList 卡牌信息集合
-     * @return 玩家卡牌路径
-     */
-    private static String getPlayerImagePath(List<CardBean> cardBeanList) {
-        return PathManager.pictureCache + File.separator
-                + stream(cardBeanList).firstOrDefault(cardBean -> getAreaType(cardBean).equals(Enum.AreaType.Player), new CardBean("Unknown")).getNumber()
-                + context.getString(R.string.image_extension);
-    }
-
-    /**
-     * 获取玩家卡牌路径集合
-     *
-     * @param cardBeanList 卡牌信息集合
-     * @return 玩家卡牌路径
-     */
-    private static List<String> getPlayerPathList(List<CardBean> cardBeanList) {
-        List<String> pathList = new ArrayList<>();
-        pathList.addAll(stream(cardBeanList)
-                .where(cardBean -> getAreaType(cardBean).equals(Enum.AreaType.Player))
-                .select(bean -> PathManager.pictureCache + File.separator + bean.getNumber() + context.getString(R.string.image_extension))
-                .toList());
-        return pathList;
     }
 
     /**

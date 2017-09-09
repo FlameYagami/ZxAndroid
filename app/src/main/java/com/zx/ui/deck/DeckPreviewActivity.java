@@ -1,6 +1,5 @@
 package com.zx.ui.deck;
 
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,12 +14,14 @@ import com.zx.ui.base.BaseRecyclerViewListener;
 import com.zx.uitls.FileUtils;
 import com.zx.uitls.IntentUtils;
 import com.zx.uitls.JsonUtils;
+import com.zx.view.dialog.DialogConfirm;
 import com.zx.view.dialog.DialogEditText;
 import com.zx.view.widget.AppBarView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindArray;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,24 +36,29 @@ import io.reactivex.schedulers.Schedulers;
 
 public class DeckPreviewActivity extends BaseActivity implements BaseRecyclerViewListener.OnItemClickListener, BaseRecyclerViewListener.OnItemLongClickListener
 {
-    @BindView(R.id.view_content)
-    CoordinatorLayout viewContent;
+    @BindView(R.id.viewContent)
+    View         viewContent;
     @BindView(R.id.rv_deckpreview)
-    RecyclerView      rvDeckPreview;
-    @BindString(R.string.add_succeed)
-    String            addSucceed;
-    @BindString(R.string.update_succeed)
-    String            updateSucceed;
-    @BindString(R.string.delete_succeed)
-    String            deleteSucceed;
-    @BindString(R.string.deck_name_exits)
-    String            deckNameExits;
+    RecyclerView rvDeckPreview;
     @BindView(R.id.viewAppBar)
-    AppBarView        viewAppBar;
+    AppBarView   viewAppBar;
+
+    @BindString(R.string.add_succeed)
+    String   strAddSucceed;
+    @BindString(R.string.delete_confirm)
+    String   strDeleteConfirm;
+    @BindString(R.string.update_succeed)
+    String   strUpdateSucceed;
+    @BindString(R.string.delete_succeed)
+    String   strDeleteSucceed;
+    @BindString(R.string.deck_name_exits)
+    String   strDeckNameExits;
+    @BindArray(R.array.deck_operation)
+    String[] arrDeckOperation;
 
     private static final String TAG = DeckPreviewActivity.class.getSimpleName();
 
-    DeckPreviewAdapter mDeckPreviewAdapter;
+    private DeckPreviewAdapter mDeckPreviewAdapter;
 
     @Override
     public int getLayoutId() {
@@ -75,8 +81,8 @@ public class DeckPreviewActivity extends BaseActivity implements BaseRecyclerVie
     @Override
     protected void onResume() {
         super.onResume();
-        Observable.just(DeckUtils.getDeckPreviewList()).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(deckPreviewBeanList -> {
-            mDeckPreviewAdapter.updateData(deckPreviewBeanList);
+        Observable.just(DeckUtils.getDeckPreviewList()).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(deckPreviewList -> {
+            mDeckPreviewAdapter.updateData(deckPreviewList);
         });
     }
 
@@ -85,31 +91,38 @@ public class DeckPreviewActivity extends BaseActivity implements BaseRecyclerVie
      */
     @OnClick(R.id.fab_add)
     public void onAdd_Click() {
-        new DialogEditText(this, getString(R.string.deck_name), null, getString(R.string.deck_name_hint), (dialog, deckName) -> {
+        new DialogEditText(this, getString(R.string.deck_pre_name), null, getString(R.string.deck_pre_name_hint), (dialog, deckName) -> {
             boolean checkDeckName = DeckUtils.checkDeckName(deckName);
             if (!checkDeckName) {
                 FileUtils.writeFile(JsonUtils.serializer(new ArrayList<String>()), DeckUtils.getDeckPath(deckName));
                 mDeckPreviewAdapter.updateData(DeckUtils.getDeckPreviewList());
                 dialog.dismiss();
-                showSnackBar(viewContent, addSucceed);
+                showSnackBar(viewContent, strAddSucceed);
             } else {
-                showSnackBar(viewContent, deckNameExits);
+                showSnackBar(viewContent, strDeckNameExits);
             }
         }).show();
     }
 
     @Override
     public void onItemClick(View view, List<?> data, int position) {
-        DeckEditorActivity.deckPreviewBean = (DeckPreviewBean)data.get(position);
-        IntentUtils.gotoActivity(this, DeckEditorActivity.class);
+        if (view.getId() == R.id.btn_deck_editor) {
+            showDeckEditor(data, position);
+        } else {
+            DeckEditorActivity.deckPreviewBean = (DeckPreviewBean)data.get(position);
+            IntentUtils.gotoActivity(this, DeckEditorActivity.class);
+        }
     }
 
     @Override
     public void onItemLongClick(View view, List<?> data, int position) {
-        String item[] = new String[]{"确认", "更名", "另存", "删除"};
-        new AlertDialog.Builder(this).setItems(item, (dialog, which) -> {
+        showDeckEditor(data, position);
+    }
+
+    private void showDeckEditor(List<?> data, int position) {
+        new AlertDialog.Builder(this).setItems(arrDeckOperation, (dialog, which) -> {
             dialog.dismiss();
-            switch (item[which]) {
+            switch (arrDeckOperation[which]) {
                 case "确认":
                     confirmDeck(data, position);
                     break;
@@ -146,15 +159,15 @@ public class DeckPreviewActivity extends BaseActivity implements BaseRecyclerVie
      */
     private void renameDeck(List<?> data, int position) {
         String deckName = ((DeckPreviewBean)data.get(position)).getDeckName();
-        new DialogEditText(this, getString(R.string.deck_name), deckName, getString(R.string.deck_name_hint), (dialog, newDeckName) -> {
+        new DialogEditText(this, getString(R.string.deck_pre_name), deckName, getString(R.string.deck_pre_name_hint), (dialog, newDeckName) -> {
             boolean checkDeckName = deckName.equals(newDeckName) || !DeckUtils.checkDeckName(newDeckName);
             if (checkDeckName) {
                 FileUtils.renameFile(DeckUtils.getDeckPath(deckName), DeckUtils.getDeckPath(newDeckName));
                 mDeckPreviewAdapter.updateData(DeckUtils.getDeckPreviewList());
                 dialog.dismiss();
-                showSnackBar(viewContent, updateSucceed);
+                showSnackBar(viewContent, strUpdateSucceed);
             } else {
-                showSnackBar(viewContent, deckNameExits);
+                showSnackBar(viewContent, strDeckNameExits);
             }
         }).show();
     }
@@ -167,7 +180,7 @@ public class DeckPreviewActivity extends BaseActivity implements BaseRecyclerVie
      */
     private void copyDeck(List<?> data, int position) {
         String deckName = ((DeckPreviewBean)data.get(position)).getDeckName();
-        new DialogEditText(this, getString(R.string.deck_name), deckName, getString(R.string.deck_name_hint), (dialog, newDeckName) -> {
+        new DialogEditText(this, getString(R.string.deck_pre_name), deckName, getString(R.string.deck_pre_name_hint), (dialog, newDeckName) -> {
             boolean checkDeckName = DeckUtils.checkDeckName(newDeckName);
             if (!checkDeckName) {
                 FileUtils.copyFile(DeckUtils.getDeckPath(deckName), DeckUtils.getDeckPath(newDeckName));
@@ -175,7 +188,7 @@ public class DeckPreviewActivity extends BaseActivity implements BaseRecyclerVie
                 dialog.dismiss();
                 showSnackBar(viewContent, getString(R.string.copy_succeed));
             } else {
-                showSnackBar(viewContent, deckNameExits);
+                showSnackBar(viewContent, strDeckNameExits);
             }
         }).show();
     }
@@ -188,8 +201,10 @@ public class DeckPreviewActivity extends BaseActivity implements BaseRecyclerVie
      */
     private void deleteDeck(List<?> data, int position) {
         String deckName = ((DeckPreviewBean)data.get(position)).getDeckName();
-        FileUtils.deleteFile(DeckUtils.getDeckPath(deckName));
-        mDeckPreviewAdapter.updateData(DeckUtils.getDeckPreviewList());
-        showSnackBar(viewContent, deleteSucceed);
+        if (DialogConfirm.show(this, strDeleteConfirm + deckName)) {
+            FileUtils.deleteFile(DeckUtils.getDeckPath(deckName));
+            mDeckPreviewAdapter.updateData(DeckUtils.getDeckPreviewList());
+            showSnackBar(viewContent, strDeleteSucceed);
+        }
     }
 }

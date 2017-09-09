@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -41,7 +40,7 @@ class CardPreviewAdapter extends BaseRecyclerViewAdapter
         viewHolder.tvCamp.setText(cardBean.getCamp());
         viewHolder.tvPower.setText(cardBean.getPower());
         viewHolder.tvCost.setText(cardBean.getCost());
-        viewHolder.linearLayout.setOnClickListener(v -> mOnItemClickListener.onItemClick(viewHolder.linearLayout, data, position));
+        viewHolder.viewItemContent.setOnClickListener(v -> mOnItemClickListener.onItemClick(viewHolder.viewItemContent, data, position));
         viewHolder.imgRestrict.setVisibility(cardBean.getRestrict().equals("0") ? View.VISIBLE : View.GONE);
         Glide.with(context).load(CardUtils.getImagePathList(cardBean.getImage()).get(0)).error(R.drawable.ic_unknown_picture).into(viewHolder.imgThumbnail);
     }
@@ -49,21 +48,21 @@ class CardPreviewAdapter extends BaseRecyclerViewAdapter
     static class ViewHolder extends RecyclerView.ViewHolder
     {
         @BindView(R.id.img_thumbnail)
-        ImageView    imgThumbnail;
+        ImageView imgThumbnail;
         @BindView(R.id.img_restrict)
-        ImageView    imgRestrict;
+        ImageView imgRestrict;
         @BindView(R.id.tv_cname)
-        TextView     tvCname;
+        TextView  tvCname;
         @BindView(R.id.tv_race_result)
-        TextView     tvRace;
+        TextView  tvRace;
         @BindView(R.id.tv_camp_result)
-        TextView     tvCamp;
+        TextView  tvCamp;
         @BindView(R.id.tv_power_result)
-        TextView     tvPower;
+        TextView  tvPower;
         @BindView(R.id.tv_cost_result)
-        TextView     tvCost;
-        @BindView(R.id.linearLayout)
-        LinearLayout linearLayout;
+        TextView  tvCost;
+        @BindView(R.id.viewItemContent)
+        View      viewItemContent;
 
         ViewHolder(View view) {
             super(view);

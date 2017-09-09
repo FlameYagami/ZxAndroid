@@ -54,7 +54,7 @@ public class VersusRoomActivity extends BaseExActivity implements AppBarView.Nav
     @BindString(R.string.cancel)
     String notReady;
 
-    @BindView(R.id.view_content)
+    @BindView(R.id.viewContent)
     LinearLayout   viewContent;
     @BindView(R.id.tv_room_id)
     TextView       tvRoomId;

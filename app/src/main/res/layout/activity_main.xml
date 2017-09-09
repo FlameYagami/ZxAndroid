@@ -1,132 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout
-    android:id="@+id/view_drawer"
+<LinearLayout
+    android:id="@+id/viewContent"
     style="@style/layout_match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:orientation="vertical">
 
-    <android.support.design.widget.CoordinatorLayout
-        android:id="@+id/view_content"
+    <com.zx.view.widget.AppBarView
+        android:fitsSystemWindows="true"
+        android:id="@+id/viewAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:navigation_src="@mipmap/ic_icon"
+        app:title_text="@string/app_name"/>
+
+    <RelativeLayout
+        android:padding="@dimen/activity_margin"
         style="@style/layout_match_parent"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        tools:context="com.zx.ui.main.MainActivity">
+        android:orientation="vertical">
+
+        <com.youth.banner.Banner
+            android:id="@+id/banner"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:minHeight="100dp"
+            app:delay_time="3000"
+            app:is_auto_play="true"/>
 
         <RelativeLayout
-            style="@style/layout_match_parent">
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:layout_below="@+id/banner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-            <com.zx.view.widget.AppBarView
-                android:id="@+id/viewAppBar"
+            <EditText
+                android:id="@+id/txt_search"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:navigation_src="@mipmap/ic_icon"
-                app:title_text="@string/app_name"/>
+                android:layout_height="40dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/txt_primary"
+                android:gravity="center"
+                android:hint="@string/main_search_hint"
+                android:maxLines="1"
+                android:textSize="18sp"/>
 
-            <FrameLayout
-                android:id="@+id/view_banner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/viewAppBar">
-
-                <com.youth.banner.Banner
-                    android:id="@+id/banner"
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    app:delay_time="2000"
-                    app:is_auto_play="true"/>
-
-            </FrameLayout>
-
-            <RelativeLayout
-                android:layout_below="@+id/view_banner"
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+            <ImageView
+                android:id="@+id/fab_search"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin">
-
-                <EditText
-                    android:id="@+id/txt_search"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_centerInParent="true"
-                    android:background="@drawable/txt_primary"
-                    android:gravity="center"
-                    android:hint="@string/search_hint"
-                    android:maxLines="1"
-                    android:textSize="18sp"/>
-
-                <ImageView
-                    android:id="@+id/fab_search"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="4dp"
-                    android:layout_marginRight="4dp"
-                    android:src="@android:drawable/ic_menu_search"/>
-
-            </RelativeLayout>
-
-            <LinearLayout
-                android:layout_margin="@dimen/activity_margin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:orientation="horizontal">
-
-                <FrameLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
-
-                    <android.support.v7.widget.AppCompatButton
-                        android:id="@+id/btn_adv_search"
-                        style="@style/Base.Widget.AppCompat.Button.Colored"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:text="@string/main_adv_search"
-                        android:textSize="12sp"/>
-                </FrameLayout>
-
-                <FrameLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
-
-                    <android.support.v7.widget.AppCompatButton
-                        android:id="@+id/btn_deck_preview"
-                        style="@style/Base.Widget.AppCompat.Button.Colored"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:text="@string/main_deck_preview"
-                        android:textSize="12sp"/>
-                </FrameLayout>
-
-                <FrameLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
-
-                    <android.support.v7.widget.AppCompatButton
-                        android:id="@+id/btn_setting"
-                        style="@style/Base.Widget.AppCompat.Button.Colored"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:text="@string/main_setting"
-                        android:textSize="12sp"/>
-                </FrameLayout>
-            </LinearLayout>
+                android:layout_marginEnd="4dp"
+                android:layout_marginRight="4dp"
+                android:src="@android:drawable/ic_menu_search"/>
 
         </RelativeLayout>
 
-    </android.support.design.widget.CoordinatorLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal">
 
-</android.support.v4.widget.DrawerLayout>
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/btn_adv_search"
+                    style="@style/Base.Widget.AppCompat.Button.Colored"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/main_adv_search"
+                    android:textSize="12sp"/>
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/btn_deck_preview"
+                    style="@style/Base.Widget.AppCompat.Button.Colored"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/main_deck_preview"
+                    android:textSize="12sp"/>
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/btn_setting"
+                    style="@style/Base.Widget.AppCompat.Button.Colored"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/main_setting"
+                    android:textSize="12sp"/>
+            </FrameLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>
+

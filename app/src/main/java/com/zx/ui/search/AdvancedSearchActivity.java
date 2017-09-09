@@ -5,7 +5,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
 
 import com.michaelflisar.rxbus2.RxBus;
@@ -38,34 +37,34 @@ import butterknife.OnClick;
 
 public class AdvancedSearchActivity extends BaseActivity
 {
-    @BindView(R.id.view_content)
-    RelativeLayout viewContent;
+    @BindView(R.id.viewContent)
+    View       viewContent;
     @BindView(R.id.txt_key)
-    EditText       txtKey;
+    EditText   txtKey;
     @BindView(R.id.txt_cost)
-    EditText       txtCost;
+    EditText   txtCost;
     @BindView(R.id.txt_power)
-    EditText       txtPower;
+    EditText   txtPower;
     @BindView(R.id.cmb_pack)
-    Spinner        cmbPack;
+    Spinner    cmbPack;
     @BindView(R.id.cmb_illust)
-    Spinner        cmbIllust;
+    Spinner    cmbIllust;
     @BindView(R.id.cmb_type)
-    Spinner        cmbType;
+    Spinner    cmbType;
     @BindView(R.id.cmb_camp)
-    Spinner        cmbCamp;
+    Spinner    cmbCamp;
     @BindView(R.id.cmb_race)
-    Spinner        cmbRace;
+    Spinner    cmbRace;
     @BindView(R.id.cmb_sign)
-    Spinner        cmbSign;
+    Spinner    cmbSign;
     @BindView(R.id.cmb_rare)
-    Spinner        cmbRare;
+    Spinner    cmbRare;
     @BindView(R.id.cmb_restrict)
-    Spinner        cmbRestrict;
+    Spinner    cmbRestrict;
     @BindArray(R.array.camp)
-    String         campArray[];
+    String     campArray[];
     @BindView(R.id.viewAppBar)
-    AppBarView     viewAppBar;
+    AppBarView viewAppBar;
 
     private String fromActivity;
 
@@ -103,7 +102,7 @@ public class AdvancedSearchActivity extends BaseActivity
         List<CardBean> cardList = SQLiteUtils.getCardList(querySql);
         cardList = RestrictUtils.getRestrictCardList(cardList, cardBean);
         if (cardList.size() == 0) {
-            showToast("没有查询到相关卡牌");
+            showSnackBar(viewContent, "没有查询到相关卡牌");
         } else {
             if (fromActivity.equals(DeckEditorActivity.class.getSimpleName())) {
                 RxBus.get().send(new CardListEvent(cardList));

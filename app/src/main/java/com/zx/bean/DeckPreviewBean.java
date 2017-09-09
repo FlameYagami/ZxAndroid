@@ -13,13 +13,15 @@ public class DeckPreviewBean
     private String statusMain;
     private String statusExtra;
     private String playerPath;
+    private String startPath;
     private List<String> numberExList = new ArrayList<>();
 
-    public DeckPreviewBean(String deckName, String statusMain, String statusExtra, String playerPath, List<String> numberExList) {
+    public DeckPreviewBean(String deckName, String statusMain, String statusExtra, String playerPath, String startPath, List<String> numberExList) {
         this.deckName = deckName;
         this.statusMain = statusMain;
         this.statusExtra = statusExtra;
         this.playerPath = playerPath;
+        this.startPath = startPath;
         this.numberExList = numberExList;
     }
 
@@ -37,6 +39,10 @@ public class DeckPreviewBean
 
     public String getPlayerPath() {
         return playerPath;
+    }
+
+    public String getStartPath() {
+        return startPath;
     }
 
     public List<String> getNumberExList() {

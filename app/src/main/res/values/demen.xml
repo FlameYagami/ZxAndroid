@@ -10,7 +10,6 @@
     <dimen name="footerbar_height">48dp</dimen>
     <dimen name="view_card_margin">0dp</dimen>
     <dimen name="view_card_elevation">4dp</dimen>
-    <dimen name="statusbar_height">0dp</dimen>
     <dimen name="title_size">16sp</dimen>
     <dimen name="message_size">12sp</dimen>
     <dimen name="roboto_medium">14sp</dimen>

@@ -30,19 +30,25 @@ public class ZipUtils
      */
     public static Observable<Integer> unZipFolder(String assetsName, String directoryPath, boolean isCover) {
         return Observable.create(subscriber -> {
-            int zipCount = getZipSize(directoryPath + context.getString(R.string.zip_extension)) - 1; // PS:-1是因为存在文件夹
-            if (zipCount == FileUtils.getFileSize(directoryPath)) {
+            // 检测版本
+            boolean isVersionCode = SpUtils.getInt(directoryPath) == SystemUtils.getSystemVersionCode();
+            // 检测文件数量(PS:-1是因为存在文件夹)
+            int     zipCount   = getZipSize(directoryPath + context.getString(R.string.zip_extension)) - 1;
+            boolean isZipCount = zipCount == FileUtils.getFileSize(directoryPath);
+            // 版本正确、文件数量正确、非覆写操作->跳过解压过程
+            if (isVersionCode && isZipCount && !isCover) {
                 subscriber.onComplete();
                 return;
             }
-
-            int            count     = 0;
-            String         unZipPath = new File(directoryPath).getParent() + File.separator;
-            String         szName;
-            ZipEntry       zipEntry;
-            ZipInputStream inZip     = null;
+            // 清空资源文件
+            FileUtils.deleteDirectory(new File(directoryPath));
+            subscriber.onNext(0);
             try {
-                subscriber.onNext(0);
+                int            count     = 0;
+                String         unZipPath = new File(directoryPath).getParent() + File.separator;
+                String         szName;
+                ZipEntry       zipEntry;
+                ZipInputStream inZip     = null;
                 inZip = new ZipInputStream(context.getResources().getAssets().open(assetsName));
                 while ((zipEntry = inZip.getNextEntry()) != null) {
                     szName = zipEntry.getName();
@@ -50,17 +56,19 @@ public class ZipUtils
                         szName = szName.substring(0, szName.length() - 1);
                         FileUtils.createDirectory(unZipPath + szName);
                     } else {
-                        unZipFile(unZipPath + szName, inZip, isCover);
+                        unZipFile(unZipPath + szName, inZip);
                     }
                     if (++count % 20 == 0) {
                         subscriber.onNext(count * 100 / zipCount);
                     }
                 }
-                subscriber.onComplete();
                 inZip.close();
             } catch (Exception e) {
                 subscriber.onError(e);
             }
+            subscriber.onComplete();
+            // 版本信息存入Sp
+            SpUtils.putInt(directoryPath, SystemUtils.getSystemVersionCode());
         });
     }
 
@@ -70,13 +78,10 @@ public class ZipUtils
      * @param filePath    解压路径
      * @param inputStream 文件流
      */
-    private static void unZipFile(String filePath, ZipInputStream inputStream, boolean isCover) {
+    private static void unZipFile(String filePath, ZipInputStream inputStream) {
         try {
             int  len;
             File file = new File(filePath);
-            if (file.exists() && isCover) {
-                file.delete();
-            }
             if (!file.exists()) {
                 file.createNewFile();
                 FileOutputStream out    = new FileOutputStream(file);

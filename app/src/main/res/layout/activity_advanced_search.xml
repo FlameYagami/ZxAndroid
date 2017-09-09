@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    android:id="@+id/view_content"
+    android:id="@+id/viewContent"
     style="@style/layout_match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -9,16 +9,14 @@
         android:id="@+id/viewAppBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
         app:title_text="@string/advanced_search_about_title"/>
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/viewItemContent"
         style="@style/layout_match_parent"
         android:layout_below="@+id/viewAppBar"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_margin="@dimen/activity_padding"
         android:orientation="vertical">
 
         <LinearLayout
@@ -28,7 +26,7 @@
 
             <android.support.v7.widget.AppCompatTextView
                 style="@style/layout_wrap_content"
-                android:text="@string/key"/>
+                android:text="@string/adv_search_key"/>
 
             <android.support.v7.widget.AppCompatEditText
                 android:id="@+id/txt_key"
@@ -37,7 +35,7 @@
                 android:layout_height="32dp"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:hint="@string/search_hint"/>
+                android:hint="@string/main_search_hint"/>
 
         </LinearLayout>
 
@@ -48,7 +46,7 @@
 
             <android.support.v7.widget.AppCompatTextView
                 style="@style/layout_wrap_content"
-                android:text="@string/cost"/>
+                android:text="@string/adv_search_cost"/>
 
             <android.support.v7.widget.AppCompatEditText
                 android:id="@+id/txt_cost"
@@ -61,7 +59,7 @@
 
             <android.support.v7.widget.AppCompatTextView
                 style="@style/layout_wrap_content"
-                android:text="@string/power"/>
+                android:text="@string/adv_search_power"/>
 
             <android.support.v7.widget.AppCompatEditText
                 android:id="@+id/txt_power"
@@ -81,7 +79,7 @@
 
             <android.support.v7.widget.AppCompatTextView
                 style="@style/layout_wrap_content"
-                android:text="@string/pack"/>
+                android:text="@string/adv_search_pack"/>
 
             <android.support.v7.widget.AppCompatSpinner
                 android:id="@+id/cmb_pack"
@@ -91,7 +89,7 @@
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:layout_weight="1"
-                android:entries="@array/none"/>
+                android:entries="@array/not_applicable"/>
 
         </LinearLayout>
 
@@ -102,7 +100,7 @@
 
             <android.support.v7.widget.AppCompatTextView
                 style="@style/layout_wrap_content"
-                android:text="@string/illust"/>
+                android:text="@string/adv_search_illust"/>
 
             <android.support.v7.widget.AppCompatSpinner
                 android:id="@+id/cmb_illust"
@@ -112,7 +110,7 @@
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:layout_weight="1"
-                android:entries="@array/none"/>
+                android:entries="@array/not_applicable"/>
 
         </LinearLayout>
 
@@ -123,7 +121,7 @@
 
             <android.support.v7.widget.AppCompatTextView
                 style="@style/layout_wrap_content"
-                android:text="@string/type"/>
+                android:text="@string/adv_search_type"/>
 
             <android.support.v7.widget.AppCompatSpinner
                 android:id="@+id/cmb_type"
@@ -137,7 +135,7 @@
 
             <android.support.v7.widget.AppCompatTextView
                 style="@style/layout_wrap_content"
-                android:text="@string/camp"/>
+                android:text="@string/adv_search_camp"/>
 
             <android.support.v7.widget.AppCompatSpinner
                 android:id="@+id/cmb_camp"
@@ -158,7 +156,7 @@
 
             <android.support.v7.widget.AppCompatTextView
                 style="@style/layout_wrap_content"
-                android:text="@string/race"/>
+                android:text="@string/adv_search_race"/>
 
             <android.support.v7.widget.AppCompatSpinner
                 android:id="@+id/cmb_race"
@@ -168,11 +166,11 @@
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:layout_weight="1"
-                android:entries="@array/none"/>
+                android:entries="@array/not_applicable"/>
 
             <android.support.v7.widget.AppCompatTextView
                 style="@style/layout_wrap_content"
-                android:text="@string/sign"/>
+                android:text="@string/adv_search_sign"/>
 
             <android.support.v7.widget.AppCompatSpinner
                 android:id="@+id/cmb_sign"
@@ -193,7 +191,7 @@
 
             <android.support.v7.widget.AppCompatTextView
                 style="@style/layout_wrap_content"
-                android:text="@string/rare"/>
+                android:text="@string/adv_search_rare"/>
 
             <android.support.v7.widget.AppCompatSpinner
                 android:id="@+id/cmb_rare"
@@ -207,7 +205,7 @@
 
             <android.support.v7.widget.AppCompatTextView
                 style="@style/layout_wrap_content"
-                android:text="@string/restrict"/>
+                android:text="@string/adv_search_restrict"/>
 
             <android.support.v7.widget.AppCompatSpinner
                 android:id="@+id/cmb_restrict"
@@ -228,23 +226,23 @@
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/btn_ability_type"
+                style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:layout_weight="1"
-                style="@style/Widget.AppCompat.Button.Colored"
-                android:text="@string/ability_type"/>
+                android:text="@string/adv_search_ability_type"/>
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/btn_ability_detail"
+                style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:layout_weight="1"
-                style="@style/Widget.AppCompat.Button.Colored"
-                android:text="@string/ability_detail"/>
+                android:text="@string/adv_search_ability_detail"/>
 
         </LinearLayout>
 

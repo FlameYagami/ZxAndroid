@@ -91,7 +91,7 @@ public class DialogDeckPreview extends AlertDialog implements BaseRecyclerViewLi
 
     static class ViewHolder extends RecyclerView.ViewHolder
     {
-        @BindView(R.id.view_content)
+        @BindView(R.id.viewContent)
         LinearLayout viewContent;
         @BindView(R.id.imageView)
         ImageView    imageView;

@@ -10,14 +10,16 @@
         android:id="@+id/viewAppBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         app:title_text="@string/advanced_about_title"/>
 
     <com.zx.view.widget.MessageView
         android:id="@+id/msg_key_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:padding="@dimen/activity_padding"
-        app:title_text="@string/key_search"/>
+        app:title_text="@string/adv_key_search"/>
 
     <include layout="@layout/include_divider"/>
 
@@ -25,8 +27,9 @@
         android:id="@+id/msg_preview_order"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:padding="@dimen/activity_padding"
-        app:title_text="@string/preview_order"/>
+        app:title_text="@string/adv_preview_order"/>
 
     <include layout="@layout/include_divider"/>
 
@@ -34,8 +37,9 @@
         android:id="@+id/msg_deck_editor_span_count"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:padding="@dimen/activity_padding"
-        app:title_text="@string/advanced_deck_editor_span_count"/>
+        app:title_text="@string/adv_deck_editor_span_count"/>
 
     <include layout="@layout/include_divider"/>
 
@@ -43,7 +47,8 @@
         android:id="@+id/msg_deck_confirm_span_count"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:padding="@dimen/activity_padding"
-        app:title_text="@string/advanced_deck_confirm_span_count"/>
+        app:title_text="@string/adv_deck_confirm_span_count"/>
 
 </LinearLayout>

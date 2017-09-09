@@ -1,17 +1,4 @@
 <resources>
-
-    <style name="layout_statusbar">
-        <item name="android:background">@color/colorPrimary</item>
-        <item name="android:layout_height">@dimen/statusbar_height</item>
-        <item name="android:layout_width">match_parent</item>
-    </style>
-
-    <style name="layout_shadowbar">
-        <item name="android:background">@drawable/shadow_header</item>
-        <item name="android:layout_height">2dp</item>
-        <item name="android:layout_width">match_parent</item>
-    </style>
-
     <style name="recyclerview">
         <item name="android:padding">2dp</item>
         <item name="android:layout_height">wrap_content</item>
@@ -51,7 +38,7 @@
 
     <!-- 权重宽度填充-->
     <style name="layout_weight_width_match">
-        <item name="android:layout_height">0dip</item>
+        <item name="android:layout_height">0dp</item>
         <item name="android:layout_width">match_parent</item>
     </style>
 
@@ -84,5 +71,6 @@
     <style name="OverflowMenuStyle" parent="Widget.AppCompat.Light.PopupMenu.Overflow">
         <item name="overlapAnchor">false</item>  <!--设置不覆盖锚点-->
     </style>
+
 
 </resources>

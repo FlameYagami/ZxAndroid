@@ -1,13 +1,14 @@
 package com.zx.ui.main;
 
 import android.app.Activity;
-import android.support.design.widget.CoordinatorLayout;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
+import com.youth.banner.listener.OnBannerClickListener;
 import com.zx.R;
 import com.zx.bean.CardBean;
 import com.zx.config.MapConst;
@@ -29,6 +30,7 @@ import com.zx.view.widget.AppBarView;
 import java.util.List;
 import java.util.Map;
 
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -40,13 +42,18 @@ import static br.com.zbra.androidlinq.Linq.stream;
 public class MainActivity extends BaseActivity
 {
     @BindView(R.id.banner)
-    Banner            bannerGuide;
-    @BindView(R.id.view_content)
-    CoordinatorLayout viewContent;
+    Banner     bannerGuide;
     @BindView(R.id.txt_search)
-    EditText          txtSearch;
+    EditText   txtSearch;
     @BindView(R.id.viewAppBar)
-    AppBarView        viewAppBar;
+    AppBarView viewAppBar;
+    @BindView(R.id.viewContent)
+    View       viewContent;
+
+    @BindString(R.string.main_card_not_found)
+    String mCardNotFound;
+    @BindString(R.string.main_more_to_exit)
+    String mMoreToExit;
 
     private static final String TAG       = MainActivity.class.getSimpleName();
     private              long   firstTime = 0;
@@ -69,23 +76,31 @@ public class MainActivity extends BaseActivity
         });
     }
 
+    /**
+     * 初始化导航控件
+     */
     private void initBGABanner() {
-        int                      heightPx = (DisplayUtils.getScreenWidth() - DisplayUtils.dip2px(16 * 2)) * 29 / 68;
-        int                      marginPx = DisplayUtils.dip2px(16);
-        FrameLayout.LayoutParams params   = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, heightPx);
-        params.setMargins(marginPx, marginPx, marginPx, marginPx);
-        bannerGuide.setLayoutParams(params);
+        float scale    = (float)29 / 68;
+        int   margin   = 16;
+        int   heightPx = (int)((DisplayUtils.getScreenWidth() - DisplayUtils.dip2px(margin * 2)) * scale);
+
+        bannerGuide.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, heightPx));
         bannerGuide.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
         bannerGuide.setIndicatorGravity(BannerConfig.RIGHT);
         bannerGuide.setImageLoader(new BannerImageLoader());
         bannerGuide.setImages(stream(MapConst.GuideMap.entrySet()).select(Map.Entry::getValue).toList());
-        bannerGuide.setOnBannerClickListener(position -> {
-            String querySql = SqlUtils.getPackQuerySql(stream(MapConst.GuideMap.entrySet()).select(Map.Entry::getKey).toList().get(position - 1));
-            CardPreviewActivity.cardBeanList = SQLiteUtils.getCardList(querySql);
-            IntentUtils.gotoActivity(this, CardPreviewActivity.class);
-        });
+        bannerGuide.setOnBannerClickListener(onBannerClick);
         bannerGuide.start();
     }
+
+    /**
+     * 导航点击事件
+     */
+    OnBannerClickListener onBannerClick = position -> {
+        String querySql = SqlUtils.getPackQuerySql(stream(MapConst.GuideMap.entrySet()).select(Map.Entry::getKey).toList().get(position - 1));
+        CardPreviewActivity.cardBeanList = SQLiteUtils.getCardList(querySql);
+        IntentUtils.gotoActivity(MainActivity.this, CardPreviewActivity.class);
+    };
 
     /**
      * 关键字搜索
@@ -95,37 +110,49 @@ public class MainActivity extends BaseActivity
         DisplayUtils.hideKeyboard(this);
         String         querySql     = SqlUtils.getKeyQuerySql(txtSearch.getText().toString().trim());
         List<CardBean> cardBeanList = SQLiteUtils.getCardList(querySql);
-        if (cardBeanList.size() == 0) {
-            showToast("没有查询到相关卡牌");
-        } else {
-            CardPreviewActivity.cardBeanList = cardBeanList;
-            IntentUtils.gotoActivity(this, CardPreviewActivity.class);
+        if (0 == cardBeanList.size()) {
+            showSnackBar(viewContent, mCardNotFound);
+            return;
         }
+        CardPreviewActivity.cardBeanList = cardBeanList;
+        IntentUtils.gotoActivity(this, CardPreviewActivity.class);
     }
 
+    /**
+     * 回退事件
+     */
     @Override
     public void onBackPressed() {
         long lastTime = System.currentTimeMillis();
         long between  = lastTime - firstTime;
-        if (between < 2000) {
-            AppManager.getInstances().AppExit(this);
-        } else {
+        if (between > 2000) {
             firstTime = lastTime;
-            showSnackBar(viewContent, "再按一次退出应用");
+            showSnackBar(viewContent, mMoreToExit);
+            return;
         }
+        AppManager.AppExit(this);
     }
 
+    /**
+     * 高级搜索事件
+     */
     @OnClick(R.id.btn_adv_search)
     public void onAdvSearch_Click() {
         IntentUtils.gotoActivity(this, AdvancedSearchActivity.class,
                 BundleUtils.putString(Activity.class.getSimpleName(), MainActivity.class.getSimpleName()));
     }
 
+    /**
+     * 卡组预览事件
+     */
     @OnClick(R.id.btn_deck_preview)
     public void onDeckPreview_Click() {
         IntentUtils.gotoActivity(this, DeckPreviewActivity.class);
     }
 
+    /**
+     * 设置事件
+     */
     @OnClick(R.id.btn_setting)
     public void onSetting_Click() {
         IntentUtils.gotoActivity(this, SettingActivity.class);

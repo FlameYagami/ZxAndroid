@@ -38,7 +38,7 @@ public class CardAdapter extends BaseRecyclerViewAdapter
 
     @Override
     protected int getLayoutId() {
-        return R.layout.item_deck_editor;
+        return R.layout.item_card_image;
     }
 
     @Override

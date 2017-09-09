@@ -16,8 +16,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/activity_margin"
-        app:message_text="@string/key_search_hint"
-        app:title_text="@string/key_search"/>
+        android:background="@color/white"
+        app:message_text="@string/doc_key_search_hint"
+        app:title_text="@string/doc_key_search"/>
 
     <include layout="@layout/include_divider"/>
 
@@ -25,8 +26,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/activity_margin"
-        app:message_text="@string/interval_search_hint"
-        app:title_text="@string/interval_search"/>
+        android:background="@color/white"
+        app:message_text="@string/doc_interval_search_hint"
+        app:title_text="@string/doc_interval_search"/>
 
     <include layout="@layout/include_divider"/>
 
@@ -34,7 +36,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/activity_margin"
-        app:message_text="@string/deck_operate_hint"
-        app:title_text="@string/deck_operate"/>
+        android:background="@color/white"
+        app:message_text="@string/doc_deck_operate_hint"
+        app:title_text="@string/doc_deck_operate"/>
 
 </LinearLayout>

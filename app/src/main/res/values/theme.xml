@@ -12,18 +12,17 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
         <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
     </style>
 
     <!--主界面不要透明,否则就显示桌面了~-->
     <style name="AppThemeNoTranslucent" parent="AppBaseTheme">
-        <item name="android:windowIsTranslucent">false</item>
         <item name="android:windowNoTitle">true</item>
     </style>
 
     <!--主界面不要透明,否则就显示桌面了~-->
     <style name="AppThemeFullScreen" parent="AppBaseTheme">
         <item name="android:windowNoTitle">true</item>
-        <item name="windowActionBar">false</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
     </style>

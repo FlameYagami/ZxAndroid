@@ -22,10 +22,10 @@ import butterknife.ButterKnife;
 public class CardPreviewActivity extends BaseActivity
 {
     @BindView(R.id.rv_result)
-    RecyclerView rvResult;
+    RecyclerView rvCardPreview;
     @BindView(R.id.viewAppBar)
     AppBarView   viewAppBar;
-    @BindString(R.string.result_about_title)
+    @BindString(R.string.card_preview_about_title)
     String       title;
 
     CardPreviewAdapter cardPreviewAdapter;
@@ -42,8 +42,8 @@ public class CardPreviewActivity extends BaseActivity
         viewAppBar.setNavigationClickListener(super::onBackPressed);
         viewAppBar.setTitleText(title + String.format("：%s", cardBeanList.size()));
         cardPreviewAdapter = new CardPreviewAdapter(this);
-        rvResult.setLayoutManager(new LinearLayoutManager(this));
-        rvResult.setAdapter(cardPreviewAdapter);
+        rvCardPreview.setLayoutManager(new LinearLayoutManager(this));
+        rvCardPreview.setAdapter(cardPreviewAdapter);
         cardPreviewAdapter.updateData(cardBeanList);
         cardPreviewAdapter.setOnItemClickListener((view, data, position) -> {
             CardDetailActivity.cardBean = cardBeanList.get(position);

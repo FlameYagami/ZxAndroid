@@ -3,6 +3,7 @@
     <declare-styleable name="AppBarView">
         <attr name="title_text" format="string"/>
         <attr name="menu_visible" format="boolean"/>
+        <attr name="scrollFlags" format="boolean"/>
         <attr name="navigation_src" format="reference"/>
         <attr name="menu_src" format="reference"/>
     </declare-styleable>
@@ -20,5 +21,10 @@
 
     <declare-styleable name="SwitchView">
         <attr name="title_text"/>
+    </declare-styleable>
+
+    <declare-styleable name="ScrimInsetsView">
+        <attr name="appInsetForeground" format="color|reference"/>
+        <attr name="appConsumeInsets" format="boolean"/>
     </declare-styleable>
 </resources>

@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import com.zx.R;
 import com.zx.bean.CardBean;
 import com.zx.bean.DeckBean;
+import com.zx.bean.DeckExBean;
 import com.zx.config.Enum;
 import com.zx.game.utils.CardUtils;
 import com.zx.uitls.database.SQLiteUtils;
@@ -85,6 +86,18 @@ public class DeckManager
         return ExList;
     }
 
+    public List<DeckExBean> getIgExList() {
+        return getDeckExList(IgList);
+    }
+
+    public List<DeckExBean> getUgExList() {
+        return getDeckExList(UgList);
+    }
+
+    public List<DeckExBean> getExExList() {
+        return getDeckExList(ExList);
+    }
+
     public List<String> getNumberExList() {
         return NumberExList;
     }
@@ -95,6 +108,19 @@ public class DeckManager
 
     public String getDeckName() {
         return deckName;
+    }
+
+    private List<DeckExBean> getDeckExList(List<DeckBean> deckList) {
+        // 对象去重
+        List<String>   numberExList = stream(deckList).select(DeckBean::getNumberEx).distinct().toList();
+        List<DeckBean> tempDeckList = new ArrayList<>();
+        tempDeckList.addAll(stream(numberExList).select(numberEx -> stream(deckList).first(deck -> deck.getNumberEx().equals(numberEx))).toList());
+        // 重新生成对象
+        List<DeckExBean> deckExList = new ArrayList<>();
+        deckExList.addAll(stream(tempDeckList)
+                .select(deck -> new DeckExBean(deck, stream(deckList).where(bean -> bean.getNumberEx().equals(deck.getNumberEx())).count()))
+                .toList());
+        return deckExList;
     }
 
     /**

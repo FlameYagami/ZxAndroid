@@ -2,10 +2,10 @@ package com.zx.ui.deck;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -39,28 +39,34 @@ class DeckPreviewAdapter extends BaseRecyclerViewAdapter
         viewHolder.tvDeckName.setText(bean.getDeckName());
         viewHolder.tvStatusMain.setText(bean.getStatusMain());
         viewHolder.tvStatusExtra.setText(bean.getStatusExtra());
-        viewHolder.tvStatusMain.setTextColor(bean.getStatusMain().equals(context.getString(R.string.deck_complete)) ? Color.GREEN : Color.RED);
-        viewHolder.tvStatusExtra.setTextColor(bean.getStatusExtra().equals(context.getString(R.string.deck_complete)) ? Color.GREEN : Color.RED);
-        viewHolder.linearLayout.setOnClickListener(v -> mOnItemClickListener.onItemClick(viewHolder.linearLayout, data, position));
-        viewHolder.linearLayout.setOnLongClickListener(v -> {
-            mOnItemLongClickListener.onItemLongClick(viewHolder.linearLayout, data, position);
+        viewHolder.tvStatusMain.setTextColor(bean.getStatusMain().equals(context.getString(R.string.deck_pre_complete)) ? Color.GREEN : Color.RED);
+        viewHolder.tvStatusExtra.setTextColor(bean.getStatusExtra().equals(context.getString(R.string.deck_pre_complete)) ? Color.GREEN : Color.RED);
+        viewHolder.ViewItemContent.setOnClickListener(v -> mOnItemClickListener.onItemClick(viewHolder.ViewItemContent, data, position));
+        viewHolder.BtnDeckEditor.setOnClickListener(v -> mOnItemClickListener.onItemClick(viewHolder.BtnDeckEditor, data, position));
+        viewHolder.ViewItemContent.setOnLongClickListener(v -> {
+            mOnItemLongClickListener.onItemLongClick(viewHolder.ViewItemContent, data, position);
             return false;
         });
         Glide.with(context).load(bean.getPlayerPath()).error(R.drawable.ic_unknown_picture).into(viewHolder.imgThumbnail);
+        Glide.with(context).load(bean.getStartPath()).error(R.drawable.ic_unknown_picture).into(viewHolder.imgStart);
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder
     {
-        @BindView(R.id.linearLayout)
-        LinearLayout linearLayout;
+        @BindView(R.id.viewItemContent)
+        View                 ViewItemContent;
         @BindView(R.id.img_thumbnail)
-        ImageView    imgThumbnail;
+        ImageView            imgThumbnail;
         @BindView(R.id.tv_status_main)
-        TextView     tvStatusMain;
+        TextView             tvStatusMain;
         @BindView(R.id.tv_status_extra)
-        TextView     tvStatusExtra;
+        TextView             tvStatusExtra;
         @BindView(R.id.tv_deck_name)
-        TextView     tvDeckName;
+        TextView             tvDeckName;
+        @BindView(R.id.btn_deck_editor)
+        AppCompatImageButton BtnDeckEditor;
+        @BindView(R.id.img_start)
+        ImageView            imgStart;
 
         ViewHolder(View view) {
             super(view);

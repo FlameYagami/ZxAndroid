@@ -84,7 +84,7 @@ public class SqlUtils implements SQLitConst
      * @return sql
      */
     private static String getFooterSql() {
-        return SpUtils.getString(SpConst.PreviewOrderPattern).equals(context.getString(R.string.order_by_number)) ? getOrderNumberSql() : getOrderValueSql();
+        return SpUtils.getString(SpConst.PreviewOrderPattern).equals(context.getString(R.string.number)) ? getOrderNumberSql() : getOrderValueSql();
     }
 
     /**
@@ -203,7 +203,7 @@ public class SqlUtils implements SQLitConst
         StringBuilder tempValue = new StringBuilder();
         String[]      keyList   = value.split(" "); // 以空格分割关键字
         for (String key : keyList) {
-            tempValue.append(" AND ( JName LIKE '%" + key + "%' " + getPartKeySql(key) + ")");
+            tempValue.append(" AND ( " + SQLitConst.ColumnJName + " LIKE '%" + key + "%' " + getPartKeySql(key) + ")");
         }
         return tempValue.toString();
     }

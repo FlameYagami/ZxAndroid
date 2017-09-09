@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    android:id="@+id/linearLayout"
+    android:id="@+id/viewItemContent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -9,24 +9,22 @@
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="84dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <FrameLayout
             android:layout_width="50dp"
             android:layout_height="70dp"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin">
+            android:layout_margin="@dimen/activity_margin">
 
-            <include layout="@layout/item_deck_editor"/>
+            <include layout="@layout/item_card_image"/>
         </FrameLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:gravity="center"
             android:orientation="vertical">
@@ -37,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="@string/cname_test"
+                android:text="@string/test_cname"
                 android:textColor="@color/black"
                 android:textSize="@dimen/title_size"/>
 
@@ -52,8 +50,8 @@
                     style="@style/layout_wrap_content"
                     android:layout_width="wrap_content"
                     android:gravity="center_vertical"
-                    android:text="@string/camp_test"
-                    android:textSize="@dimen/message_size"/>
+                    android:text="@string/test_camp"
+                    android:textSize="@dimen/roboto_medium"/>
 
                 <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/tv_race_result"
@@ -61,8 +59,8 @@
                     android:layout_marginLeft="@dimen/activity_horizontal_margin"
                     android:layout_marginStart="@dimen/activity_horizontal_margin"
                     android:gravity="center_vertical"
-                    android:text="@string/race_test"
-                    android:textSize="@dimen/message_size"/>
+                    android:text="@string/test_race"
+                    android:textSize="@dimen/roboto_medium"/>
 
             </LinearLayout>
 
@@ -77,8 +75,8 @@
                     style="@style/layout_wrap_content"
                     android:layout_width="wrap_content"
                     android:gravity="center_vertical"
-                    android:text="@string/cost_test"
-                    android:textSize="@dimen/message_size"/>
+                    android:text="@string/test_cost"
+                    android:textSize="@dimen/roboto_medium"/>
 
                 <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/tv_power_result"
@@ -87,8 +85,8 @@
                     android:layout_marginLeft="@dimen/activity_horizontal_margin"
                     android:layout_marginStart="@dimen/activity_horizontal_margin"
                     android:gravity="center_vertical"
-                    android:text="@string/power_test"
-                    android:textSize="@dimen/message_size"/>
+                    android:text="@string/test_power"
+                    android:textSize="@dimen/roboto_medium"/>
 
             </LinearLayout>
         </LinearLayout>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    android:id="@+id/linearLayout"
+    android:id="@+id/viewItemContent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -9,69 +9,95 @@
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="84dp">
+        android:layout_height="102dp">
 
         <ImageView
             android:id="@+id/img_thumbnail"
             android:layout_width="50dp"
             android:layout_height="70dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_margin="@dimen/activity_margin"
             android:src="@drawable/ic_unknown_picture"/>
 
-        <LinearLayout
-            android:id="@+id/view_status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:layout_marginEnd="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:gravity="end">
-
-            <TextView
-                android:layout_width="36dp"
-                android:layout_height="wrap_content"
-                android:text="@string/deck_main"/>
-
-            <TextView
-                android:id="@+id/tv_status_main"
-                android:layout_width="48dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:text="@string/deck_complete"/>
-
-            <TextView
-                android:layout_width="36dp"
-                android:layout_height="wrap_content"
-                android:text="@string/deck_extra"/>
-
-            <TextView
-                android:id="@+id/tv_status_extra"
-                android:layout_width="48dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/deck_not_complete"/>
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/tv_deck_name"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:layout_toEndOf="@+id/img_thumbnail"
-            android:layout_toRightOf="@+id/img_thumbnail"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:text="@string/cname_test"
-            android:textColor="@color/black"
-            android:textSize="@dimen/title_size"/>
+            android:layout_toLeftOf="@+id/btn_deck_editor"
+            android:layout_toRightOf="@+id/img_thumbnail">
+
+            <ImageView
+                android:id="@+id/img_start"
+                android:layout_width="30dp"
+                android:layout_height="42dp"
+                android:layout_alignParentBottom="true"
+                android:src="@drawable/ic_unknown_picture"/>
+
+            <TextView
+                android:id="@+id/tv_deck_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@string/test_cname"
+                android:textColor="@color/black"
+                android:textSize="@dimen/title_size"/>
+
+            <LinearLayout
+                android:id="@+id/view_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="48dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/deck_pre_main"/>
+
+                    <TextView
+                        android:id="@+id/tv_status_main"
+                        android:layout_width="48dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/deck_pre_complete"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="48dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/deck_pre_extra"/>
+
+                    <TextView
+                        android:id="@+id/tv_status_extra"
+                        android:layout_width="48dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/deck_pre_not_complete"/>
+                </LinearLayout>
+
+            </LinearLayout>
+        </RelativeLayout>
+
+
+        <android.support.v7.widget.AppCompatImageButton
+            android:id="@+id/btn_deck_editor"
+            style="@style/Widget.AppCompat.ImageButton"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="@dimen/activity_margin"
+            android:background="@android:drawable/ic_menu_manage"/>
 
     </RelativeLayout>
 

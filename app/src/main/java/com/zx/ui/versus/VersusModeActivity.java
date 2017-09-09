@@ -28,7 +28,7 @@ import butterknife.OnClick;
 
 public class VersusModeActivity extends BaseActivity
 {
-    @BindView(R.id.view_content)
+    @BindView(R.id.viewContent)
     LinearLayout viewContent;
     @BindView(R.id.viewAppBar)
     AppBarView   viewAppBar;

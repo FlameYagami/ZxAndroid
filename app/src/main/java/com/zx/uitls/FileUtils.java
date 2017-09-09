@@ -103,22 +103,19 @@ public class FileUtils
         return Observable.create(subscriber -> {
             createDirectory(new File(outPath).getParent());
             File file = new File(outPath);
-
+            // 文件存在、版本正确、非覆写操作->跳过拷贝过程
+            if (file.exists() && SpUtils.getInt(outPath) == SystemUtils.getSystemVersionCode() && !isCover) {
+                subscriber.onComplete();
+                return;
+            }
+            // 压缩文件存在执行删除操作
+            if (file.exists()) {
+                boolean isDelete = file.delete();
+                LogUtils.d(TAG, "resourcesDelete->" + fileName + ":" + isDelete);
+            }
+            subscriber.onNext(0);
             try {
                 InputStream in = context.getResources().getAssets().open(fileName);
-                // 条件同时满足 压缩文件存在、压缩文件版本未变、不进行覆盖操作
-                if (file.exists() && SpUtils.getInt(outPath) == SystemUtils.getSystemVersionCode() && !isCover) {
-                    in.close();
-                    subscriber.onComplete();
-                    return;
-                }
-
-                // 压缩文件存在执行删除操作
-                if (file.exists()) {
-                    boolean isDelete = file.delete();
-                    LogUtils.d(TAG, "resourcesDelete->" + fileName + ":" + isDelete);
-                }
-
                 // 重新创建压缩文件
                 long    available = in.available();
                 boolean isCreate  = file.createNewFile();
@@ -130,7 +127,6 @@ public class FileUtils
                 FileOutputStream out         = new FileOutputStream(file);
                 byte[]           buffer      = new byte[2048];
                 int              bytesRead;
-                subscriber.onNext(0);
                 while ((bytesRead = in.read(buffer)) != -1) {
                     out.write(buffer, 0, bytesRead);
                     copyBytes += bytesRead;
@@ -142,13 +138,14 @@ public class FileUtils
                 }
                 out.close();
                 in.close();
-                subscriber.onComplete();
-                SpUtils.putInt(outPath, SystemUtils.getSystemVersionCode());
                 LogUtils.i(TAG, "copyAssets->" + fileName + ":" + true);
             } catch (Exception e) {
                 subscriber.onError(e);
                 LogUtils.e(TAG, "copyAssets->" + fileName + ":" + false);
             }
+            subscriber.onComplete();
+            // 版本信息存入Sp
+            SpUtils.putInt(outPath, SystemUtils.getSystemVersionCode());
         });
     }
 
@@ -282,6 +279,32 @@ public class FileUtils
     public static boolean deleteFile(String filePath) {
         File file = new File(filePath);
         return file.exists() && file.delete();
+    }
+
+    /**
+     * 删除文件夹以及目录下的文件
+     *
+     * @param file 被删除目录的文件路径
+     * @return 目录删除成功返回true，否则返回false
+     */
+    public static void deleteDirectory(File file) {
+        if (file.isFile()) {
+            file.delete();
+            return;
+        }
+
+        if (file.isDirectory()) {
+            File[] childFiles = file.listFiles();
+            if (childFiles == null || childFiles.length == 0) {
+                file.delete();
+                return;
+            }
+
+            for (File childFile : childFiles) {
+                deleteDirectory(childFile);
+            }
+            file.delete();
+        }
     }
 
     /**

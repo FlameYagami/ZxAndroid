@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="preview_order">
-        <item>@string/order_by_value</item>
-        <item>@string/order_by_number</item>
+        <item>@string/value</item>
+        <item>@string/number</item>
     </array>
 
-    <array name="none">
-        <item>(N/A)</item>
+    <array name="not_applicable">
+        <item>@string/not_applicable</item>
     </array>
 
     <array name="type">
-        <item>(N/A)</item>
+        <item>@string/not_applicable</item>
         <item>Z/X</item>
         <item>事件</item>
         <item>玩家</item>
@@ -18,7 +18,7 @@
     </array>
 
     <array name="camp">
-        <item>(N/A)</item>
+        <item>@string/not_applicable</item>
         <item>红</item>
         <item>蓝</item>
         <item>白</item>
@@ -28,7 +28,7 @@
     </array>
 
     <array name="rare">
-        <item>(N/A)</item>
+        <item>@string/not_applicable</item>
         <item>CVR</item>
         <item>IGR</item>
         <item>ZX/R</item>
@@ -44,14 +44,14 @@
     </array>
 
     <array name="sign">
-        <item>(N/A)</item>
+        <item>@string/not_applicable</item>
         <item>-</item>
         <item>点燃</item>
         <item>觉醒之种</item>
     </array>
 
     <array name="restrict">
-        <item>(N/A)</item>
+        <item>@string/not_applicable</item>
         <item>"0"</item>
         <item>"4"</item>
         <item>"20"</item>
@@ -65,5 +65,26 @@
         <item>"8"</item>
         <item>"9"</item>
         <item>"10"</item>
+    </array>
+
+    <array name="deck_operation">
+        <item>@string/confirm</item>
+        <item>@string/rename</item>
+        <item>@string/resave</item>
+        <item>@string/delete</item>
+    </array>
+
+    <array name="pack_series">
+        <item>AC</item>
+        <item>B</item>
+        <item>C</item>
+        <item>CP</item>
+        <item>D</item>
+        <item>E</item>
+        <item>P</item>
+        <item>L</item>
+        <item>M</item>
+        <item>I</item>
+        <item>V</item>
     </array>
 </resources>

@@ -22,9 +22,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import static com.zx.uitls.PathManager.downloadPath;
 
-/**
- * Created by sll on 2016/3/10.
- */
 public class RequestApi
 {
     private static final String TAG = RequestApi.class.getSimpleName();

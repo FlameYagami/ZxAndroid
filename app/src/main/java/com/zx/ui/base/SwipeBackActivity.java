@@ -3,6 +3,9 @@ package com.zx.ui.base;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.animation.AnimationUtils;
+
+import com.zx.R;
 
 import me.imid.swipebacklayout.lib.SwipeBackLayout;
 import me.imid.swipebacklayout.lib.Utils;
@@ -18,6 +21,7 @@ public class SwipeBackActivity extends AppCompatActivity implements SwipeBackAct
         super.onCreate(savedInstanceState);
         mHelper = new SwipeBackActivityHelper(this);
         mHelper.onActivityCreate();
+        getSwipeBackLayout().startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_in_right));
     }
 
     @Override

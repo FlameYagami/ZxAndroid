@@ -2,9 +2,15 @@
     <string name="app_name">异界群敌</string>
     <string name="picture">picture</string>
     <string name="thumbnail">thumbnail</string>
-    <string name="zip_extension">.zip</string>
+
     <string name="not_applicable">(N/A)</string>
+    <string name="hyphen">-</string>
+    <string name="slash">/</string>
+    <string name="empty">""</string>
     <string name="series">系列</string>
+    <string name="number">数值</string>
+    <string name="value">编号</string>
+
     <string name="TypeZx">Z/X</string>
     <string name="TypePlayer">玩家</string>
     <string name="TypeEvent">事件</string>
@@ -13,11 +19,13 @@
     <string name="AbilityLife">【常】生命恢复</string>
     <string name="AbilityVoid">【常】虚空使者</string>
     <string name="AbilityStart">【常】起始卡</string>
-    <string name="hyphen">-</string>
-    <string name="back">返回</string>
+    <string name="ug_area">非点燃区</string>
+    <string name="ex_area">额外区</string>
+    <string name="player_area">玩家卡</string>
 
-    <string name="deck_name_exits">卡组名称->已存在</string>
+    <!-- Operation -->
     <string name="add_succeed">添加->成功</string>
+    <string name="delete_confirm">删除->确认</string>
     <string name="delete_succeed">删除->成功</string>
     <string name="delete_failed">删除->失败</string>
     <string name="update_succeed">更新->成功</string>
@@ -26,85 +34,92 @@
     <string name="copy_failed">复制->失败</string>
     <string name="save_succeed">保存->成功</string>
     <string name="save_failed">保存->失败</string>
+    <string name="resources_repair_confirm">重置资源->确认</string>
+    <string name="rename">更名</string>
+    <string name="resave">另存</string>
+    <string name="confirm">确认</string>
+    <string name="delete">删除</string>
+
+    <!-- Extension -->
     <string name="deck_extension">.zx</string>
     <string name="image_extension">.jpg</string>
+    <string name="zip_extension">.zip</string>
+
+    <!-- Test -->
+    <string name="test_cname">海洋服 莉洁尔</string>
+    <string name="test_jname">オーシャンドレス リゲル</string>
+    <string name="test_cost">3</string>
+    <string name="test_power">5000</string>
+    <string name="test_race">战斗服</string>
+    <string name="test_camp">蓝</string>
+    <string name="test_number">P17-035</string>
+    <string name="test_type">Z/X</string>
+    <string name="test_rare">PR</string>
+
+    <!-- Base -->
+    <string name="search">检索</string>
     <string name="ok">确定</string>
     <string name="cancel">取消</string>
     <string name="waiting">请稍后&#8230;</string>
+    <string name="back">返回</string>
     <string name="network_exception">无法连接到网络</string>
     <string name="service_exception">无法连接到服务器</string>
 
-    <!-- Test -->
-    <string name="cname_test">海洋服 莉洁尔</string>
-    <string name="jname_test">オーシャンドレス リゲル</string>
-    <string name="cost_test">3</string>
-    <string name="power_test">5000</string>
-    <string name="race_test">战斗服</string>
-    <string name="camp_test">蓝</string>
-    <string name="number_test">P17-035</string>
-    <string name="type_test">Z/X</string>
-    <string name="rare_test">PR</string>
-
-    <!-- Base -->
-    <string name="base_search">检索</string>
 
     <!-- Main -->
-    <string name="search_hint">请输入关键字</string>
-
+    <string name="main_search_hint">请输入关键字</string>
+    <string name="main_card_not_found">"没有查询到相关卡牌"</string>
+    <string name="main_more_to_exit">再按一次退出应用</string>
     <string name="main_condition_search">高级检索</string>
-    <string name="realNumber">数值</string>
-    <string name="value">编号</string>
-    <string name="preview_order">预览排序</string>
-    <string name="order_by_number">编号</string>
-    <string name="order_by_value">数值</string>
     <string name="main_adv_search">高级查询</string>
     <string name="main_setting">设置</string>
     <string name="main_deck_preview">卡组预览</string>
 
     <!-- AdvancedSearchActivity  -->
     <string name="advanced_search_about_title">高级检索</string>
-    <string name="key">字段:</string>
-    <string name="type">种类:</string>
-    <string name="camp">阵营:</string>
-    <string name="race">种族:</string>
-    <string name="rare">罕贵:</string>
-    <string name="cost">费用:</string>
-    <string name="power">力量:</string>
-    <string name="pack">卡包:</string>
-    <string name="sign">标记:</string>
-    <string name="illust">画师:</string>
-    <string name="restrict">限制:</string>
-    <string name="ability_type">能力类型</string>
-    <string name="ability_detail">能力分类</string>
+    <string name="adv_search_key">字段</string>
+    <string name="adv_search_type">种类</string>
+    <string name="adv_search_camp">阵营</string>
+    <string name="adv_search_race">种族</string>
+    <string name="adv_search_rare">罕贵</string>
+    <string name="adv_search_cost">费用</string>
+    <string name="adv_search_power">力量</string>
+    <string name="adv_search_pack">卡包</string>
+    <string name="adv_search_sign">标记</string>
+    <string name="adv_search_illust">画师</string>
+    <string name="adv_search_restrict">限制:</string>
+    <string name="adv_search_ability_type">能力类型</string>
+    <string name="adv_search_ability_detail">能力分类</string>
 
     <!-- CardPreviewActivity  -->
-    <string name="result_about_title">查询预览</string>
+    <string name="card_preview_about_title">查询预览</string>
 
     <!-- CardDetailActivity -->
-    <string name="detail_about_title">详细信息</string>
+    <string name="card_detail_about_title">详细信息</string>
 
-    <!-- DeckPreview -->
+    <!-- DeckPreviewActivity -->
     <string name="deck_preview_about_title">卡组预览</string>
-    <string name="deck_main">卡组:</string>
-    <string name="deck_extra">额外:</string>
-    <string name="deck_complete">完成</string>
-    <string name="deck_not_complete">未完成</string>
-    <string name="deck_name">卡组名称</string>
-    <string name="deck_name_hint">请输入卡组名称</string>
-    <string name="advanced_search">高级检索</string>
+    <string name="deck_pre_main">卡组:</string>
+    <string name="deck_pre_extra">额外:</string>
+    <string name="deck_pre_complete">完成</string>
+    <string name="deck_pre_not_complete">未完成</string>
+    <string name="deck_pre_name">卡组名称</string>
+    <string name="deck_pre_name_hint">请输入卡组名称</string>
+    <string name="deck_pre_advanced_search">高级检索</string>
+    <string name="deck_name_exits">卡组名称->已存在</string>
 
-    <!-- DeckEditor -->
+    <!-- DeckEditorActivity -->
     <string name="deck_editor_about_title">卡组编辑</string>
-    <string name="save">保存</string>
-    <string name="result_count">查询统计:</string>
-    <string name="start_card">起始卡:</string>
-    <string name="life_card">生命恢复:</string>
-    <string name="void_card">虚空使者:</string>
+    <string name="deck_editor_save">保存</string>
+    <string name="deck_editor_result_count">查询统计:</string>
+    <string name="deck_editor_start_card">起始卡:</string>
+    <string name="deck_editor_life_card">生命恢复:</string>
+    <string name="deck_editor_void_card">虚空使者:</string>
     <string name="deck_editor_ig_area">点燃区</string>
-    <string name="deck_editor_deck_detail">预览</string>
+    <string name="deck_editor_deck_confirm">确认</string>
 
-    <!-- DeckDetail -->
-    <string name="deck_detail_about_title">卡组名称</string>
+    <!-- DeckConfirmActivity -->
+    <string name="deck_confirm_about_title">卡组名称</string>
 
     <!-- SettingActivity -->
     <string name="setting_about_title">设置</string>
@@ -132,23 +147,26 @@
 
     <!-- AdvancedActivity -->
     <string name="advanced_about_title">高级</string>
-    <string name="advanced_deck_confirm_span_count">卡组确认行容量</string>
-    <string name="advanced_deck_editor_span_count">卡组编辑行容量</string>
-    <integer name="advanced_deck_confirm_default_span_count">5</integer>
-    <integer name="advanced_deck_editor_default_span_count">7</integer>
+    <string name="adv_preview_order">预览排序</string>
+    <string name="adv_key_search">关键字</string>
+    <string name="adv_deck_confirm_span_count">卡组确认行容量</string>
+    <string name="adv_deck_editor_span_count">卡组编辑行容量</string>
 
     <!-- DocumentActivity -->
     <string name="document_about_title">说明</string>
-    <string name="key_search">关键字</string>
-    <string name="key_search_hint">支持多字段查询,字段以空格符号(A B)分开</string>
-    <string name="interval_search">区间查询</string>
-    <string name="interval_search_hint">支持区间查询,数值以连接符号(A-B)分开</string>
-    <string name="deck_operate">组卡操作</string>
-    <string name="deck_operate_hint">添加、删除卡片时请长按对应区域卡面&#x000A;信息显示卡面长按时进入详细信息界面</string>
+    <string name="doc_key_search">关键字</string>
+    <string name="doc_key_search_hint">支持多字段查询,字段以空格符号(A B)分开</string>
+    <string name="doc_interval_search">区间查询</string>
+    <string name="doc_interval_search_hint">支持区间查询,数值以连接符号(A-B)分开</string>
+    <string name="doc_deck_operate">组卡操作</string>
+    <string name="doc_deck_operate_hint">添加、删除卡片时请长按对应区域卡面&#x000A;信息显示卡面长按时进入详细信息界面</string>
 
     <!-- AboutActivity -->
     <string name="about_about_title">关于</string>
     <string name="about_version">版本号</string>
+    <string name="about_resources_repair">资源修复</string>
+    <string name="about_resources_repair_hint">数据库、卡牌图片重置</string>
+    <string name="about_log">日志</string>
     <string name="about_thank">特别鸣谢</string>
     <string name="about_thank_name">异界群敌翻译小组</string>
     <string name="about_check_for_updates">检查更新</string>
@@ -198,9 +216,5 @@
     <string name="guest">GUEST</string>
     <string name="ready">准备</string>
     <string name="waiting_for_player">等待玩家</string>
-    <string name="nav_test">测试</string>
-    <string name="deck_editor_ug_area">非点燃区</string>
-    <string name="deck_editor_ex_area">额外区</string>
-    <string name="deck_editor_player_area">玩家卡</string>
 
 </resources>
