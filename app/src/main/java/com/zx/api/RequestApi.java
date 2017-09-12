@@ -20,7 +20,7 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.zx.uitls.PathManager.downloadPath;
+import static com.zx.uitls.PathManager.downloadDir;
 
 public class RequestApi
 {
@@ -97,7 +97,7 @@ public class RequestApi
      */
     public static Observable<UpdateBean> checkUpdate() {
         return Observable.create(subscriber -> FileDownloader.getImpl().create(BASE_URL + "releases/download/UpdateJson/UpdateJson.txt")
-                .setPath(downloadPath + "UpdateJson")
+                .setPath(downloadDir + "UpdateJson")
                 .setListener(new FileDownloadListener()
                 {
                     @Override
@@ -122,7 +122,7 @@ public class RequestApi
 
                     @Override
                     protected void completed(BaseDownloadTask task) {
-                        String     updateJson = FileUtils.getFileContent(downloadPath + "UpdateJson");
+                        String     updateJson = FileUtils.getFileContent(downloadDir + "UpdateJson");
                         UpdateBean updateBean = JsonUtils.deserializer(updateJson, UpdateBean.class);
                         subscriber.onNext(updateBean);
                     }

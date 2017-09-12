@@ -33,10 +33,4 @@ public class Enum
         Start,
         Normal
     }
-
-    public enum DeckOrderType
-    {
-        Value,
-        Random
-    }
 }

@@ -10,16 +10,19 @@ import com.zx.config.Enum;
 import com.zx.game.utils.CardUtils;
 import com.zx.uitls.database.SQLiteUtils;
 
-import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import static br.com.zbra.androidlinq.Linq.stream;
 import static com.zx.config.MyApp.context;
 import static com.zx.game.utils.CardUtils.getAreaType;
 import static com.zx.game.utils.CardUtils.isLife;
 import static com.zx.game.utils.CardUtils.isVoid;
-import static com.zx.uitls.PathManager.pictureCache;
+import static com.zx.uitls.PathManager.pictureDir;
 
 /**
  * Created by 八神火焰 on 2017/1/14.
@@ -142,7 +145,7 @@ public class DeckManager
     private void loadDeck() {
         for (String numberEx : NumberExList) {
             Enum.AreaType areaType  = getAreaType(numberEx);
-            String        imagePath = pictureCache + File.separator + numberEx + context.getString(R.string.image_extension);
+            String        imagePath = pictureDir + numberEx + context.getString(R.string.image_extension);
             addCard(areaType, numberEx, imagePath);
         }
     }
@@ -308,5 +311,27 @@ public class DeckManager
         countList.add(stream(getIgList()).where(bean -> CardUtils.isLife(bean.getNumberEx())).count());
         countList.add(stream(getIgList()).where(bean -> CardUtils.isVoid(bean.getNumberEx())).count());
         return countList;
+    }
+
+    /**
+     * 获取卡组费用统计键值对
+     *
+     * @return 卡组费用统计键值对
+     */
+    public Map<Integer, Integer> getStatsMap() {
+        Map<Integer, Integer> statsMap     = new LinkedHashMap<>();
+        List<Integer>         costIgList   = stream(getIgList()).select(DeckBean::getCost).toList();
+        List<Integer>         costUgList   = stream(getUgList()).select(DeckBean::getCost).toList();
+        List<Integer>         costDeckList = new LinkedList<>();
+        costDeckList.addAll(costIgList);
+        costDeckList.addAll(costUgList);
+        if (0 != costDeckList.size()) {
+            int costMax = Collections.max(costDeckList);
+            for (int i = 0; i != costMax; i++) {
+                int finalI = i;
+                statsMap.put(i, stream(costDeckList).where(cost -> cost.equals(finalI + 1)).count());
+            }
+        }
+        return statsMap;
     }
 }

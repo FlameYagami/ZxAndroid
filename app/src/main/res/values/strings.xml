@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">异界群敌</string>
     <string name="picture">picture</string>
+    <string name="picture_zip">picture.zip</string>
     <string name="thumbnail">thumbnail</string>
 
     <string name="not_applicable">(N/A)</string>
@@ -25,7 +26,7 @@
 
     <!-- Operation -->
     <string name="add_succeed">添加->成功</string>
-    <string name="delete_confirm">删除->确认</string>
+    <string name="delete_confirm">是否删除</string>
     <string name="delete_succeed">删除->成功</string>
     <string name="delete_failed">删除->失败</string>
     <string name="update_succeed">更新->成功</string>
@@ -34,7 +35,7 @@
     <string name="copy_failed">复制->失败</string>
     <string name="save_succeed">保存->成功</string>
     <string name="save_failed">保存->失败</string>
-    <string name="resources_repair_confirm">重置资源->确认</string>
+    <string name="resources_repair_confirm">是否重置资源?</string>
     <string name="rename">更名</string>
     <string name="resave">另存</string>
     <string name="confirm">确认</string>
@@ -65,11 +66,18 @@
     <string name="network_exception">无法连接到网络</string>
     <string name="service_exception">无法连接到服务器</string>
 
+    <string name="card_not_found">没有查询到相关卡牌</string>
+    <string name="exit_with_not_saved">卡组尚未保存,是否放弃本次编辑?</string>
+    <string name="exit_with_not_permissions">权限不足,程序将在2s后关闭</string>
+    <string name="database_is_copying">正在拷贝数据库&#x000A;</string>
+    <string name="image_is_copying">正在拷贝图片资源&#x000A;</string>
+    <string name="restrict_is_copying">正在拷贝制限卡表&#x000A;</string>
+    <string name="image_is_unzipping">正在解压图片资源&#x000A;</string>
+    <string name="location_hint">检测到应用安装于SD卡中,建议切换至内存,增加流畅体验</string>
 
     <!-- Main -->
     <string name="main_search_hint">请输入关键字</string>
-    <string name="main_card_not_found">"没有查询到相关卡牌"</string>
-    <string name="main_more_to_exit">再按一次退出应用</string>
+    <string name="exit_with_more_back">再按一次退出应用</string>
     <string name="main_condition_search">高级检索</string>
     <string name="main_adv_search">高级查询</string>
     <string name="main_setting">设置</string>
@@ -88,8 +96,8 @@
     <string name="adv_search_sign">标记</string>
     <string name="adv_search_illust">画师</string>
     <string name="adv_search_restrict">限制:</string>
-    <string name="adv_search_ability_type">能力类型</string>
-    <string name="adv_search_ability_detail">能力分类</string>
+    <string name="adv_search_ability_type">基础分类</string>
+    <string name="adv_search_ability_detail">扩展分类</string>
 
     <!-- CardPreviewActivity  -->
     <string name="card_preview_about_title">查询预览</string>
@@ -172,6 +180,7 @@
     <string name="about_check_for_updates">检查更新</string>
     <string name="about_author">作者</string>
     <string name="about_author_name">八神火焰</string>
+    <string name="about_location">应用位置</string>
 
     <!-- LanActivity -->
     <string name="lan_about_title">网络</string>
@@ -216,5 +225,4 @@
     <string name="guest">GUEST</string>
     <string name="ready">准备</string>
     <string name="waiting_for_player">等待玩家</string>
-
 </resources>

@@ -18,7 +18,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static br.com.zbra.androidlinq.Linq.stream;
-import static com.zx.uitls.PathManager.pictureCache;
+import static com.zx.uitls.PathManager.pictureDir;
 
 /**
  * Created by 八神火焰 on 2017/1/13.
@@ -43,7 +43,7 @@ public class VersusActivity extends BaseExActivity
         ButterKnife.bind(this);
 
         List<String> numberExList = DeckUtils.getDeckPreviewList().get(0).getNumberExList();
-        mGreenHandBean.addAll(stream(numberExList).select(numberEx -> new HandBean(new DuelBean(numberEx, pictureCache + File.separator + numberEx + getString(R.string.image_extension)))).toList());
+        mGreenHandBean.addAll(stream(numberExList).select(numberEx -> new HandBean(new DuelBean(numberEx, pictureDir + File.separator + numberEx + getString(R.string.image_extension)))).toList());
         rvRedHand.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         rvRedHand.setAdapter(mGreenHandAdapter);
         mGreenHandAdapter.setOnItemClickListener((view, data, position) -> {

@@ -43,7 +43,7 @@ public class FileUtils
      *
      * @param path 路径
      */
-    public static int getFileSize(String path) {
+    public static int getDirectorySize(String path) {
         File file = new File(path);
         if (!file.exists()) {
             return 0;

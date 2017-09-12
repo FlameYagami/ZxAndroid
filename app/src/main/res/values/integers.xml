@@ -3,4 +3,5 @@
     <integer name="anim_duration">250</integer>
     <integer name="advanced_deck_confirm_default_span_count">5</integer>
     <integer name="advanced_deck_editor_default_span_count">7</integer>
+    <integer name="recyclerview_default_margin">16</integer>
 </resources>

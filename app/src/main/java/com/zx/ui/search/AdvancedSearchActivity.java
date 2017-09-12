@@ -31,6 +31,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.zx.config.MyApp.context;
+
 /**
  * Created by 八神火焰 on 2016/12/10.
  */
@@ -87,12 +89,12 @@ public class AdvancedSearchActivity extends BaseActivity
 
     @OnClick(R.id.btn_ability_type)
     public void onAbilityType_Click() {
-        new DialogCheckBox(this, "基础分类", AbilityTypeBean.getAbilityTypeMap(), AbilityTypeBean::setAbilityTypeMap).show();
+        new DialogCheckBox(this, getString(R.string.adv_search_ability_type), AbilityTypeBean.getAbilityTypeMap(), AbilityTypeBean::setAbilityTypeMap).show();
     }
 
     @OnClick(R.id.btn_ability_detail)
     public void onAbilityDetail_Click() {
-        new DialogCheckBox(this, "扩展分类", AbilityDetailBean.getAbilityDetailMap(), AbilityDetailBean::setAbilityDetailMap).show();
+        new DialogCheckBox(this, getString(R.string.adv_search_ability_detail), AbilityDetailBean.getAbilityDetailMap(), AbilityDetailBean::setAbilityDetailMap).show();
     }
 
     @OnClick(R.id.fab_search)
@@ -101,8 +103,8 @@ public class AdvancedSearchActivity extends BaseActivity
         String         querySql = SqlUtils.getQuerySql(cardBean);
         List<CardBean> cardList = SQLiteUtils.getCardList(querySql);
         cardList = RestrictUtils.getRestrictCardList(cardList, cardBean);
-        if (cardList.size() == 0) {
-            showSnackBar(viewContent, "没有查询到相关卡牌");
+        if (0 == cardList.size()) {
+            showSnackBar(viewContent, context.getString(R.string.card_not_found));
         } else {
             if (fromActivity.equals(DeckEditorActivity.class.getSimpleName())) {
                 RxBus.get().send(new CardListEvent(cardList));

@@ -7,27 +7,39 @@ import com.zx.R;
 
 import java.io.File;
 
+import static com.zx.config.MyApp.context;
+
 /**
  * Created by 八神火焰 on 2017/3/6.
  */
 
 public class PathManager
 {
-    public static String appCache;
-    public static String pictureCache;
+    public static String appDir;
+    public static String deckDir;
+    public static String downloadDir;
+    public static String pictureDir;
+
     public static String pictureZipPath;
     public static String databasePath;
-    public static String deckPath;
-    public static String downloadPath;
-    public static String banlistPath;
+    public static String restrictPath;
 
     public static void init(Context context) {
-        appCache = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + context.getString(R.string.app_name) + File.separator;
-        pictureCache = appCache + context.getString(R.string.picture);
-        pictureZipPath = pictureCache + context.getString(R.string.zip_extension);
-        databasePath = "data/data/" + context.getPackageName() + "/databases/data.db";
-        deckPath = appCache + "deck/";
-        downloadPath = appCache + "download/";
-        banlistPath = appCache + "banlist";
+        appDir = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + context.getString(R.string.app_name) + File.separator;
+        deckDir = appDir + "deck/";
+        downloadDir = appDir + "download/";
+        pictureDir = appDir + "picture/";
+
+        pictureZipPath = appDir + "picture.zip";
+        databasePath = getDatabasePath();
+        restrictPath = appDir + "restrict";
+    }
+
+    private static String getDatabasePath() {
+        if (SystemUtils.isInstallOnSDCard()) {
+            return context.getFilesDir().getParent() + "/databases/data.db";
+        } else {
+            return "data/data/" + context.getPackageName() + "/databases/data.db";
+        }
     }
 }

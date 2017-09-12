@@ -56,7 +56,7 @@ public class RestrictUtils
      */
     public static List<RestrictBean> getRestrictList() {
         if (restrictList.size() == 0) {
-            String restrictJson = FileUtils.getFileContent(PathManager.banlistPath);
+            String restrictJson = FileUtils.getFileContent(PathManager.restrictPath);
             // 判空处理,保证序列化不抛出异常
             if (TextUtils.isEmpty(restrictJson)) {
                 restrictJson = JsonUtils.serializer(new ArrayList<RestrictBean>());

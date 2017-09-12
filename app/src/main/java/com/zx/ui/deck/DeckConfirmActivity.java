@@ -39,7 +39,9 @@ public class DeckConfirmActivity extends BaseActivity
     TextView     tvExStats;
 
     @BindInt(R.integer.advanced_deck_confirm_default_span_count)
-    int mDefaultSpanCount;
+    int intDefaultSpanCount;
+    @BindInt(R.integer.recyclerview_default_margin)
+    int intDefaultMargin;
 
     public static DeckManager mDeckManager;
 
@@ -53,23 +55,22 @@ public class DeckConfirmActivity extends BaseActivity
         ButterKnife.bind(this);
         viewAppBar.setNavigationClickListener(this::onBackPressed);
         viewAppBar.setTitleText(mDeckManager.getDeckName());
-        int rvMargin = 16;
         // 初始化行容量
         int spanCount = SpUtils.getInt(SpConst.DeckConfirmSpanCount);
         if (-1 == spanCount) {
-            spanCount = mDefaultSpanCount;
-            SpUtils.putInt(SpConst.DeckConfirmSpanCount, mDefaultSpanCount);
+            spanCount = intDefaultSpanCount;
+            SpUtils.putInt(SpConst.DeckConfirmSpanCount, intDefaultSpanCount);
         }
         // 初始化Ig区域
-        DeckAdapter mIgDeckAdapter = new DeckAdapter(context, spanCount, rvMargin);
+        DeckAdapter mIgDeckAdapter = new DeckAdapter(context, spanCount, intDefaultMargin);
         rvIg.setLayoutManager(new GridLayoutManager(context, spanCount));
         rvIg.setAdapter(mIgDeckAdapter);
         // 初始化Ug区域
-        DeckAdapter mUgDeckAdapter = new DeckAdapter(context, spanCount, rvMargin);
+        DeckAdapter mUgDeckAdapter = new DeckAdapter(context, spanCount, intDefaultMargin);
         rvUg.setLayoutManager(new GridLayoutManager(context, spanCount));
         rvUg.setAdapter(mUgDeckAdapter);
         // 初始化Ex区域
-        DeckAdapter mEgDeckAdapter = new DeckAdapter(context, spanCount, rvMargin);
+        DeckAdapter mEgDeckAdapter = new DeckAdapter(context, spanCount, intDefaultMargin);
         rvEx.setLayoutManager(new GridLayoutManager(context, spanCount));
         rvEx.setAdapter(mEgDeckAdapter);
         // 填充界面

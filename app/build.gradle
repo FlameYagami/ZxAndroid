@@ -14,10 +14,24 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
+    }
+    //打包命名
+    applicationVariants.all {
+        variant ->
+            variant.outputs.each {
+                output ->
+                    if (variant.buildType.name == 'release') {
+                        variant.mergedFlavor.versionCode = getVersionCode(false)
+                        // release
+                        def apkName = "Zillions-of-enemy-X_v${variant.versionCode}.apk";
+                        output.outputFile = new File(output.outputFile.parent, apkName);
+                    } else {
+                        variant.mergedFlavor.versionCode = getVersionCode(true)
+                        // debug
+                        def apkName = "Zillions-of-enemy-X_v${variant.versionCode}.apk";
+                        output.outputFile = new File(output.outputFile.parent, apkName);
+                    }
+            }
     }
     compileOptions {
         targetCompatibility 1.8
@@ -34,7 +48,7 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.4.0'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
     // Rx
-    compile "io.reactivex.rxjava2:rxjava:2.0.8"
+    compile 'io.reactivex.rxjava2:rxjava:2.0.8'
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
     compile 'com.github.MFlisar:RxBus2:0.1'
     compile 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar'
@@ -57,4 +71,19 @@ dependencies {
     compile 'me.imid.swipebacklayout.lib:library:1.0.0'
     // Banner
     compile 'com.youth.banner:banner:1.4.5'
+}
+
+// 获取 version code
+static def getVersionCode(boolean isDebug) {
+    if (isDebug) {
+        return Integer.parseInt(new Date().format("yyMMddHHmm"))
+    }
+    return getRevisionNumber()
+}
+
+// 获取修订版本 git 提交次数
+static def getRevisionNumber() {
+    Process process = "git rev-list --count HEAD".execute()
+    process.waitFor()
+    return process.getText().toInteger()
 }

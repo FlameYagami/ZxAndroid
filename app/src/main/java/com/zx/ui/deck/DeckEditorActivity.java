@@ -32,7 +32,6 @@ import com.zx.ui.search.CardDetailActivity;
 import com.zx.uitls.BundleUtils;
 import com.zx.uitls.DisplayUtils;
 import com.zx.uitls.IntentUtils;
-import com.zx.uitls.LogUtils;
 import com.zx.uitls.SpUtils;
 import com.zx.uitls.database.SQLiteUtils;
 import com.zx.uitls.database.SqlUtils;
@@ -49,20 +48,14 @@ import com.zx.view.dialog.DialogConfirm;
 import com.zx.view.widget.AppBarView;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import butterknife.BindInt;
-import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnLongClick;
-
-import static br.com.zbra.androidlinq.Linq.stream;
 
 /**
  * Created by 八神火焰 on 2016/12/21.
@@ -117,26 +110,23 @@ public class DeckEditorActivity extends BaseActivity
     @BindView(R.id.viewContent)
     View            viewContent;
 
-    @BindString(R.string.save_succeed)
-    String saveSucceed;
-    @BindString(R.string.save_failed)
-    String saveFailed;
     @BindInt(R.integer.advanced_deck_editor_default_span_count)
-    int    mDefaultSpanCount;
+    int intDefaultSpanCount;
+    @BindInt(R.integer.recyclerview_default_margin)
+    int intDefaultMargin;
 
     private static final String TAG = DeckEditorActivity.class.getSimpleName();
 
-    private static final int   rvMargin = 16;
     private static final float imgScale = (float)7 / 5;
 
     private boolean isSaved = true;
 
-    CardAdapter              mCardPreAdapter;
-    DeckExAdapter            mDeckIgAdapter;
-    DeckExAdapter            mDeckUgAdapter;
-    DeckExAdapter            mDeckExAdapter;
-    DeckManager              mDeckManager;
-    BannerPageChangeListener bannerPageChangeListener;
+    private CardAdapter              mCardPreAdapter;
+    private DeckExAdapter            mDeckIgAdapter;
+    private DeckExAdapter            mDeckUgAdapter;
+    private DeckExAdapter            mDeckExAdapter;
+    private DeckManager              mDeckManager;
+    private BannerPageChangeListener bannerPageChangeListener;
 
     public static DeckPreviewBean deckPreviewBean;
 
@@ -152,16 +142,16 @@ public class DeckEditorActivity extends BaseActivity
         // 初始化行容量
         int spanCount = SpUtils.getInt(SpConst.DeckEditorSpanCount);
         if (-1 == spanCount) {
-            spanCount = mDefaultSpanCount;
-            SpUtils.putInt(SpConst.DeckEditorSpanCount, mDefaultSpanCount);
+            spanCount = intDefaultSpanCount;
+            SpUtils.putInt(SpConst.DeckEditorSpanCount, intDefaultSpanCount);
         }
-        mCardPreAdapter = new CardAdapter(this, spanCount, rvMargin);
-        mDeckIgAdapter = new DeckExAdapter(this, spanCount, rvMargin);
-        mDeckUgAdapter = new DeckExAdapter(this, spanCount, rvMargin);
-        mDeckExAdapter = new DeckExAdapter(this, spanCount, rvMargin);
+        mCardPreAdapter = new CardAdapter(this, spanCount, intDefaultMargin);
+        mDeckIgAdapter = new DeckExAdapter(this, spanCount, intDefaultMargin);
+        mDeckUgAdapter = new DeckExAdapter(this, spanCount, intDefaultMargin);
+        mDeckExAdapter = new DeckExAdapter(this, spanCount, intDefaultMargin);
         bannerPageChangeListener = new BannerPageChangeListener();
         // 设置RecyclerView最小高度
-        int minWidthPx  = (DisplayUtils.getScreenWidth() - DisplayUtils.dip2px(rvMargin * 2)) / spanCount;
+        int minWidthPx  = (DisplayUtils.getScreenWidth() - DisplayUtils.dip2px(intDefaultMargin * 2)) / spanCount;
         int minHeightPx = (int)(minWidthPx * imgScale);
         // 初始化玩家容器长宽
         imgPl.setLayoutParams(new LinearLayout.LayoutParams(minWidthPx, minHeightPx));
@@ -209,7 +199,7 @@ public class DeckEditorActivity extends BaseActivity
     public void onBackPressed() {
         if (isSaved) {
             super.onBackPressed();
-        } else if (DialogConfirm.show(this, "卡组尚未保存,是否放弃本次编辑?")) {
+        } else if (DialogConfirm.show(this, getString(R.string.exit_with_not_saved))) {
             super.onBackPressed();
         }
     }
@@ -250,10 +240,11 @@ public class DeckEditorActivity extends BaseActivity
     @OnLongClick(R.id.img_pl)
     public boolean onPlayer_LongClick() {
         if (mDeckManager.getPlayerList().size() != 0) {
-            DeckBean      deckBean = mDeckManager.getPlayerList().get(0);
-            CardBean      cardBean = CardUtils.getCardBean(deckBean.getNumberEx());
-            Enum.AreaType areaType = CardUtils.getAreaType(cardBean);
-            updateSingleRecyclerView(areaType, Enum.OperateType.Remove, -1);
+            DeckBean      deckBean       = mDeckManager.getPlayerList().get(0);
+            CardBean      cardBean       = CardUtils.getCardBean(deckBean.getNumberEx());
+            Enum.AreaType areaType       = CardUtils.getAreaType(cardBean);
+            Enum.AreaType returnAreaType = mDeckManager.deleteCard(areaType, deckBean.getNumberEx());
+            updateSingleRecyclerView(returnAreaType, Enum.OperateType.Remove);
             isSaved = false;
         }
         return false;
@@ -307,8 +298,9 @@ public class DeckEditorActivity extends BaseActivity
         String        imagePath      = CardUtils.getImagePathList(cardBean.getImage()).get(selectIndex);
         Enum.AreaType areaType       = CardUtils.getAreaType(cardBean);
         Enum.AreaType returnAreaType = mDeckManager.addCard(areaType, numberEx, imagePath);
-        updateSingleRecyclerView(returnAreaType, Enum.OperateType.Add, position);
+        updateSingleRecyclerView(returnAreaType, Enum.OperateType.Add);
         updateStats();
+        // 标记修改
         isSaved = false;
     }
 
@@ -317,8 +309,9 @@ public class DeckEditorActivity extends BaseActivity
         String        numberEx       = deckEx.getDeckBean().getNumberEx();
         Enum.AreaType areaType       = CardUtils.getAreaType(numberEx);
         Enum.AreaType returnAreaType = mDeckManager.deleteCard(areaType, numberEx);
-        updateSingleRecyclerView(returnAreaType, Enum.OperateType.Remove, position);
+        updateSingleRecyclerView(returnAreaType, Enum.OperateType.Remove);
         updateStats();
+        // 标记修改
         isSaved = false;
     }
 
@@ -330,7 +323,7 @@ public class DeckEditorActivity extends BaseActivity
         tvResultCount.setText(String.format("%s", cardList.size()));
         mCardPreAdapter.updateData(cardList);
         if (cardList.size() == 0) {
-            showSnackBar(viewContent, "没有查询到相关卡牌");
+            showSnackBar(viewContent, getString(R.string.card_not_found));
         }
     }
 
@@ -345,19 +338,17 @@ public class DeckEditorActivity extends BaseActivity
     @OnClick(R.id.btn_deck_save)
     public void onDeckSave_Click() {
         isSaved = DeckUtils.saveDeck(mDeckManager);
-        showSnackBar(viewContent, isSaved ? saveSucceed : saveFailed);
+        showSnackBar(viewContent, isSaved ? getString(R.string.save_succeed) : getString(R.string.save_failed));
     }
 
-    private void updateSingleRecyclerView(Enum.AreaType areaType, Enum.OperateType operateType, int position) {
+    private void updateSingleRecyclerView(Enum.AreaType areaType, Enum.OperateType operateType) {
         if (Enum.AreaType.None.equals(areaType)) {
             return;
         }
         // 添加成功则更新该区域
         if (operateType.equals(Enum.OperateType.Add)) {
             if (areaType.equals(Enum.AreaType.Player)) {
-                LogUtils.e(TAG, CardUtils.getPlayerPath(mDeckManager.getPlayerList().get(0).getNumberEx()));
-                Glide.with(this).load(CardUtils.getPlayerPath(mDeckManager.getPlayerList().get(0).getNumberEx()))
-                        .error(null).into(imgPl);
+                updatePlayerView(mDeckManager.getPlayerList());
             } else if (areaType.equals(Enum.AreaType.Ig)) {
                 mDeckIgAdapter.updateData(mDeckManager.getIgExList());
             } else if (areaType.equals(Enum.AreaType.Ug)) {
@@ -367,8 +358,7 @@ public class DeckEditorActivity extends BaseActivity
             }
         } else {
             if (areaType.equals(Enum.AreaType.Player)) {
-                Glide.with(this).load(R.drawable.ic_unknown_thumbnail)
-                        .error(R.drawable.ic_unknown_picture).into(imgPl);
+                updatePlayerView(mDeckManager.getPlayerList());
             } else if (areaType.equals(Enum.AreaType.Ig)) {
                 mDeckIgAdapter.updateData(mDeckManager.getIgExList());
             } else if (areaType.equals(Enum.AreaType.Ug)) {
@@ -380,18 +370,32 @@ public class DeckEditorActivity extends BaseActivity
     }
 
     /**
+     * 更新玩家卡牌界面
+     *
+     * @param playerList 玩家数据集合
+     */
+    private void updatePlayerView(List<DeckBean> playerList) {
+        if (0 != playerList.size()) {
+            Glide.with(this).load(CardUtils.getPlayerPath(playerList.get(0).getNumberEx()))
+                    .error(R.drawable.ic_unknown_thumbnail).into(imgPl);
+        } else {
+
+            Glide.with(this).load(getString(R.string.empty))
+                    .error(null).into(imgPl);
+        }
+    }
+
+    /**
      * 一次性更新界面
      */
     private void updateAllRecyclerView() {
-        if (0 != mDeckManager.getPlayerList().size()) {
-            Glide.with(this).load(mDeckManager.getPlayerList().get(0).getNumberEx()).error(null).into(imgPl);
-        }
         // 对卡组进行排序
         mDeckManager.orderDeck();
         // 更新卡组信息
         mDeckIgAdapter.updateData(mDeckManager.getIgExList());
         mDeckUgAdapter.updateData(mDeckManager.getUgExList());
         mDeckExAdapter.updateData(mDeckManager.getExExList());
+        updatePlayerView(mDeckManager.getPlayerList());
     }
 
     private void updateStats() {
@@ -409,23 +413,10 @@ public class DeckEditorActivity extends BaseActivity
      * 卡组费用统计
      */
     private void deckStats() {
-        // 统计集合设置
-        Map<Integer, Integer> statsMap     = new LinkedHashMap<>();
-        List<Integer>         costIgList   = stream(mDeckManager.getIgList()).select(DeckBean::getCost).toList();
-        List<Integer>         costUgList   = stream(mDeckManager.getUgList()).select(DeckBean::getCost).toList();
-        List<Integer>         costDeckList = new LinkedList<>();
-        costDeckList.addAll(costIgList);
-        costDeckList.addAll(costUgList);
-        if (0 != costDeckList.size()) {
-            int costMax = Collections.max(costDeckList);
-            for (int i = 0; i != costMax; i++) {
-                int finalI = i;
-                statsMap.put(i, stream(costDeckList).where(cost -> cost.equals(finalI + 1)).count());
-            }
-        }
-
+        Map<Integer, Integer> statsMap = mDeckManager.getStatsMap();
         // 统计控件设置
-        if (0 != costDeckList.size()) {
+        charts.setVisibility(0 == statsMap.size() ? View.GONE : View.VISIBLE);
+        if (0 != statsMap.size()) {
             List<Column>         columns       = new ArrayList<>();
             List<AxisValue>      axisValueList = new ArrayList<>();
             List<SubcolumnValue> values;
@@ -442,6 +433,5 @@ public class DeckEditorActivity extends BaseActivity
             data.setAxisXBottom(axisX);
             charts.setColumnChartData(data);
         }
-        charts.setVisibility(0 == costDeckList.size() ? View.GONE : View.VISIBLE);
     }
 }

@@ -10,7 +10,6 @@ import com.zx.uitls.JsonUtils;
 import com.zx.uitls.PathManager;
 import com.zx.uitls.database.SQLiteUtils;
 
-import java.io.File;
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,7 +18,7 @@ import java.util.List;
 
 import static br.com.zbra.androidlinq.Linq.stream;
 import static com.zx.config.MyApp.context;
-import static com.zx.uitls.PathManager.pictureCache;
+import static com.zx.uitls.PathManager.pictureDir;
 
 /**
  * Created by 八神火焰 on 2016/12/13.
@@ -36,7 +35,7 @@ public class CardUtils
      * @return Id
      */
     public static int getSignResId(String sign) {
-        return stream(MapConst.SignMap).firstOrDefault(entry -> entry.getKey().equals(sign), new AbstractMap.SimpleEntry<>("", -1)).getValue();
+        return stream(MapConst.SignMap).firstOrDefault(entry -> entry.getKey().equals(sign), new AbstractMap.SimpleEntry<>(context.getString(R.string.empty), -1)).getValue();
     }
 
     /**
@@ -47,7 +46,7 @@ public class CardUtils
      */
     public static List<Integer> getCampResIdList(String camp) {
         List<Integer> campResIdList = new ArrayList<>();
-        for (String tempCamp : camp.split("/")) {
+        for (String tempCamp : camp.split(context.getString(R.string.slash))) {
             campResIdList.add(stream(MapConst.CampMap).firstOrNull(entry -> entry.getKey().equals(tempCamp)).getValue());
         }
         while (campResIdList.size() < 5) {
@@ -63,7 +62,7 @@ public class CardUtils
      * @return Id
      */
     public static int getRareResIdList(String rare) {
-        return stream(MapConst.RareMap).firstOrDefault(entry -> entry.getKey().equals(rare), new AbstractMap.SimpleEntry<>("", -1)).getValue();
+        return stream(MapConst.RareMap).firstOrDefault(entry -> entry.getKey().equals(rare), new AbstractMap.SimpleEntry<>(context.getString(R.string.empty), -1)).getValue();
     }
 
     /**
@@ -72,13 +71,13 @@ public class CardUtils
      * @return 画师集合
      */
     public static List<String> getIllust() {
-        List<String> illustList = stream(SQLiteUtils.getAllCardList())
+        List<String> list = stream(SQLiteUtils.getAllCardList())
                 .select(CardBean::getIllust)
                 .distinct()
                 .toList();
-        Collections.sort(illustList);
-        illustList.add(0, context.getString(R.string.not_applicable));
-        return illustList;
+        Collections.sort(list);
+        list.add(0, context.getString(R.string.not_applicable));
+        return list;
     }
 
     /**
@@ -87,11 +86,11 @@ public class CardUtils
      * @return 卡包集合
      */
     public static List<String> getAllPack() {
-        List<String> packList = new ArrayList<>();
-        packList.add(0, context.getString(R.string.not_applicable));
+        List<String> list = new ArrayList<>();
+        list.add(0, context.getString(R.string.not_applicable));
         List<String> packSeriesList = Arrays.asList(context.getResources().getStringArray(R.array.pack_series));
-        packList.addAll(stream(packSeriesList).selectMany(CardUtils::getPartPack).toList());
-        return packList;
+        list.addAll(stream(packSeriesList).selectMany(CardUtils::getPartPack).toList());
+        return list;
     }
 
     /**
@@ -101,14 +100,14 @@ public class CardUtils
      * @return 部分卡包集合
      */
     private static List<String> getPartPack(String packType) {
-        List<String> packList = stream(SQLiteUtils.getAllCardList())
+        List<String> list = stream(SQLiteUtils.getAllCardList())
                 .where(bean -> bean.getPack().contains(packType))
                 .select(CardBean::getPack)
                 .distinct()
                 .orderBy(pack -> pack)
                 .toList();
-        packList.add(0, packType + context.getString(R.string.series));
-        return packList;
+        list.add(0, packType + context.getString(R.string.series));
+        return list;
     }
 
     /**
@@ -118,14 +117,14 @@ public class CardUtils
      * @return 部分种族集合
      */
     public static List<String> getPartRace(String camp) {
-        List<String> campList = stream(SQLiteUtils.getAllCardList())
+        List<String> list = stream(SQLiteUtils.getAllCardList())
                 .where(bean -> bean.getCamp().equals(camp))
                 .select(CardBean::getRace)
                 .distinct()
                 .orderBy(String::length)
                 .toList();
-        campList.add(0, context.getString(R.string.not_applicable));
-        return campList;
+        list.add(0, context.getString(R.string.not_applicable));
+        return list;
     }
 
     /**
@@ -299,7 +298,9 @@ public class CardUtils
      * @return 卡牌对应图片的路经集合
      */
     public static List<String> getImagePathList(String imageJson) {
-        return stream(JsonUtils.deserializerArray(imageJson, String[].class)).select(image -> pictureCache + image).toList();
+        return stream(JsonUtils.deserializerArray(imageJson, String[].class))
+                .select(image -> pictureDir + image + context.getString(R.string.image_extension))
+                .toList();
     }
 
 
@@ -310,10 +311,7 @@ public class CardUtils
      * @return 卡牌扩展编号集合
      */
     public static List<String> GetNumberExList(String imageJson) {
-        List<String> imageExList = JsonUtils.deserializerArray(imageJson, String[].class);
-        return stream(imageExList)
-                .select(imageEx -> imageEx.replace(context.getString(R.string.slash), context.getString(R.string.empty)).replace(context.getString(R.string.image_extension), context.getString(R.string.empty)))
-                .toList();
+        return JsonUtils.deserializerArray(imageJson, String[].class);
     }
 
     /**
@@ -323,7 +321,7 @@ public class CardUtils
      * @return 玩家卡牌路径
      */
     public static String getPlayerPath(List<CardBean> cardBeanList) {
-        return PathManager.pictureCache + File.separator
+        return PathManager.pictureDir
                 + stream(cardBeanList).firstOrDefault(cardBean -> getAreaType(cardBean).equals(Enum.AreaType.Player), new CardBean(context.getString(R.string.empty))).getNumber()
                 + context.getString(R.string.image_extension);
     }
@@ -335,7 +333,7 @@ public class CardUtils
      * @return 玩家卡牌路径
      */
     public static String getStartPath(List<CardBean> cardBeanList) {
-        return PathManager.pictureCache + File.separator
+        return PathManager.pictureDir
                 + stream(cardBeanList).firstOrDefault(CardUtils::isStart, new CardBean(context.getString(R.string.empty))).getNumber()
                 + context.getString(R.string.image_extension);
     }
@@ -347,7 +345,7 @@ public class CardUtils
      * @return 玩家卡牌路径
      */
     public static String getPlayerPath(String numberEx) {
-        return PathManager.pictureCache + File.separator + numberEx + context.getString(R.string.image_extension);
+        return PathManager.pictureDir + numberEx + context.getString(R.string.image_extension);
     }
 
     /**

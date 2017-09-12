@@ -152,7 +152,7 @@ public class SqlUtils implements SQLitConst
      */
     private static String getPackSql(String value, String column) {
         if (context.getString(R.string.not_applicable).equals(value)) {
-            return "";
+            return context.getString(R.string.empty);
         }
         value = value.contains(context.getString(R.string.series)) ? value.substring(0, 1) : value;
         return " AND " + column + " LIKE '%" + value + "%'";
@@ -198,7 +198,7 @@ public class SqlUtils implements SQLitConst
      */
     private static String getAllKeySql(String value) {
         if (TextUtils.isEmpty(value)) {
-            return "";
+            return context.getString(R.string.empty);
         }
         StringBuilder tempValue = new StringBuilder();
         String[]      keyList   = value.split(" "); // 以空格分割关键字

@@ -20,7 +20,7 @@ import br.com.zbra.androidlinq.Linq;
 import static br.com.zbra.androidlinq.Linq.stream;
 import static com.zx.config.MyApp.context;
 import static com.zx.game.utils.CardUtils.getAreaType;
-import static com.zx.uitls.PathManager.deckPath;
+import static com.zx.uitls.PathManager.deckDir;
 
 /**
  * Created by 八神火焰 on 2016/12/22.
@@ -48,9 +48,9 @@ public class DeckUtils
     public static List<String> getDeckNameList() {
         String       deckExtension = context.getString(R.string.deck_extension);
         List<String> deckNameList  = new ArrayList<>();
-        deckNameList.addAll(Linq.stream(FileUtils.getFileNameExList(deckPath))
+        deckNameList.addAll(Linq.stream(FileUtils.getFileNameExList(deckDir))
                 .where(fileNameEx -> fileNameEx.endsWith(deckExtension))
-                .select(fileNameEx -> fileNameEx.replace(deckExtension, ""))
+                .select(fileNameEx -> fileNameEx.replace(deckExtension, context.getString(R.string.empty)))
                 .toList());
         return deckNameList;
     }
@@ -62,7 +62,7 @@ public class DeckUtils
      * @return 卡组路径
      */
     public static String getDeckPath(String deckName) {
-        return PathManager.deckPath + deckName + context.getString(R.string.deck_extension);
+        return PathManager.deckDir + deckName + context.getString(R.string.deck_extension);
     }
 
     /**
@@ -73,7 +73,7 @@ public class DeckUtils
     public static List<DeckPreviewBean> getDeckPreviewList() {
         List<String>          deckPathList    = new ArrayList<>();
         List<DeckPreviewBean> deckPreviewList = new ArrayList<>();
-        deckPathList.addAll(stream(FileUtils.getFilePathList(deckPath)).where(deckPath -> deckPath.endsWith(context.getString(R.string.deck_extension))).toList());
+        deckPathList.addAll(stream(FileUtils.getFilePathList(deckDir)).where(deckPath -> deckPath.endsWith(context.getString(R.string.deck_extension))).toList());
         for (String deckPath : deckPathList) {
             String deckName       = FileUtils.getFileName(deckPath);
             String numberListJson = FileUtils.getFileContent(deckPath);

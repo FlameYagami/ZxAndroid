@@ -2,6 +2,7 @@ package com.zx.uitls;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
@@ -89,5 +90,19 @@ public class SystemUtils
     private static boolean checkVersionCode(int versionCode) {
         int systemVersionCode = getSystemVersionCode();
         return versionCode > systemVersionCode;
+    }
+
+    public static boolean isInstallOnSDCard() {
+        PackageManager  pm = MyApp.context.getPackageManager();
+        ApplicationInfo appInfo;
+        try {
+            appInfo = pm.getApplicationInfo(MyApp.context.getPackageName(), 0);
+            if ((appInfo.flags & ApplicationInfo.FLAG_EXTERNAL_STORAGE) != 0) {
+                return true;
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

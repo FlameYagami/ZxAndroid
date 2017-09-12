@@ -22,6 +22,7 @@ import com.zx.uitls.AppManager;
 import com.zx.uitls.BundleUtils;
 import com.zx.uitls.DisplayUtils;
 import com.zx.uitls.IntentUtils;
+import com.zx.uitls.SystemUtils;
 import com.zx.uitls.database.SQLiteUtils;
 import com.zx.uitls.database.SqlUtils;
 import com.zx.view.banner.BannerImageLoader;
@@ -30,7 +31,7 @@ import com.zx.view.widget.AppBarView;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.BindString;
+import butterknife.BindInt;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -50,13 +51,12 @@ public class MainActivity extends BaseActivity
     @BindView(R.id.viewContent)
     View       viewContent;
 
-    @BindString(R.string.main_card_not_found)
-    String mCardNotFound;
-    @BindString(R.string.main_more_to_exit)
-    String mMoreToExit;
+    @BindInt(R.integer.recyclerview_default_margin)
+    int intRvDefaultMargin;
 
-    private static final String TAG       = MainActivity.class.getSimpleName();
-    private              long   firstTime = 0;
+    private static final String TAG = MainActivity.class.getSimpleName();
+
+    private long firstTime = 0;
 
     @Override
     public int getLayoutId() {
@@ -66,7 +66,10 @@ public class MainActivity extends BaseActivity
     @Override
     public void initViewAndData() {
         ButterKnife.bind(this);
-
+        // 安装位置判断
+        if (SystemUtils.isInstallOnSDCard()) {
+            showToast(getString(R.string.location_hint));
+        }
         // 主界面不可调用SwipeBack
         setSwipeBackEnable(false);
         initBGABanner();
@@ -81,8 +84,7 @@ public class MainActivity extends BaseActivity
      */
     private void initBGABanner() {
         float scale    = (float)29 / 68;
-        int   margin   = 16;
-        int   heightPx = (int)((DisplayUtils.getScreenWidth() - DisplayUtils.dip2px(margin * 2)) * scale);
+        int   heightPx = (int)((DisplayUtils.getScreenWidth() - DisplayUtils.dip2px(intRvDefaultMargin * 2)) * scale);
 
         bannerGuide.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, heightPx));
         bannerGuide.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
@@ -111,7 +113,7 @@ public class MainActivity extends BaseActivity
         String         querySql     = SqlUtils.getKeyQuerySql(txtSearch.getText().toString().trim());
         List<CardBean> cardBeanList = SQLiteUtils.getCardList(querySql);
         if (0 == cardBeanList.size()) {
-            showSnackBar(viewContent, mCardNotFound);
+            showSnackBar(viewContent, getString(R.string.card_not_found));
             return;
         }
         CardPreviewActivity.cardBeanList = cardBeanList;
@@ -127,7 +129,7 @@ public class MainActivity extends BaseActivity
         long between  = lastTime - firstTime;
         if (between > 2000) {
             firstTime = lastTime;
-            showSnackBar(viewContent, mMoreToExit);
+            showSnackBar(viewContent, getString(R.string.exit_with_more_back));
             return;
         }
         AppManager.AppExit(this);

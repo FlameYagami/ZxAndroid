@@ -3,6 +3,7 @@ package com.zx.uitls.database;
 import android.database.Cursor;
 import android.text.TextUtils;
 
+import com.zx.R;
 import com.zx.bean.CardBean;
 import com.zx.bean.RestrictBean;
 import com.zx.config.SQLitConst;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static br.com.zbra.androidlinq.Linq.stream;
+import static com.zx.config.MyApp.context;
 
 /**
  * Created by Administrator on 2016/6/30.
@@ -61,8 +63,8 @@ public class SQLiteUtils implements SQLitConst
             String Lines    = result.getString(result.getColumnIndex(ColumnLines));
             String Image    = result.getString(result.getColumnIndex(ColumnImage));
             String Restrict = String.valueOf(stream(RestrictUtils.getRestrictList()).firstOrDefault(bean -> bean.getMd5().equals(Md5), new RestrictBean()).getRestrict());
-            Cost = TextUtils.isEmpty(Cost) || Cost.equals("0") ? "-" : Cost;
-            Power = TextUtils.isEmpty(Power) || Power.equals("0") ? "-" : Power;
+            Cost = TextUtils.isEmpty(Cost) || Cost.equals("0") ? context.getString(R.string.hyphen) : Cost;
+            Power = TextUtils.isEmpty(Power) || Power.equals("0") ? context.getString(R.string.hyphen) : Power;
             CardBean cardBean = new CardBean(Md5, Type, Race, Camp, Sign, Rare, Pack, Restrict, CName, JName, Illust, Number, Cost, Power, Ability, Lines, Image);
             deviceList.add(cardBean);
         }

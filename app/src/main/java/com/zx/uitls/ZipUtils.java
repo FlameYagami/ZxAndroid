@@ -1,7 +1,5 @@
 package com.zx.uitls;
 
-import com.zx.R;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -24,28 +22,28 @@ public class ZipUtils
     /**
      * 解压文件到指定路径
      *
-     * @param assetsName    资源文件名称
-     * @param directoryPath 解压后的文件夹路径
-     * @param isCover       是否覆盖
+     * @param assetsName 资源文件名称
+     * @param outputPath 解压后的文件夹路径
+     * @param isCover    是否覆盖
      */
-    public static Observable<Integer> unZipFolder(String assetsName, String directoryPath, boolean isCover) {
+    public static Observable<Integer> unZipFolder(String assetsName, String outputPath, boolean isCover) {
         return Observable.create(subscriber -> {
             // 检测版本
-            boolean isVersionCode = SpUtils.getInt(directoryPath) == SystemUtils.getSystemVersionCode();
+            boolean isVersionCode = SpUtils.getInt(outputPath) == SystemUtils.getSystemVersionCode();
             // 检测文件数量(PS:-1是因为存在文件夹)
-            int     zipCount   = getZipSize(directoryPath + context.getString(R.string.zip_extension)) - 1;
-            boolean isZipCount = zipCount == FileUtils.getFileSize(directoryPath);
+            int     zipCount   = getZipSize(PathManager.appDir + assetsName) - 1;
+            boolean isZipCount = zipCount == FileUtils.getDirectorySize(outputPath);
             // 版本正确、文件数量正确、非覆写操作->跳过解压过程
             if (isVersionCode && isZipCount && !isCover) {
                 subscriber.onComplete();
                 return;
             }
             // 清空资源文件
-            FileUtils.deleteDirectory(new File(directoryPath));
+            FileUtils.deleteDirectory(new File(outputPath));
             subscriber.onNext(0);
             try {
                 int            count     = 0;
-                String         unZipPath = new File(directoryPath).getParent() + File.separator;
+                String         unZipPath = new File(outputPath).getParent() + File.separator;
                 String         szName;
                 ZipEntry       zipEntry;
                 ZipInputStream inZip     = null;
@@ -68,7 +66,7 @@ public class ZipUtils
             }
             subscriber.onComplete();
             // 版本信息存入Sp
-            SpUtils.putInt(directoryPath, SystemUtils.getSystemVersionCode());
+            SpUtils.putInt(outputPath, SystemUtils.getSystemVersionCode());
         });
     }
 

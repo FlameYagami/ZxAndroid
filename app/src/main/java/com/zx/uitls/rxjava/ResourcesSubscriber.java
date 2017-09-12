@@ -47,41 +47,16 @@ public class ResourcesSubscriber
                         tempObservableEx.setExecute(true);
                         tempObservableEx.getObservable().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(
                                 progressBar::setProgress,
-                                subscriber::onError,
+                                error -> {
+                                    subscriber.onError(error);
+                                    tempObservableEx.setExecute(false);
+                                    mObservableExecute++;
+                                },
                                 () -> {
                                     tempObservableEx.setExecute(false);
                                     mObservableExecute++;
                                 });
                     }
                 }));
-    }
-
-    public static class ObservableEx
-    {
-        private boolean             isExecute;
-        private String              mMessage;
-        private Observable<Integer> mObservable;
-
-        public ObservableEx(Observable<Integer> mObservable, String mMessage) {
-            this.mObservable = mObservable;
-            this.mMessage = mMessage;
-            isExecute = false;
-        }
-
-        public Observable<Integer> getObservable() {
-            return mObservable;
-        }
-
-        public boolean isExecute() {
-            return isExecute;
-        }
-
-        public void setExecute(boolean execute) {
-            isExecute = execute;
-        }
-
-        public String getMessage() {
-            return mMessage;
-        }
     }
 }

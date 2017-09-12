@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindArray;
-import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -43,16 +42,6 @@ public class DeckPreviewActivity extends BaseActivity implements BaseRecyclerVie
     @BindView(R.id.viewAppBar)
     AppBarView   viewAppBar;
 
-    @BindString(R.string.add_succeed)
-    String   strAddSucceed;
-    @BindString(R.string.delete_confirm)
-    String   strDeleteConfirm;
-    @BindString(R.string.update_succeed)
-    String   strUpdateSucceed;
-    @BindString(R.string.delete_succeed)
-    String   strDeleteSucceed;
-    @BindString(R.string.deck_name_exits)
-    String   strDeckNameExits;
     @BindArray(R.array.deck_operation)
     String[] arrDeckOperation;
 
@@ -97,9 +86,9 @@ public class DeckPreviewActivity extends BaseActivity implements BaseRecyclerVie
                 FileUtils.writeFile(JsonUtils.serializer(new ArrayList<String>()), DeckUtils.getDeckPath(deckName));
                 mDeckPreviewAdapter.updateData(DeckUtils.getDeckPreviewList());
                 dialog.dismiss();
-                showSnackBar(viewContent, strAddSucceed);
+                showSnackBar(viewContent, getString(R.string.add_succeed));
             } else {
-                showSnackBar(viewContent, strDeckNameExits);
+                showSnackBar(viewContent, getString(R.string.deck_name_exits));
             }
         }).show();
     }
@@ -165,9 +154,9 @@ public class DeckPreviewActivity extends BaseActivity implements BaseRecyclerVie
                 FileUtils.renameFile(DeckUtils.getDeckPath(deckName), DeckUtils.getDeckPath(newDeckName));
                 mDeckPreviewAdapter.updateData(DeckUtils.getDeckPreviewList());
                 dialog.dismiss();
-                showSnackBar(viewContent, strUpdateSucceed);
+                showSnackBar(viewContent, getString(R.string.update_succeed));
             } else {
-                showSnackBar(viewContent, strDeckNameExits);
+                showSnackBar(viewContent, getString(R.string.deck_name_exits));
             }
         }).show();
     }
@@ -188,7 +177,7 @@ public class DeckPreviewActivity extends BaseActivity implements BaseRecyclerVie
                 dialog.dismiss();
                 showSnackBar(viewContent, getString(R.string.copy_succeed));
             } else {
-                showSnackBar(viewContent, strDeckNameExits);
+                showSnackBar(viewContent, getString(R.string.deck_name_exits));
             }
         }).show();
     }
@@ -201,10 +190,10 @@ public class DeckPreviewActivity extends BaseActivity implements BaseRecyclerVie
      */
     private void deleteDeck(List<?> data, int position) {
         String deckName = ((DeckPreviewBean)data.get(position)).getDeckName();
-        if (DialogConfirm.show(this, strDeleteConfirm + deckName)) {
+        if (DialogConfirm.show(this, String.format("%s:%s?", getString(R.string.delete_confirm), deckName))) {
             FileUtils.deleteFile(DeckUtils.getDeckPath(deckName));
             mDeckPreviewAdapter.updateData(DeckUtils.getDeckPreviewList());
-            showSnackBar(viewContent, strDeleteSucceed);
+            showSnackBar(viewContent, getString(R.string.delete_succeed));
         }
     }
 }
