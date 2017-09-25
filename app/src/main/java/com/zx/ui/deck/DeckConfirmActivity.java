@@ -2,14 +2,21 @@ package com.zx.ui.deck;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.TextView;
 
 import com.zx.R;
+import com.zx.bean.DeckBean;
 import com.zx.config.SpConst;
 import com.zx.game.DeckManager;
+import com.zx.game.utils.CardUtils;
 import com.zx.ui.base.BaseActivity;
+import com.zx.ui.search.CardDetailActivity;
+import com.zx.uitls.IntentUtils;
 import com.zx.uitls.SpUtils;
 import com.zx.view.widget.AppBarView;
+
+import java.util.List;
 
 import butterknife.BindInt;
 import butterknife.BindView;
@@ -65,20 +72,30 @@ public class DeckConfirmActivity extends BaseActivity
         DeckAdapter mIgDeckAdapter = new DeckAdapter(context, spanCount, intDefaultMargin);
         rvIg.setLayoutManager(new GridLayoutManager(context, spanCount));
         rvIg.setAdapter(mIgDeckAdapter);
+        mIgDeckAdapter.setOnItemClickListener(this::onItem_Click);
         // 初始化Ug区域
         DeckAdapter mUgDeckAdapter = new DeckAdapter(context, spanCount, intDefaultMargin);
         rvUg.setLayoutManager(new GridLayoutManager(context, spanCount));
         rvUg.setAdapter(mUgDeckAdapter);
+        mUgDeckAdapter.setOnItemClickListener(this::onItem_Click);
         // 初始化Ex区域
-        DeckAdapter mEgDeckAdapter = new DeckAdapter(context, spanCount, intDefaultMargin);
+        DeckAdapter mExDeckAdapter = new DeckAdapter(context, spanCount, intDefaultMargin);
         rvEx.setLayoutManager(new GridLayoutManager(context, spanCount));
-        rvEx.setAdapter(mEgDeckAdapter);
+        rvEx.setAdapter(mExDeckAdapter);
+        mExDeckAdapter.setOnItemClickListener(this::onItem_Click);
         // 填充界面
         mIgDeckAdapter.updateData(mDeckManager.getIgList());
         mUgDeckAdapter.updateData(mDeckManager.getUgList());
-        mEgDeckAdapter.updateData(mDeckManager.getExList());
+        mExDeckAdapter.updateData(mDeckManager.getExList());
         tvIgStats.setText(String.format("%s / 20", mDeckManager.getIgList().size()));
         tvUgStats.setText(String.format("%s / 30", mDeckManager.getUgList().size()));
         tvExStats.setText(String.format("%s / 10", mDeckManager.getExList().size()));
     }
+
+    private void onItem_Click(View view, List<?> objects, int i) {
+        DeckBean deck = (DeckBean)objects.get(i);
+        CardDetailActivity.cardBean = CardUtils.getCardBean(deck.getNumberEx());
+        IntentUtils.gotoActivity(this, CardDetailActivity.class);
+    }
+
 }
