@@ -20,11 +20,11 @@ public class MapConst
     public static final LinkedHashMap<String, Integer> AbilityDetailMap = new LinkedHashMap<>();
 
     static {
-        GuideMap.put("B20", R.drawable.ic_guide_b20);
         GuideMap.put("B21", R.drawable.ic_guide_b21);
+        GuideMap.put("B22", R.drawable.ic_guide_b22);
         GuideMap.put("C17", R.drawable.ic_guide_c17);
-        GuideMap.put("E08", R.drawable.ic_guide_e08);
         GuideMap.put("E09", R.drawable.ic_guide_e09);
+        GuideMap.put("CP04", R.drawable.ic_guide_cp04);
 
         SignMap.put("点燃", R.drawable.ic_sign_ig);
         SignMap.put("觉醒之种", R.drawable.ic_sign_el);

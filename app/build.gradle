@@ -10,7 +10,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 25
         versionCode 3
-        versionName "1.1.1"
+        versionName "1.1.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -23,13 +23,13 @@ android {
                     if (variant.buildType.name == 'release') {
                         variant.mergedFlavor.versionCode = getVersionCode(false)
                         // release
-                        def apkName = "Zillions-of-enemy-X_v${variant.versionCode}.apk";
-                        output.outputFile = new File(output.outputFile.parent, apkName);
+                        def apkName = "Zillions-of-enemy-X_v${variant.versionCode}.apk"
+                        output.outputFile = new File(output.outputFile.parent, apkName)
                     } else {
                         variant.mergedFlavor.versionCode = getVersionCode(true)
                         // debug
-                        def apkName = "Zillions-of-enemy-X_v${variant.versionCode}.apk";
-                        output.outputFile = new File(output.outputFile.parent, apkName);
+                        def apkName = "Zillions-of-enemy-X_v${variant.versionCode}.apk"
+                        output.outputFile = new File(output.outputFile.parent, apkName)
                     }
             }
     }
