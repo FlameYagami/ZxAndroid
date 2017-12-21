@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest
-    package="com.zx"
+    package="com.dab.zx"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
@@ -9,7 +9,7 @@
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
 
     <application
-        android:name="com.zx.config.MyApp"
+        android:name=".config.MyApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -17,7 +17,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name="com.zx.ui.loading.LoadingActivity"
+            android:name=".ui.loading.LoadingActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
             <intent-filter>
@@ -29,91 +29,91 @@
 
         <!-- 主界面 -->
         <activity
-            android:name="com.zx.ui.main.MainActivity"
+            android:name=".ui.main.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoTranslucent">
         </activity>
 
         <!-- 高级检索界面 -->
         <activity
-            android:name="com.zx.ui.search.AdvancedSearchActivity"
+            android:name=".ui.search.AdvancedSearchActivity"
             android:screenOrientation="portrait">
         </activity>
 
         <!-- 检索预览界面 -->
         <activity
-            android:name="com.zx.ui.search.CardPreviewActivity"
+            android:name=".ui.search.CardPreviewActivity"
             android:screenOrientation="portrait">
         </activity>
 
         <!-- 详细资料界面 -->
         <activity
-            android:name="com.zx.ui.search.CardDetailActivity"
+            android:name=".ui.search.CardDetailActivity"
             android:screenOrientation="portrait">
         </activity>
 
         <!-- 卡组预览界面 -->
         <activity
-            android:name="com.zx.ui.deck.DeckPreviewActivity"
+            android:name=".ui.deck.DeckPreviewActivity"
             android:screenOrientation="portrait">
         </activity>
 
         <!-- 卡组编辑界面 -->
         <activity
-            android:name="com.zx.ui.deck.DeckEditorActivity"
+            android:name=".ui.deck.DeckEditorActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden">
         </activity>
 
         <!-- 卡组确认界面 -->
         <activity
-            android:name="com.zx.ui.deck.DeckConfirmActivity"
+            android:name=".ui.deck.DeckConfirmActivity"
             android:screenOrientation="portrait">
         </activity>
 
         <!-- 设置 -->
         <activity
-            android:name="com.zx.ui.setting.SettingActivity"
+            android:name=".ui.setting.SettingActivity"
             android:screenOrientation="portrait">
         </activity>
 
         <!-- 关于界面 -->
         <activity
-            android:name="com.zx.ui.setting.AboutActivity"
+            android:name=".ui.setting.AboutActivity"
             android:screenOrientation="portrait">
         </activity>
 
         <!-- 文档界面 -->
         <activity
-            android:name="com.zx.ui.setting.DocumentActivity"
+            android:name=".ui.setting.DocumentActivity"
             android:screenOrientation="portrait">
         </activity>
 
         <!-- 术语界面 -->
         <activity
-            android:name="com.zx.ui.setting.TerminologyActivity"
+            android:name=".ui.setting.TerminologyActivity"
             android:screenOrientation="portrait">
         </activity>
 
         <!-- 高级设置界面 -->
         <activity
-            android:name="com.zx.ui.setting.AdvancedActivity"
+            android:name=".ui.setting.AdvancedActivity"
             android:screenOrientation="portrait">
         </activity>
 
         <!-- 对战模式 -->
         <activity
-            android:name="com.zx.ui.versus.VersusModeActivity"
+            android:name=".ui.versus.VersusModeActivity"
             android:screenOrientation="portrait">
         </activity>
 
         <activity
-            android:name="com.zx.ui.versus.VersusRoomActivity"
+            android:name=".ui.versus.VersusRoomActivity"
             android:screenOrientation="portrait">
         </activity>
 
         <activity
-            android:name="com.zx.ui.versus.VersusActivity"
+            android:name=".ui.versus.VersusActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeFullScreen">
         </activity>

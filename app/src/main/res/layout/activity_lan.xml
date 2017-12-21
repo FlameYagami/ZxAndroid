@@ -7,12 +7,12 @@
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.zx.view.widget.AppBarView
+    <com.dab.zx.view.widget.AppBarView
         android:id="@+id/viewAppBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:title_text="@string/lan_about_title">
-    </com.zx.view.widget.AppBarView>
+    </com.dab.zx.view.widget.AppBarView>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerview"

@@ -56,7 +56,7 @@
 
     </LinearLayout>
 
-    <com.zx.view.charts.view.ColumnChartView
+    <com.dab.zx.view.charts.view.ColumnChartView
         android:id="@+id/chart"
         android:layout_width="match_parent"
         android:layout_height="80dp"/>

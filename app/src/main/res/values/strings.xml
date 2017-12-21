@@ -11,6 +11,8 @@
     <string name="series">系列</string>
     <string name="number">数值</string>
     <string name="value">编号</string>
+    <string name="cost_not_applicable">-1</string>
+    <string name="power_not_applicable">-1</string>
 
     <string name="TypeZx">Z/X</string>
     <string name="TypePlayer">玩家</string>

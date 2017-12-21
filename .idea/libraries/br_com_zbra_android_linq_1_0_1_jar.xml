@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="br.com.zbra:android-linq:1.0.1@jar">
+    <CLASSES>
+      <root url="jar://D:/avd/.gradle/caches/modules-2/files-2.1/br.com.zbra/android-linq/1.0.1/9bd61c5548abd09de0677bfe9c4da802a54251ff/android-linq-1.0.1.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://D:/avd/.gradle/caches/modules-2/files-2.1/br.com.zbra/android-linq/1.0.1/b768a447783a4f3b9e5e66e79fa80ba3355f32b6/android-linq-1.0.1-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://D:/avd/.gradle/caches/modules-2/files-2.1/br.com.zbra/android-linq/1.0.1/145d2031e1c82d3ed1cf65af40aac8805674e6cf/android-linq-1.0.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
