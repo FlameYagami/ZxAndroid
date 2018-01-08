@@ -37,15 +37,17 @@ public class ZipUtils {
                 subscriber.onComplete();
                 return;
             }
+            // 因为Android删除文件会加锁，删除完后重新创建存在Bug，此时需要重命名待删除文件，再执行删除操作
+            FileUtils.renameFile(outputPath, "del" + outputPath);
             // 清空资源文件
-            FileUtils.deleteDirectory(new File(outputPath));
+            FileUtils.deleteDirectory(new File("del" + outputPath));
             subscriber.onNext(0);
             try {
                 int            count     = 0;
                 String         unZipPath = new File(outputPath).getParent() + File.separator;
                 String         szName;
                 ZipEntry       zipEntry;
-                ZipInputStream inZip     = null;
+                ZipInputStream inZip;
                 inZip = new ZipInputStream(context.getResources().getAssets().open(assetsName));
                 while ((zipEntry = inZip.getNextEntry()) != null) {
                     szName = zipEntry.getName();

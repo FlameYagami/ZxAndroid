@@ -293,7 +293,7 @@ public class DeckEditorActivity extends BaseActivity {
     private void addCard(View view, List<?> data, int position) {
         CardBean      cardBean       = (CardBean)data.get(position);
         int           selectIndex    = bannerPageChangeListener.getCurrentIndex();
-        String        numberEx       = CardUtils.GetNumberExList(cardBean.getImage()).get(selectIndex);
+        String        numberEx       = CardUtils.getNumberExList(cardBean.getImage()).get(selectIndex);
         String        imagePath      = CardUtils.getImagePathList(cardBean.getImage()).get(selectIndex);
         Enum.AreaType areaType       = CardUtils.getAreaType(cardBean);
         Enum.AreaType returnAreaType = mDeckManager.addCard(areaType, numberEx, imagePath);

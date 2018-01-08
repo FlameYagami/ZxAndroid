@@ -309,7 +309,7 @@ public class CardUtils {
      * @param imageJson 图片Json
      * @return 卡牌扩展编号集合
      */
-    public static List<String> GetNumberExList(String imageJson) {
+    public static List<String> getNumberExList(String imageJson) {
         return JsonUtils.deserializerArray(imageJson, String[].class);
     }
 
