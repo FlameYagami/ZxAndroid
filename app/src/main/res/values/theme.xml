@@ -11,8 +11,9 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
-        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowIsTranslucent">false</item>
         <item name="android:windowNoTitle">true</item>
+        <item name="android:windowDisablePreview">true</item>
     </style>
 
     <!--主界面不要透明,否则就显示桌面了~-->

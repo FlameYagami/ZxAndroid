@@ -42,7 +42,7 @@
                 android:id="@+id/tv_jname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginTop="@dimen/activity_vertical_margin_m"
                 android:ellipsize="end"
                 android:text="@string/test_jname"
                 android:textSize="16sp"/>
@@ -50,7 +50,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginTop="@dimen/activity_vertical_margin_m"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -102,7 +102,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginTop="@dimen/activity_vertical_margin_m"
                 android:orientation="horizontal">
 
                 <TextView
@@ -135,7 +135,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_vertical_margin">
+                android:layout_marginTop="@dimen/activity_vertical_margin_m">
 
                 <TextView
                     android:id="@+id/tv_number"
